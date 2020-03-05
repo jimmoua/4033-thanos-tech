@@ -38,6 +38,7 @@ I will assume you have `Git` and `Node.js` installed. If you do, they should wor
 
 ### Initializing the repository
 Here, we are creating the project folder and initializing a `Git` project. Only do this when you are creating a new project.
+ 
 ![](img/01.gif)
 
 ### Initializing a `Node.js` project.
@@ -45,14 +46,18 @@ We initialize the Node project with the `npm` command.
 ```
 $ npm init -y
 ```
+ 
 ![](img/02.gif)
+ 
 The `y` flag is a basically a *yes to all* kind of thing (accepts default settings).
 
 ### Installing our required Node packages
 ```
 $ npm i express express-session ejs mysql bcrypt redis connect-redis -S
 ```
+ 
 ![](img/03.gif)
+ 
 The `i` is shortened for `install`, and the `S` flag means to save these package names to the `package.json` file that was generated when we did an `npm init -y`. Our install packages are in a folder called `node_modules`.
 
 The `mysql` package is a package that will be used for getting stuff to and from the database.
@@ -64,7 +69,9 @@ The `mysql` package is a package that will be used for getting stuff to and from
 
 ### A Start
 I have created a file called `server.js`. When we want to run our server for testing purposes, we can type in `$ node server.js`, but the preferred way is to run it with `nodemon` so we don't have to manually restart the server every time we make a change.
+ 
 ![](img/04.gif)
+ 
 **Here is the code in the `server.js` file**
 ```javascript
 // Requires
@@ -122,6 +129,7 @@ To run the server, we can simply issue this command.
 $ node server.js
 ```
 Our server is being hosted on port `5000`, we can go over to our preferred web browsers and type into the URL bar `http://localhost:5000`.
+
 ![](img/05.gif)
 
 # More `Git` and how to get these files
