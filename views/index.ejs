@@ -1,19 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trustworthy Tutors</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Trustworthy Tutors</title>
 </head>
-<body>
-    <div>
-        <div>
-            <h1>Trustworthy Tutors</h1>
-        </div>
-        <div>
-            <p>It's a start!</p>
-        </div>
+<body >
+    <%- include("./partials/navbar-main.ejs") %> 
+    <div id="main-container">
+      <!-- Start Logo -->
+      <div id="startPage">
+        <h1 class="section-header">Trustworthy Tutors</h1>
+        <p class="content">you can rely on us</p>
+      </div>
+
+      <!-- Who we are -->
+      <div id="whoWeAre">
+        <h1>Who we are</h1>
+        <p class="textBox">Lorem ipsum dolor sit amet consectetur adipisicing elit. Est maiores magnam quidem totam, voluptatum possimus debitis, rem alias laudantium suscipit officia itaque impedit quisquam minus doloremque cumque tempora maxime iste?</p>
+      </div>
+
+      <!-- Our Mission -->
+      <div id="ourMission">
+        <h1>Our Mission</h1>
+        <p class="textBox">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum aperiam eos modi accusamus cum fuga autem minus, quo obcaecati iure animi consequuntur dolorum deleniti veniam dignissimos distinctio fugiat temporibus numquam.</p>
+      </div>
+
     </div>
+
 </body>
 </html>
+
+<script javascript>
+</script>
+
+<style>
+
+  .textBox {
+    width: 500px;
+    height: auto;
+    position: static;
+    margin: auto;
+  }
+
+
+  #main-container h1 {
+    text-align: center;
+    color: white;
+  }
+
+
+  #startPage {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 500px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("/assets/people-woman-coffee-meeting.jpg");
+  }
+
+  .content {
+    text-align: center;
+    color: white;
+  }
+
+  #startPage .content {
+    margin-top: 50px;
+  }
+
+  #startPage .section-header {
+    padding-top: 15px;
+  }
+
+
+  html {
+    height: 100%;
+  }
+
+  body {
+    height: 100%;
+  }
+
+  #startPage div {
+    height: 300px;
+  }
+
+</style>
