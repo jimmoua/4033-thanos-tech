@@ -1,3 +1,14 @@
+# Contents
++ [Tech Stack](#tech-stack)
++ [Source Control](#source-control)
++ [Deploying Final Product](#deploying-the-final-product)
++ [Getting Started](#a-start)
++ [Useful Tools](#useful-tools-to-use)
+  + [Visual Studio Code](#visual-studio-code)
+  + [Postman](#postman)
+  + [Learning Javascript](#learning-javascript)
++ [Connecting to the Database](#connecting-to-the-mysql-database)
+
 # Tech Stack
 The tech stack that we'll be using:
 + **Node.js** - for back-end stuff like handling data.
@@ -5,43 +16,39 @@ The tech stack that we'll be using:
 + **MySQL** - our database to host our server.
 + **Express.js** - to handle HTTP requests.
 
-**Node.js**\
+## Node.js
 You can install `Node.js` <a href="https://nodejs.org/">here</a>, or if you're using a variant of Linux, you can use your package manager to install it. Windows also has a package manager, but it's a third party package manager called `Chocolatey` which can be found <a href="https://chocolatey.org/">here</a> (I recommend using `Chocolatey` since it's really good for downloading software on Windows). **Get _both_ `Node.js` and `MySQL` installed on the machine in which you'll be working on. Without either of those two, you will not be able to do any useful testing**.
 
-**EJS**\
+## EJS
 This is going to be a templating engine that we use to render things. HTML isn't Turing-complete, but if we combine it with some form JavaScript, we can get it to do stuff we actually want.
 
 There are also front-end frameworks and libraries such as `React.js` and `Angular.js`, but those have steep learning curves and I don't think there is enough time to learn them.
 
-**MySQL**\
-Whoever gets the database will deal mainly with this. MariaDB is just GNU's fork of MySQL. I do not think we will need to find a host for our database.
+## MySQL
+This is the SQL database we'll be using. The connection details are pinned on the Discord message. The server should be up most of the times, since it is being hosted on Amazon's Web Services.
 
-In case we do, the database hoster needs to be someone that can permanently host our database. This is important for [later](#deploying-the-final-product).
-
-**Express.js**\
+## Express.js
 While `Node.js` can handle HTTP requests, we will have to manually write them and be verbose with a lot of stuff. To make things easier, `Express.js` is a framework that we can install using the Node Package Manager `npm` which will handle all the nitty gritty details for us.
 
 # Source Control
 We will be doing source control management via `Git`. `Git` has somewhat of a learning curve, but is an extremely powerful tool for organizing a codebase. There are a lot of tutorials on how to use `Git`. I would suggest watching a brief tutorial on `Git` before we start coding, and experimenting with it.
 
-There are many groups that will host `Git` repositories. One host that we'll use is <a href="https://www.github.com/">Github</a>, so be sure to create a `Github` account.
+There are many groups that will host `Git` repositories. One host that we'll use is called [GitHub](https://www.github.com), so be sure to create an account there.
 
 # Deploying the final product
 I want us to be able to deploy our final product onto `Heroku`. Heroku is just a platform we can use to host our web application for **free**. We can then put this on our resume or portfolios with a link to it. I already have a dummy project sitting <a href="https://trustworthy-tutors.herokuapp.com">here<a/> as an example.
-
-Instead of finding a database hoster, we will be using <a href="https://www.docker.com">Docker</a> containerize the final product, and then deploy it to Heroku.
 
 # First Steps
 I (Jim) said that I would create the skeletal folder for our project. I am going to post GIF images here on the exact steps I've done so you may follow for future references.
 
 I will assume you have `Git` and `Node.js` installed. If you do, they should work in the command line (Windows included).
 
-### Initializing the repository
+## Initializing the repository
 Here, we are creating the project folder and initializing a `Git` project. Only do this when you are creating a new project.
  
 ![](img/01.gif)
 
-### Initializing a `Node.js` project.
+## Initializing a `Node.js` project.
 We initialize the Node project with the `npm` command.
 ```
 $ npm init -y
@@ -51,7 +58,7 @@ $ npm init -y
  
 The `y` flag is a basically a *yes to all* kind of thing (accepts default settings).
 
-### Installing our required Node packages
+## Installing our required Node packages
 ```
 $ npm i express express-session ejs mysql bcrypt redis connect-redis -S
 ```
@@ -67,7 +74,7 @@ The `mysql` package is a package that will be used for getting stuff to and from
 `redis` is a session store which we will store user sessions.
 > The default server-side session storage, `MemoryStore`, is purposely not designed for a production environment. It will leak memory under most conditions, does not scale past a single process, and is meant for debugging and developing.
 
-### A Start
+# Getting Started
 I have created a file called `server.js`. When we want to run our server for testing purposes, we can type in `$ node server.js`, but the preferred way is to run it with `nodemon` so we don't have to manually restart the server every time we make a change.
  
 ![](img/04.gif)
@@ -93,7 +100,7 @@ const port = process.env.PORT || 5000;
 
 // render index.ejs using EJS when someone goes to home address
 app.get('/', (req, res) => {
-    res.render('index.ejs');
+  res.render('index.ejs');
 });
 
 // Listen on port
@@ -171,28 +178,42 @@ This reads the packages from the `package.json` file, sees which dependencies ou
 ![](img/08.gif)
 
 # Useful tools to use
+Below are some very useful tools that I recommend.
 
-### Visual Studio Code
-I suggest using a good editor, unless you like using the CLI. I highly recommend **Visual Studio _Code_** (not normal Visual studio). You can install many extensions into VsCode like IntelliSense for almost any language.
+## Visual Studio Code
+I suggest using a good editor unless you like using the CLI and sticky to Vim or Emacs (either are highly customizable but a pain). I highly recommend **Visual Studio _Code_** (not normal Visual studio). You can install many extensions into VsCode like IntelliSense for almost any language.
 
 If you get VsCode, I suggest installing some basic web development extensions. There is a vim extension as well and tools that will let you write SQL commands.
 
-You can get it <a href="https://code.visualstudio.com/">here</a> or from your package manager.
+You can get it [here](https://code.visualstudio.com) or from your package manager.
 
-### Postman
+## Postman
 In the final product, we'll be sending data to and from the database via user events. But obviously, in the beginning, front-end isn't developed yet, so if you're wanting to do back-end development, `Postman` is going to be your friend. It will allow you to submit various HTTP requests without there having to be an existing front-end interface.
 
-Get it <a href="https://www.postman.com/">here</a> or get it from your package manager.
+Get it [here](https://www.postman.com/) or get it from your package manager.
 
-### Learning JavaScript
-Most of the stuff we're doing is JavaScript. Please see JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/">here<a/>. If your foundation in C/C++ is good, picking up JavaScript will be very easy IMO. You don't have to get into all built in data structures that JavaScript has to offer. I'd say an equivalence of COMS 2203 (programming II) is enough.
+## Learning JavaScript
+Most of the stuff we're doing is JavaScript. Please see JavaScript [here](https://developer.mozilla.org/en-US/docs/Web/). If your foundation in C/C++ is good, picking up JavaScript will be very easy IMO. You don't have to get into all built in data structures that JavaScript has to offer. I'd say an equivalence of COMS 2203 (programming II) is enough - though there are some very useful standard functions you ought to know in JavaScript.
 
-### For the front-end peeps
+## For the front-end peeps
 `HTML` is how a website should be displayed. Without CSS, the website looks very simple. `CSS` allows us to give style to how that website should look like and can provide animations/colors/pretty stuff.
 
 If you're doing front-end please check out the links below.
-#### HTML5
-Learn some HTML <a href="https://developer.mozilla.org/en-US/docs/Web/html">here</a>.
+### HTML5
+Learn some HTML [here](https://developer.mozilla.org/en-US/docs/Web/html).
 
-#### CSS
-Learn some CSS <a href="https://developer.mozilla.org/en-US/docs/Web/css">here</a>.
+### CSS
+Learn some CSS [here](https://developer.mozilla.org/en-US/docs/Web/css).
+
+# Connecting To The MySql Database
+**THOSE ARE WHO DOING DATABASE, PLEASE SAVE ALL YOUR DATABASE SCHEMATICS AND FILES.**
+
+**The password is on Discord**. You can use CLI MySql to connect. If you're on Windows, I'm not sure how it's configured, but for *nix users, if you have either `MySql` or `MariaDB` installed, you can can use command:
+
+```
+$ mysql -h thanos.cxcs9abwkocb.us-east-2.rds.amazonaws.com -u admin -p
+```
+
+![](img/09.gif)
+
+You have use MySql Workbench too, if you have it. I think it comes with MySql installation on Windows. If you decide to use the MySql Workbench, the connection information is on Discord for that. Setup for it should be pretty intuitive.
