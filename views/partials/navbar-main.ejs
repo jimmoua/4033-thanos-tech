@@ -1,36 +1,52 @@
-<div id="main-navbar">
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Trustworthy Tutors</a>
-    <div class="collapse navbar-collapse">
-      <ul class="nav nav-pills">
-        <!-- Navigation links go here -->
-        <li class="nav-item">
-          <!-- TODO: Set up links for these -->
-          <ul class="navbar-nav mr-auto">
-            <a href="#" class="nav-item nav-link">About</a>
-            <a href="#" class="nav-item nav-link">Our Mission</a>
-            <a href="#" class="nav-item nav-link">Contact</a>
-            <a href="#" class="nav-item nav-link">Become a tutor</a>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <ul class="nav nav-pills">
-      <li class="nav-item">
-        <ul class="navbar-nav mr-auto">
-          <a href="#" class="nav-item nav-link">Sign Up</a>
-          <a href="#" class="nav-item nav-link">Login</a>
-        </ul>
-      </li>
-    </ul>
-  </nav>
+
+
+ <!--Navbar     (sit on top)  -->
+ <div class ="w3-top">
+  <div class="w3-bar w3-white w3-card"  id="myNavbar">
+    <a href="/" class="w3-bar-item w3-button w3-wide">Trustworthy Tutors</a>
+
+    <!-- Right sided Nav bar Links-->
+    <div class="w3-right w3-hide-small">
+      <a href="#about" class="w3-bar-item w3-button anchor-scrolls">ABOUT</a>
+      <a href="#ourmission" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-user"></i> OUR MISSION</a>
+      <a href="#contact" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-phone"></i> CONTACT</a>
+      <a href="/login" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i> LOGIN</a>
+      <a href="/register" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i> REGISTER</a>
+    </div> 
+
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="sidebar_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+
   </div>
 </div>
 
-<style>
-  #main-navbar {
-    /* position: fixed; */
-    width: auto;
+<!-- Sidebar on small screens when clicking the menu icon -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+  <a href="javascript:void(0)" onclick="sidebar_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+  <a href="#about" onclick="sidbar_close()" class="w3-bar-item w3-button">ABOUT</a>
+  <a href="#ourmission" onclick="sidbar_close()" class="w3-bar-item w3-button">OUR MISSION</a>
+  <a href="#contact" onclick="sidbar_close()" class="w3-bar-item w3-button">CONTACT</a>
+  <a href="/register" onclick="sidebar_close()" class="w3-bar-item w3-button">REGISTER</a>
+  <a href="/login" onclick="sidebar_close()" class="w3-bar-item w3-button">LOGIN</a>
+</nav>
+
+<script javascript>   
+// Toggle between showing and hiding the sidebar when clicking the menu icon
+var mySidebar = document.getElementById("mySidebar");
+
+function sidebar_open() {
+  if(mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+  } else {
+    mySidebar.style.display = 'block';
   }
-</style>
+}
+
+// Close the sidebar with the close button
+function sidebar_close() {
+  mySidebar.style.display = "none";
+}
+
+</script>

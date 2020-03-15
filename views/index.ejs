@@ -3,32 +3,138 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Trustworthy Tutors</title>
 </head>
 <body >
-    <%- include("./partials/navbar-main.ejs") %> 
-    <div id="main-container">
-      <!-- Start Logo -->
-      <div id="startPage">
-        <h1 class="section-header">Trustworthy Tutors</h1>
-        <p class="content">you can rely on us</p>
+
+  <!-- Navbar -->
+  <%- include("./partials/navbar-main.ejs") %> 
+
+  <!-- Header -->
+  <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+    <div class="w3-display-left w3-text-white" style="padding:48px">
+      <span class="w3-jumbo w3-hide-small">Trustworthy Tutors</span><br>
+      <span class="w3-large">You can rely on us</span>
+      <p><a href="#about" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Join us for Good Grades</a></p>
+    </div> 
+  </header>
+
+  <!-- About + Cards -->
+  <div class="w3-container w3-light-grey" style="padding:128px 16px">
+    <h1 class="w3-center" id="about">Who we are</h1>
+    <p class="w3-center w3-large" style="width:75%; margin: auto; padding-bottom: 5%;">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse,
+      officiis? Quasi, ad temporibus nam veritatis nisi neque atque amet eos
+      officia, sed perspiciatis fuga ipsa delectus cupiditate ipsam, adipisci
+      id! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta
+      cumque quam voluptatum harum alias fuga numquam! Dolores animi quia,
+      voluptates quis veniam mollitia fugit ab voluptatibus eos cupiditate
+      magnam eaque. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+      Voluptatem error quibusdam impedit dicta in aliquam, minus, voluptate
+      labore praesentium totam quas, ratione autem earum! Non ducimus
+      reprehenderit debitis reiciendis dolor!
+    </p>
+
+    <h1 class="w3-center" id="ourmission">Our Mission</h1>
+    <p class="w3-center w3-large" style="width:75%; margin: auto; padding-bottom: 5%;">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia
+      cupiditate reiciendis adipisci iste, doloribus voluptatibus aliquid
+      porro esse labore non nemo explicabo rerum ab illo aspernatur sequi
+      ad temporibus officia! Lorem ipsum dolor sit amet consectetur
+      adipisicing elit. Esse explicabo magni omnis tempora adipisci vel
+      saepe eius nesciunt nobis veniam, cupiditate quo accusamus eaque
+      consequatur officiis. Quia sit sed quaerat! Lorem ipsum dolor sit
+      amet consectetur adipisicing elit. Ullam, nam laboriosam! Tempore et
+      dolore, hic qui veritatis voluptatem quibusdam incidunt possimus.
+    </p>
+  </div>
+
+    <div class="w3-row-padding" style="margin-top:64px">
+      <div class="w3-col l4 m6 w3-margin-bottom">
+        <div class="w3-card">
+          <img src="/assets/emc2.jpeg" alt="math" style="width:100%">
+          <div class="w3-container">
+            <h3 class="w3-opacity" style="text-align: center;">Math</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum iusto quo suscipit totam. Dolor, nihil neque delectus minus dolores vitae perferendis veritatis. Eum architecto, ab sint consectetur impedit quos maiores.</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Who we are -->
-      <div id="whoWeAre">
-        <h1>Who we are</h1>
-        <p class="textBox">Lorem ipsum dolor sit amet consectetur adipisicing elit. Est maiores magnam quidem totam, voluptatum possimus debitis, rem alias laudantium suscipit officia itaque impedit quisquam minus doloremque cumque tempora maxime iste?</p>
+
+      <div class="w3-col l4 m6 w3-margin-bottom">
+        <div class="w3-card">
+          <img src="/assets/science.jpeg" alt="math" style="width:100%">
+          <div class="w3-container">
+            <h3 class="w3-opacity" style="text-align: center;">Science</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum iusto quo suscipit totam. Dolor, nihil neque delectus minus dolores vitae perferendis veritatis. Eum architecto, ab sint consectetur impedit quos maiores.</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Our Mission -->
-      <div id="ourMission">
-        <h1>Our Mission</h1>
-        <p class="textBox">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum aperiam eos modi accusamus cum fuga autem minus, quo obcaecati iure animi consequuntur dolorum deleniti veniam dignissimos distinctio fugiat temporibus numquam.</p>
+      <div class="w3-col l4 m6 w3-margin-bottom">
+        <div class="w3-card">
+          <img src="/assets/programming-icon.jpeg" alt="math" style="width:100%">
+          <div class="w3-container">
+            <h3 class="w3-opacity" style="text-align: center;">Technology</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum iusto quo suscipit totam. Dolor, nihil neque delectus minus dolores vitae perferendis veritatis. Eum architecto, ab sint consectetur impedit quos maiores.</p>
+          </div>
+        </div>
       </div>
-
     </div>
+  </div>
+
+  <!-- Statistics -->
+  <div class="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
+    <div class="w3-quarter">
+      <!-- TODO: Pull these statistics from the database -->
+      <span class="w3-xxlarge">14+</span>
+      <br>Courses
+    </div>
+    <div class="w3-quarter">
+      <span class="w3-xxlarge">50+</span>
+      <br>Tutors
+    </div>
+    <div class="w3-quarter">
+      <span class="w3-xxlarge">150+</span>
+      <br>Students
+    </div>
+    <div class="w3-quarter">
+      <span class="w3-xxlarge">150+</span>
+      <br>Appointments
+    </div>
+  </div>
+  <br><br>
+
+  <!-- Contact Form -->
+  <div class="w3-container  w3-content w3-padding-64" style="max-width:800px" id="contact">
+    <h2 class="w3-wide w3-center">CONTACT</h2>
+    <div class="w3-row w3-padding-32">
+      <div class="w3-col m6 w3-large w3-margin-bottom">
+        <i class="fa fa-map-marker" style="width:30px"></i>Russellville, AR<br>
+        <i class="fa fa-phone" style="width:30px"></i>Phone: +555 555 555<br>
+        <i class="fa fa-envelope" style="width:30px"></i>Email: trustworthytutors@domain.com<br>
+      </div>
+      <div class="w3-col m6">
+        <form action="/api/sendemail" onsubmit="">
+          <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+            <div class="w3-half">
+              <input id="nameTB" class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+            </div>
+            <div class="w3-half">
+              <input id="email" class="w3-input w3-border" type="email" placeholder="Email" required name="Email">
+            </div>
+          </div>
+          <input id="messageBox" class="w3-input w3-border" type="text" minlength="5" placeholder="Message" required name="Message">
+          <button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
 
 </body>
 </html>
@@ -38,55 +144,25 @@
 
 <style>
 
-  .textBox {
-    width: 500px;
-    height: auto;
-    position: static;
-    margin: auto;
+  body ,h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway", sans-serif
+  }
+    
+  body , html {
+    height: 100% ;
+    line-height: 1.8;
   }
 
-
-  #main-container h1 {
-    text-align: center;
-    color: white;
-  }
-
-
-  #startPage {
-    content: "";
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 500px;
-    background-repeat: no-repeat;
+  /* image header */
+  .bgimg-1 {
+    background-position: center;
     background-size: cover;
     background-image: url("/assets/people-woman-coffee-meeting.jpg");
+    min-height: 100%;
   }
 
-  .content {
-    text-align: center;
-    color: white;
-  }
-
-  #startPage .content {
-    margin-top: 50px;
-  }
-
-  #startPage .section-header {
-    padding-top: 15px;
-  }
-
-
-  html {
-    height: 100%;
-  }
-
-  body {
-    height: 100%;
-  }
-
-  #startPage div {
-    height: 300px;
+  .w3-bar .w3-button {
+    padding : 16px;
   }
 
 </style>
