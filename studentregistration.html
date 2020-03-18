@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student registration form</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   
+   <style>
+      html, body {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      }
+      body, div, h1, form, input, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto,  sans-serif;
+      font-size: 16px;
+      color: #666;
+      }
+
+      body{
+          background-color:#f05f40;
+          background-image:url(books.jpeg);   
+      }
+
+      
+      h1 {
+      padding: 10px 0;
+      font-size: 32px;
+      font-weight: 300;
+      text-align: center;
+      }
+      p {
+      font-size: 12px;
+      }
+      hr {
+      color: #a9a9a9;
+      opacity: 0.3;
+      }
+      .main-block {
+      max-width: 340px; 
+      min-height: 460px; 
+      padding: 10px 0;
+      margin: auto;
+      border-radius: 5px; 
+      border: solid 1px #ccc;
+      box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+      background: #ebebeb; 
+      }
+      form {
+      margin: 0 30px;
+      }
+      .account-type, .gender {
+      margin: 15px 0;
+      }
+      
+      label#icon {
+      margin: 0;
+      border-radius: 5px 0 0 5px;
+      }
+     
+      input[type=text], input[type=password] {
+      width: calc(100% - 57px);
+      height: 36px;
+      margin: 13px 0 0 -5px;
+      padding-left: 10px; 
+      border-radius: 0 5px 5px 0;
+      border: solid 1px #cbc9c9; 
+      box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+      background: #fff; 
+      }
+
+      input[type=text]:focus ,  input[type=password]:focus {
+         box-shadow: 0 0 5px rgb(233, 115, 6);
+         padding: 3px 0px 3px 3px;
+         margin: 5px 1px 3px 0px;
+         border: 1px solid #f05f40;
+        }
+
+      input[type=password] {
+      margin-bottom: 15px;
+      }
+      #icon {
+      display: inline-block;
+      padding: 9.3px 15px;
+      box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+      background: #f05f40;
+      color: #fff;
+      text-align: center;
+      }
+      .btn-block {
+      margin-top: 10px;
+      text-align: center;
+      }
+      button {
+      width: 100%;
+      padding: 10px 0;
+      margin: 10px auto;
+      border-radius: 5px; 
+      border: none;
+      background: #f05f40; 
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      }
+      button:hover {
+      background: #f05f40;
+      }
+
+      .w3-bar   .w3-button {
+          font-family:"Raleway",sans-serif;
+    padding : 16px;
+}
+    </style>
+  </head>
+  <body>
+
+    <!--Navbar     (sit on top)  -->
+    <div class ="w3-top">
+        <div class="w3-bar w3-white w3-card"  id="myNavbar">
+            <a href="#home" class="w3-bar-item w3-button w3-wide">Trustworthy Tutors</a>
+
+
+<!-- Right sided Nav bar Links-->
+            <div class="w3-right w3-hide-small">
+                <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+                <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i> TEAM</a>
+                <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i> LOGIN</a>
+                <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-registered"></i> REGISTER</a>
+            </div> 
+               
+<!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Sidebar on small screens when clicking the menu icon -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
+    <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">TEAM</a>
+    <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">WORK</a>
+    <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">PRICING</a>
+    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
+  </nav>
+  
+    <div class="main-block">
+      <h1>Student Registration</h1>
+      <form action="/">
+    <hr>
+        <label id="icon" for="name"><i class="fa fa-envelope"></i></label>
+        <input type="text" name="name" id="name" placeholder="Email" required/>
+        <label id="icon" for="name"><i class="fa fa-user"></i></label>
+        <input type="text" name="name" id="name" placeholder="UserName" required/>
+        <label id="icon" for="name"><i class="fa fa-unlock-alt"></i></label>
+        <input type="password" name="name" id="name" placeholder="Password" required/>
+        <hr>
+        <div class="btn-block">
+          
+          <button type="submit" href="/">Sign up as Student</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
