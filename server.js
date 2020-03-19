@@ -23,6 +23,8 @@ app.set('view engine', 'ejs');
 const port = process.env.PORT || 5000;
 
 app.get('/', require('./routes/home_views'));
+app.get('/login', require('./routes/home_views'));
+app.get('/register', require('./routes/home_views'));
 
 // Listen on port
 app.listen(port, () => console.log(`Listening on port ${port}.`));

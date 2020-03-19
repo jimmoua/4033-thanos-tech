@@ -1,9 +1,6 @@
 const express = require('express')
 const router = express.Router();
 
-router.get('/register', (req, res) => {
-})
-
 // * This is the routing for '/' get requests.
 // In other words, if users requests to go to our domain, what should be the
 // first thing that renders to them?
@@ -51,7 +48,7 @@ router.get('/login', (req, res) => {
     // Tell the use that they are already logged in, and redirect them to the home page view.
   }
   else {
-    // Render the login page
+    res.render('login')
   }
 })
 
