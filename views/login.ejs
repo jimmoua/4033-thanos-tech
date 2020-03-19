@@ -4,168 +4,186 @@
     <title>login</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="main.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   
-   <style>
-      html, body {
-      display: flex;
-      justify-content: center;
-      height: 100%;
-      }
-
-      body, div, h1, form, input, p { 
-      padding: 0;
-      margin: 0;
-      outline: none;
-      font-family: Roboto,  sans-serif;
-      font-size: 16px;
-      color: #666;
-      }
-
-      body{
-          background-color:#f05f40;
-          background-image:url(shelf.jpeg);   
-      }
-
-      
-      h1 {
-      padding: 10px 0;
-      font-size: 32px;
-      font-weight: 300;
-      text-align: center;
-      }
-      p {
-      font-size: 12px;
-      }
-      hr {
-      color: #a9a9a9;
-      opacity: 0.3;
-      }
-      .main-block {
-      max-width: 340px; 
-      min-height: 320px; 
-      padding: 10px 0;
-      margin: auto;
-      border-radius: 5px; 
-      border: solid 1px #ccc;
-      box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
-      background: #ebebeb; 
-      }
-      form {
-      margin: 0 30px;
-      }
-      
-      label#icon {
-      margin: 0;
-      border-radius: 5px 0 0 5px;
-      }
-     
-      input[type=text], input[type=password] {
-      width: calc(100% - 57px);
-      height: 36px;
-      margin: 13px 0 0 -5px;
-      padding-left: 10px; 
-      border-radius: 0 5px 5px 0;
-      border: solid 1px #cbc9c9; 
-      box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
-      background: #fff; 
-      }
-
-      input[type=text]:focus ,  input[type=password]:focus {
-         box-shadow: 0 0 5px rgb(233, 115, 6);
-         padding: 3px 0px 3px 3px;
-         margin: 5px 1px 3px 0px;
-         border: 1px solid #f05f40;
-        }
-        
-      input[type=password] {
-      margin-bottom: 15px;
-      }
-      #icon {
-      display: inline-block;
-      padding: 9.3px 15px;
-      box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
-      background: #f05f40;
-      color: #fff;
-      text-align: center;
-      }
-      .btn-block {
-      margin-top: 10px;
-      text-align: center;
-      }
-      button {
-      width: 40%;
-      padding: 10px 0;
-      margin: 10px auto;
-      border-radius: 5px; 
-      border: none;
-      background: #f05f40; 
-      font-size: 14px;
-      font-weight: 600;
-      color: #fff;
-      }
-      button:hover {
-      background: #f05f40;
-      }
-
-      .w3-bar   .w3-button {
-          font-family:"Raleway",sans-serif;
-    padding : 16px;
-}
-    </style>
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
   </head>
-  <body>
+  <body class="background">
+    <!-- Navbar -->
+    <%- include("./partials/navbar-main.ejs") %> 
 
-    <!--Navbar     (sit on top)  -->
-    <div class ="w3-top">
-        <div class="w3-bar w3-white w3-card"  id="myNavbar">
-            <a href="#home" class="w3-bar-item w3-button w3-wide">Trustworthy Tutors</a>
-
-
-<!-- Right sided Nav bar Links-->
-            <div class="w3-right w3-hide-small">
-                <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
-                <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i> TEAM</a>
-                <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i> LOGIN</a>
-                <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-registered"></i> REGISTER</a>
-            </div> 
-               
-<!-- Hide right-floated links on small screens and replace them with a menu icon -->
-
-    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
-        <i class="fa fa-bars"></i>
-      </a>
+    <!-- Selector for user type -->
+    <div id="selectorView" class="main-block" style="padding: 20px 20px">
+      <h1>Select login type</h1>
+      <div class="btn-block">
+        <button type="submit" onclick="toggleStudent()">Student</button>
+      </div>
+      <div class="btn-block">
+        <button type="submit" onclick="toggleTutor()">Tutor</button>
+      </div>
     </div>
-  </div>
 
-  <!-- Sidebar on small screens when clicking the menu icon -->
-<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
-    <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
-    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
-    <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">TEAM</a>
-    <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">WORK</a>
-    <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">PRICING</a>
-    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
-  </nav>
-  
-    <div class="main-block">
-      <h1>Login</h1>
-      <form action="/">
-    
-        <label id="icon" for="name"><i class="fa fa-user"></i></label>
-        <input type="text" name="name" id="name" placeholder="UserName" required/>
-        <label id="icon" for="name"><i class="fa fa-unlock-alt"></i></label>
-        <input type="password" name="name" id="name" placeholder="Password" required/>
+    <!-- Student Login div -->
+    <div id="studentLogin" class="main-block">
+      <h1>Student Login</h1>
+      <form action="/api/validateLogin">
+        <label id="icon" for="email"><i class="fa fa-user"></i></label>
+        <input type="email" name="email" placeholder="Email" required/>
+        <br><br>
+        <label id="icon" for="password"><i class="fa fa-unlock-alt"></i></label>
+        <input type="password" name="password" placeholder="Password" required/>
         <div class="btn-block">
-          
-           <!---  need to add href links  -->
-          <button type="submit" href="/">Login</button>
+          <button type="submit">Login</button>
         </div>
       </form>
     </div>
+
+    <!-- Tutor Login div -->
+    <div id="tutorLogin" class="main-block">
+      <h1>Tutor Login</h1>
+      <form action="/api/validateLogin">
+        <label id="icon" for="email"><i class="fa fa-user"></i></label>
+        <input type="email" name="email" placeholder="Email" required/>
+        <br><br>
+        <label id="icon" for="password"><i class="fa fa-unlock-alt"></i></label>
+        <input type="password" name="password" placeholder="Password" required/>
+        <div class="btn-block">
+          <button type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+
   </body>
 </html>
+
+<script javascript>
+  $("#studentLogin").hide(true);
+  $("#tutorLogin").hide(true);
+
+  function toggleStudent() {
+    $("#studentLogin").toggle();
+    $("#selectorView").toggle();
+    console.log("Toggled student view")
+  }
+
+  function toggleTutor() {
+    $("#tutorLogin").toggle();
+    $("#selectorView").toggle();
+    console.log("Toggled tutor view")
+  }
+
+</script>
+
+<style>
+  html, body {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+  }
+
+  /* body, div, h1, form, input, p { 
+    padding: 0;
+    margin: 0;
+    outline: none;
+    font-family: Roboto,  sans-serif;
+    font-size: 16px;
+    color: #666;
+  } */
+
+  body {
+    background-image:url("/assets/shelf.jpeg");
+  }
+
+  
+  h1 {
+    padding: 10px 0;
+    font-size: 32px;
+    font-weight: 300;
+    text-align: center;
+  }
+  p {
+    font-size: 12px;
+  }
+
+  hr {
+    color: #a9a9a9;
+    opacity: 0.3;
+  }
+
+  .main-block {
+    max-width: 340px; 
+    min-height: 320px; 
+    padding: 10px 0;
+    margin: auto;
+    border-radius: 5px; 
+    border: solid 1px #ccc;
+    box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+    background: #ebebeb; 
+  }
+  form {
+    margin: 0 30px;
+  }
+  
+  label#icon {
+    margin: 0;
+    border-radius: 5px 0 0 5px;
+  }
+  
+  input[type=email], input[type=password] {
+    height: 43px;
+    margin: 13px 0 0 -5px;
+    padding-left: 10px; 
+    /* border-radius: 5px 5px; */
+    border: solid 1px #cbc9c9; 
+    box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+    background: #fff; 
+  }
+
+  input[type=email]:focus ,  input[type=password]:focus {
+    box-shadow: 0 0 5px rgb(233, 115, 6);
+    border: 1px solid #f05f40;
+  }
+    
+  /* input[type=password] {
+    margin-bottom: 15px;
+  } */
+
+  #icon {
+    display: inline-block;
+    padding: 9.3px 15px;
+    box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+    background: #f05f40;
+    color: #fff;
+    text-align: center;
+  }
+
+  .btn-block {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  button {
+    width: 40%;
+    padding: 10px 0;
+    margin: 10px auto;
+    border-radius: 5px; 
+    border: none;
+    background: #f05f40; 
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  button:hover {
+    background: #f05f40;
+  }
+
+  .w3-bar   .w3-button {
+    font-family:"Raleway",sans-serif;
+    padding : 16px;
+  }
+
+</style>
