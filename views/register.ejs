@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <title>Register</title>
+</head>
+
+<body class="background">
+  <%- include("partials/navbar-main.ejs") %>
+
+  <!-- * Selector for user type -->
+  <div id="selectorView" class="main-block" style="padding: 20px 20px">
+    <h1>Select registration type</h1>
+    <div class="btn-block">
+      <button type="submit" onclick="toggleStudent()">Student</button>
+    </div>
+    <div class="btn-block">
+      <button type="submit" onclick="toggleTutor()">Tutor</button>
+    </div>
+  </div>
+
+  <!-- * Student Signup View -->
+  <div class="main-block" id="studentSignUp">
+    <!-- TODO: add action later -->
+    <h1 style="text-align: center">Student Register</h1>
+    <form action="/">
+      <div class="form-input">
+        <input type="text" name="firstName" placeholder="First Name" required/><br>
+        <input type="text" name="lastName" placeholder="Last Name" required/><br>
+        <input type="email" name="email" placeholder="Email Address" required/><br>
+        <input type="text" name="classLevel" placeholder="Class Level" required/><br>
+        <input type="text" name="schoolName" placeholder="School Name" required/><br>
+        <input type="text" name="street" placeholder="Street" required/><br>
+        <input type="text" name="city" placeholder="City" required/><br>
+        <input type="text" name="state" placeholder="State" required/><br>
+        <input type="text" name="phoneNum" placeholder="Phone" required /><br>
+        <input type="date" name="DOB" placeholder="Date of Birth" required/><br>
+      </div>
+      <div class="btn-block">
+        <button type="submit" href="/">Submit</button>
+      </div>
+    </form>
+  </div>
+  </body>
+
+  <!-- * Tutor Signup View -->
+  <div class="main-block" id="tutorSignUp">
+    <!-- TODO: add action later -->
+    <h1 style="text-align: center">Tutor Register</h1>
+    <form action="/">
+      <div class="form-input">
+        <input type="text" name="firstName" placeholder="First Name" required/><br>
+        <input type="text" name="lastName" placeholder="Last Name" required/><br>
+        <input type="email" name="email" placeholder="Email Address" required/><br>
+        <input type="text" name="classLevel" placeholder="Class Level" required/><br>
+        <input type="text" name="schoolName" placeholder="School Name" required/><br>
+        <input type="text" name="street" placeholder="Street" required/><br>
+        <input type="text" name="city" placeholder="City" required/><br>
+        <input type="text" name="state" placeholder="State" required/><br>
+        <input type="text" name="phoneNum" placeholder="Phone" required /><br>
+        <input type="date" name="DOB" placeholder="Date of Birth" required/><br>
+      </div>
+      <div class="btn-block">
+        <button type="submit" href="/">Submit</button>
+      </div>
+    </form>
+  </div>
+  </body>
+</body>
+</html>
+
+<script javascript>
+
+  // Hide initially
+  $("#tutorSignUp").hide(true)
+  $("#studentSignUp").hide(true)
+
+  function toggleStudent() {
+    $("#studentSignUp").toggle();
+    $("#selectorView").toggle();
+  }
+  function toggleTutor() {
+    $("#tutorSignUp").toggle();
+    $("#selectorView").toggle();
+  }
+
+</script>
+
+<style>
+
+  html, body {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+  }
+
+  body, div, input, p { 
+    padding: 0;
+    margin: 0;
+    outline: none;
+    font-family: Roboto,  sans-serif;
+    font-size: 16px;
+    color: #666;
+  }
+
+  body {
+    background-image:url("/assets/rome.jpeg");   
+  }
+  
+  p {
+    font-size: 12px;
+  }
+
+  .main-block {
+    padding: 20px 20px;
+    margin: auto;
+    border-radius: 5px; 
+    border: solid 1px #ccc;
+    box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+    background: #ebebeb; 
+  }
+ 
+  input {
+    height: 36px;
+    margin: 5px;
+    padding-left: 10px; 
+    border-radius: 5px 5px;
+    border: solid 1px #cbc9c9; 
+    box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+    background: #fff; 
+  }
+
+  input[type=text]:focus,  input[type=password]:focus, input[type=email]:focus, input[type=date]:focus, textarea:focus {
+    box-shadow: 0 0 5px rgb(233, 115, 6);
+    border: 1px solid #f05f40;
+  }
+  
+
+  .btn-block {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  button {
+    text-align: center;
+    width: 60%;
+    padding: 10px 0;
+    margin: 10px auto;
+    border-radius: 5px; 
+    border: none;
+    background: #f05f40; 
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  button:hover {
+    background: #f05f40;
+  }
+
+  .form-input {
+    max-height: 300px;
+    min-width: 230px;
+    overflow: auto;
+  }
+
+</style>
