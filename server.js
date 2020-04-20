@@ -28,6 +28,7 @@ app.get('/register', require('./routes/home_views'));
 
 // Route API
 app.post('/api/registerStudent', require('./api/register'));
+app.post('/api/registerTutor', require('./api/register')); 
 
 // Listen on port
 app.listen(port, () => console.log(`Listening on port ${port}.`));
