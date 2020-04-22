@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
       }
       case ACCOUNT.STUDENT: {
         // Render the student view
-        res.send(`You're logged in as a ${req.session.loggedInType}`)
+        res.render("student/homepage")
         break;
       }
       default: {
