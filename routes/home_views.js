@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router();
+const ACCOUNT = require('../misc/accountTypes');
 
 // * This is the routing for '/' get requests.
 // In other words, if users requests to go to our domain, what should be the
@@ -10,20 +11,16 @@ router.get('/', (req, res) => {
   }
   else {
     switch(req.session.loggedInType) {
-      case 'tutor': {
+      case ACCOUNT.TUTOR: {
         // Render the tutor view
         break;
       }
-      case 'parent': {
+      case ACCOUNT.PARENT: {
         // Render the parent view
         break;
       }
-      case 'student': {
+      case ACCOUNT.STUDENT: {
         // Render the student view
-        break;
-      }
-      case 'child': {
-        // Render the child view
         break;
       }
       default: {
