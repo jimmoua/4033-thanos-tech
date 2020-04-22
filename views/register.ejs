@@ -24,6 +24,9 @@
     <div class="btn-block">
       <button type="submit" onclick="toggleTutor()">Tutor</button>
     </div>
+    <div class="btn-block">
+      <button type="submit" onclick="toggleParent()">Parent</button>
+    </div>
   </div>
 
   <!-- * Student Signup View -->
@@ -36,7 +39,7 @@
         <input type="text" name="lastName" placeholder="Last Name" required/><br>
         <input type="email" name="email" placeholder="Email Address" required/><br>
         <input type="password" id="studentPass1" name="password1" placeholder="Password" required/><br>
-        <input type="password" id="studentPass2" name="password2" onchange="validateStudentPassword" placeholder="Confirm Password" required/><br>
+        <input type="password" id="studentPass2" name="password2" placeholder="Confirm Password" required/><br>
         <div id="stuPW_msg"></div>
       </div>
       <div class="btn-block">
@@ -56,7 +59,7 @@
         <input type="text" name="lastName" placeholder="Last Name" required/><br>
         <input type="email" name="email" placeholder="Email Address" required/><br>
         <input type="password" id="tutorPass1" name="password1" placeholder="Password" required/><br>
-        <input type="password" id="tutorPass2" name="password2" onchange="validateStudentPassword" placeholder="Confirm Password" required/><br>
+        <input type="password" id="tutorPass2" name="password2" placeholder="Confirm Password" required/><br>
         <div id="tutPW_msg"></div>
       </div>
       <div class="btn-block">
@@ -64,6 +67,25 @@
       </div>
     </form>
   </div>
+
+  <!-- * Parent Signup View -->
+  <div class="main-block" id="parentSignUp">
+    <h1 style="text-align: center">Parent Register</h1>
+    <form action="/api/registerParent" method="POST">
+      <div style="text-align: center;">
+        <input type="text" name="firstName" placeholder="First Name" required/><br>
+        <input type="text" name="lastName" placeholder="Last Name" required/><br>
+        <input type="email" name="email" placeholder="Email Address" required/><br>
+        <input type="password" id="parentPass1" name="password1" placeholder="Password" required/><br>
+        <input type="password" id="parentPass2" name="password2" placeholder="Confirm Password" required/><br>
+        <div id="parentPW_msg"></div>
+      </div>
+      <div class="btn-block">
+        <button id="parentSubmitBtn" type="submit" href="/">Submit</button>
+      </div>
+    </form>
+  </div>
+
   </body>
 </body>
 </html>
@@ -73,6 +95,7 @@
   // Hide initially
   $("#tutorSignUp").hide(true)
   $("#studentSignUp").hide(true)
+  $("#parentSignUp").hide(true)
 
   function toggleStudent() {
     $("#studentSignUp").toggle();
@@ -80,6 +103,10 @@
   }
   function toggleTutor() {
     $("#tutorSignUp").toggle();
+    $("#selectorView").toggle();
+  }
+  function toggleParent() {
+    $("#parentSignUp").toggle();
     $("#selectorView").toggle();
   }
 
@@ -113,6 +140,32 @@
     }
   })
 
+  // Parent password validator
+  $('#parentPass1, #parentPass2').on('keyup', function() {
+    if($('#parentPass2').val() == '' || $('parentPass1').val() == '') {
+      $('#parentPW_msg').html('');
+    }
+    else if($('#parentPass2').val() === $('#parentPass1').val()) {
+      $('#parentPW_msg').html('Password Matches').css('color', 'green');
+      $('#parentSubmitBtn').prop('disabled', false);
+    }
+    else {
+      $('#parentPW_msg').html('Passwords do not match').css('color', 'red');
+      $('#parentSubmitBtn').prop('disabled', true);
+    }
+  })
+
+  // On escape, show all register types
+  // $('#tutorSignUp, #studentSignUp, #parentSignUp').on('keyup', function() {
+  // })
+  $(document).on('keydown', function(event) {
+    if(event.key == 'Escape') {
+      $('#studentSignUp').hide(true);
+      $('#tutorSignUp').hide(true);
+      $('#parentSignUp').hide(true);
+      $('#selectorView').show();
+    }
+  });
 
 </script>
 
