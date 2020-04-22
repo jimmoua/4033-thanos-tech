@@ -13,18 +13,23 @@ router.get('/', (req, res) => {
     switch(req.session.loggedInType) {
       case ACCOUNT.TUTOR: {
         // Render the tutor view
+        res.send(`You're logged in as a ${req.session.loggedInType}`)
         break;
       }
       case ACCOUNT.PARENT: {
         // Render the parent view
+        res.send(`You're logged in as a ${req.session.loggedInType}`)
         break;
       }
       case ACCOUNT.STUDENT: {
         // Render the student view
+        res.send(`You're logged in as a ${req.session.loggedInType}`)
         break;
       }
       default: {
         res.status(500).send("500 Internal Error. Please contact a developer.");
+        // Destroy the session because we've done something wrong!
+        req.session.destroy();
       }
     }
   }
@@ -34,6 +39,7 @@ router.get('/', (req, res) => {
 router.get('/register', (req, res) => {
   if(req.session.loggedIn) {
     // Render a page telling them they are already logged in
+    res.send(`You're already logged in! Please sign out to register.`);
   }
   else {
     res.render('register');
@@ -43,6 +49,7 @@ router.get('/register', (req, res) => {
 router.get('/login', (req, res) => {
   if(req.session.loggedIn) {
     // Tell the use that they are already logged in, and redirect them to the home page view.
+    res.send(`You're already logged in!`);
   }
   else {
     res.render('login')
