@@ -20,7 +20,7 @@ router.post('/api/loginStudent', (req, res) => {
         if(result) {
           req.session.loggedIn = true;
           req.session.loggedInType = ACCOUNT.STUDENT;
-          res.redirect('/');
+          res.render('student/homepage');
         }
         else {
           res.send(`Auth error!`)
