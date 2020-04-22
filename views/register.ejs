@@ -30,21 +30,17 @@
   <div class="main-block" id="studentSignUp">
     <!-- TODO: add action later -->
     <h1 style="text-align: center">Student Register</h1>
-    <form action="/api/registerStudent" method="POST">
-      <div class="form-input">
+    <form id="studentRegisterForm" action="/api/registerStudent" method="POST">
+      <div style="text-align: center;">
         <input type="text" name="firstName" placeholder="First Name" required/><br>
         <input type="text" name="lastName" placeholder="Last Name" required/><br>
         <input type="email" name="email" placeholder="Email Address" required/><br>
-        <input type="text" name="classLevel" placeholder="Class Level" required/><br>
-        <input type="text" name="schoolName" placeholder="School Name" required/><br>
-        <input type="text" name="street" placeholder="Street" required/><br>
-        <input type="text" name="city" placeholder="City" required/><br>
-        <input type="text" name="state" placeholder="State" required/><br>
-        <input type="text" name="phoneNum" placeholder="Phone" required /><br>
-        <input type="date" name="DOB" placeholder="Date of Birth" required/><br>
+        <input type="password" id="studentPass1" name="password1" placeholder="Password" required/><br>
+        <input type="password" id="studentPass2" name="password2" onchange="validateStudentPassword" placeholder="Confirm Password" required/><br>
+        <div id="stuPW_msg"></div>
       </div>
       <div class="btn-block">
-        <button type="submit" href="/">Submit</button>
+        <button id="studentSubmitBtn" type="submit" href="/">Submit</button>
       </div>
     </form>
   </div>
@@ -55,20 +51,16 @@
     <!-- TODO: add action later -->
     <h1 style="text-align: center">Tutor Register</h1>
     <form action="/api/registerTutor" method="POST">
-      <div class="form-input">
+      <div style="text-align: center;">
         <input type="text" name="firstName" placeholder="First Name" required/><br>
         <input type="text" name="lastName" placeholder="Last Name" required/><br>
         <input type="email" name="email" placeholder="Email Address" required/><br>
-        <input type="text" name="classLevel" placeholder="Class Level" required/><br>
-        <input type="text" name="schoolName" placeholder="School Name" required/><br>
-        <input type="text" name="street" placeholder="Street" required/><br>
-        <input type="text" name="city" placeholder="City" required/><br>
-        <input type="text" name="state" placeholder="State" required/><br>
-        <input type="text" name="phoneNum" placeholder="Phone" required /><br>
-        <input type="date" name="DOB" placeholder="Date of Birth" required/><br>
+        <input type="password" id="tutorPass1" name="password1" placeholder="Password" required/><br>
+        <input type="password" id="tutorPass2" name="password2" onchange="validateStudentPassword" placeholder="Confirm Password" required/><br>
+        <div id="tutPW_msg"></div>
       </div>
       <div class="btn-block">
-        <button type="submit" href="/">Submit</button>
+        <button id="tutorSubmitBtn" type="submit" href="/">Submit</button>
       </div>
     </form>
   </div>
@@ -90,6 +82,37 @@
     $("#tutorSignUp").toggle();
     $("#selectorView").toggle();
   }
+
+  // Student password validator
+  $('#studentPass1, #studentPass2').on('keyup', function() {
+    if($('#studentPass2').val() == '' || $('studentPass1').val() == '') {
+      $('#stuPW_msg').html('');
+    }
+    else if($('#studentPass2').val() === $('#studentPass1').val()) {
+      $('#stuPW_msg').html('Password Matches').css('color', 'green');
+      $('#studentSubmitBtn').prop('disabled', false);
+    }
+    else {
+      $('#stuPW_msg').html('Passwords do not match').css('color', 'red');
+      $('#studentSubmitBtn').prop('disabled', true);
+    }
+  })
+
+  // Tutor password validator
+  $('#tutorPass1, #tutorPass2').on('keyup', function() {
+    if($('#tutorPass2').val() == '' || $('tutPass1').val() == '') {
+      $('#tutPW_msg').html('');
+    }
+    else if($('#tutorPass2').val() === $('#tutorPass1').val()) {
+      $('#tutPW_msg').html('Password Matches').css('color', 'green');
+      $('#tutorSubmitBtn').prop('disabled', false);
+    }
+    else {
+      $('#tutPW_msg').html('Passwords do not match').css('color', 'red');
+      $('#tutorSubmitBtn').prop('disabled', true);
+    }
+  })
+
 
 </script>
 
@@ -163,12 +186,6 @@
 
   button:hover {
     background: #f05f40;
-  }
-
-  .form-input {
-    max-height: 300px;
-    min-width: 230px;
-    overflow: auto;
   }
 
 </style>
