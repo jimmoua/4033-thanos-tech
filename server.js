@@ -44,6 +44,13 @@ app.get('/register', require('./routes/home_views'));
 // Route API
 app.post('/api/registerStudent', require('./api/register'));
 app.post('/api/registerTutor', require('./api/register')); 
+app.post('/api/loginStudent', require('./api/login'));
+
+// ! DEBUG GET: type this in the URL bar to delete the current session
+app.get('/rm-session', (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
+})
 
 // Listen on port
 app.listen(port, () => console.log(`Listening on port ${port}.`));
