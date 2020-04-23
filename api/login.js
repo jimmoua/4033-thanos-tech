@@ -20,6 +20,8 @@ router.post('/api/loginStudent', (req, res) => {
         if(result) {
           req.session.loggedIn = true;
           req.session.loggedInType = ACCOUNT.STUDENT;
+          req.session.userName = results[0].FNAME + " " + results[0].LNAME;
+          console.log(req.session.userName);
           res.redirect('/');
         }
         else {
