@@ -3,7 +3,9 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const redis = require('redis');
-const redisClient = redis.createClient();
+const redisClient = redis.createClient(6379, '***REMOVED***tech-redis-001.kthw0e.0001.use2.cache.amazonaws.com', {
+  no_ready_check: true
+});
 const redisStore = require('connect-redis')(session);
 
 // Create server called app
@@ -21,10 +23,7 @@ app.use(session({
   resave: true,
   saveUninitialized: false,
   store: new redisStore({
-    host: 'localhost',
-    port: 6379,
     client: redisClient,
-    ttl: 86400
   }),
 }))
 
