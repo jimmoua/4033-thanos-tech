@@ -60,4 +60,15 @@ router.get('/login', (req, res) => {
   }
 })
 
+router.get('/editProfile', (req, res) => {
+  if(!req.session.loggedIn) {
+    res.redirect('/');
+  }
+  else {
+    res.render('editProfile', {
+      session: req.session
+    })
+  }
+})
+
 module.exports = router;
