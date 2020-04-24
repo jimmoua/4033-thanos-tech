@@ -14,6 +14,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: require('./db_files/sessionStore'),
+  rolling: true,
+  cookie:  {
+    maxAge: 1000 * 60 * 10 // (1000 ms * 60 * 10 = 60k ms = 600 seconds = 10min
+  }
 }))
 
 // Set static folder for public files
