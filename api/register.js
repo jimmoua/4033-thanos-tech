@@ -58,16 +58,46 @@ router.post("/api/registerTutor", (req, res) => {
   const firstName = req.body.firstName; 
   const lastName = req.body.lastName; 
   const email = req.body.email; 
-  const classLevel = req.body.classLevel; 
-  const schoolName = req.body.schoolName; 
-  const street = req.body.street; 
-  const city = req.body.city; 
-  const state = req.body.state; 
-  const phoneNum = req.body.phoneNum; 
-  const DOB = req.body.DOB; 
+  const tutorPass1 = req.body.tutorPass1; 
+  const tutorPass2 = req.body.tutorPass2; 
 
+  if(pass1 !== pass2) {
+    res.status(400).send('Bad Request');
+  }
+  else {
+    const saltRounds = 10; 
+    bcrypt.genSalt(saltRounds, (err, salt) => {
+      bcrypt.hash(pass1, salt, (err, hash) => {
+        const accID = uuid(); 
+        db.query(`SELECT * FROM TUTOR WHERE ACC_NO = '${accID}'`, (err, results) => {
+          if (err) throw err; 
+          if (results.length > 0) {
+            res.send(`A user with the email: '${email}' already exists`); 
+            exists = true; 
+          }
+          else {
+            db.query(`INSERT INTO TUTOR (ACC_NO, FNAME, LNAME, EMAIL, PASSWORD) VALUES ('${accID}', '${firstName}', '${lastName}', '${email}', '${hash}');`, (err, results) => {
+              if (err) throw err; 
+              console.log(results); 
+            })
+            db.query(`SELECT * FROM TUTOR WHERE ACC_NO = '${accID}'`, (err, results) => {
+              if (err) throw err; 
+              console.log(results); 
+            })
+            res.send(`You've registered with the account : "${email}"
+            Redirecting to the login page in 3 seconds
+            <script>
+            setTimeout(function() {
+              window.location.href='/login'
+            }, 3000);
+            </script>`)
+          }
+        })
+      })
+    })
+  }
   // To do: send this data to database
-  res.send(`${firstName} ${lastName} registered as a tutor`); 
+  res.send(`${firstName} ${lastName} registered as a tutor with the email '${email}' and hash '${hash}'`); 
 })
 
 router.post("/api/registerParent", (req, res) => {
