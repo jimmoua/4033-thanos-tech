@@ -2,29 +2,18 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
-const redis = require('redis');
-const redisClient = redis.createClient(6379, '***REMOVED***tech-redis-001.kthw0e.0001.use2.cache.amazonaws.com', {
-  no_ready_check: true
-});
-const redisStore = require('connect-redis')(session);
 
 // Create server called app
 const app = express();
-
-redisClient.on('error', (err) => {
-  console.log(`Redis Error: ${err}`);
-})
 
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(session({
   secret: 'foobar',
-  resave: true,
+  resave: false,
   saveUninitialized: false,
-  store: new redisStore({
-    client: redisClient,
-  }),
+  store: require('./db_files/sessionStore'),
 }))
 
 // Set static folder for public files
