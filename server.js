@@ -2,16 +2,9 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
-const redis = require('redis');
-const redisClient = redis.createClient();
-const redisStore = require('connect-redis')(session);
 
 // Create server called app
 const app = express();
-
-redisClient.on('error', (err) => {
-  console.log(`Redis Error: ${err}`);
-})
 
 // Middlewares
 app.use(express.json());
@@ -20,12 +13,7 @@ app.use(session({
   secret: 'foobar',
   resave: true,
   saveUninitialized: false,
-  store: new redisStore({
-    host: 'localhost',
-    port: 6379,
-    client: redisClient,
-    ttl: 86400
-  }),
+  store: require('./db_files/sessionStore'),
 }))
 
 // Set static folder for public files
