@@ -23,10 +23,8 @@ router.get('/', (req, res) => {
       }
       case ACCOUNT.STUDENT: {
         // Render the student view
-        // res.render("student/homepage")
-        const name = req.session.userName;
         res.render('student/homepage', {
-          name
+          session: req.session
         });
         break;
       }

@@ -28,28 +28,13 @@ const port = process.env.PORT || 5000;
 ////////////////////////////////////////////////////////////////////////////////
 //                               ROUTES
 ////////////////////////////////////////////////////////////////////////////////
-app.get('/', require('./routes/home_views'));
-app.get('/login', require('./routes/home_views'));
-app.get('/register', require('./routes/home_views'));
-app.get('/editProfile', require('./routes/home_views'));
+app.use('/', require('./routes/home_views'));
 
 ////////////////////////////////////////////////////////////////////////////////
-//                         ROUTES FOR TUTORS
+//                              API ROUTES
 ////////////////////////////////////////////////////////////////////////////////
-app.post('/api/registerTutor', require('./api/register')); 
-app.post('/api/loginTutor', require('./api/register'));
-
-////////////////////////////////////////////////////////////////////////////////
-//                         ROUTES FOR STUDENTS
-////////////////////////////////////////////////////////////////////////////////
-app.post('/api/registerStudent', require('./api/register'));
-app.post('/api/loginStudent', require('./api/login'));
-
-////////////////////////////////////////////////////////////////////////////////
-//                         ROUTES FOR PARENTS
-////////////////////////////////////////////////////////////////////////////////
-app.post('/api/loginParent', require('./api/login'))
-app.post('/api/registerParent', require('./api/register'));
+app.use('/api/register/', require('./api/register')); 
+app.use('/api/login/', require('./api/login'));
 
 // ! DEBUG GET: type this in the URL bar to delete the current session
 app.get('/rm-session', (req, res) => {
