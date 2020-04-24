@@ -33,6 +33,7 @@ app.get('/register', require('./routes/home_views'));
 app.post('/api/registerStudent', require('./api/register'));
 app.post('/api/registerTutor', require('./api/register')); 
 app.post('/api/loginStudent', require('./api/login'));
+app.post('/api/loginParent', require('./api/login'))
 app.post('/api/registerParent', require('./api/register'));
 
 // ! DEBUG GET: type this in the URL bar to delete the current session
