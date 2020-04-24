@@ -61,13 +61,13 @@ router.post("/api/registerTutor", (req, res) => {
   const tutorPass1 = req.body.tutorPass1; 
   const tutorPass2 = req.body.tutorPass2; 
 
-  if(pass1 !== pass2) {
+  if(tutorPass1 !== tutorPass2) {
     res.status(400).send('Bad Request');
   }
   else {
     const saltRounds = 10; 
     bcrypt.genSalt(saltRounds, (err, salt) => {
-      bcrypt.hash(pass1, salt, (err, hash) => {
+      bcrypt.hash(tutorPass1, salt, (err, hash) => {
         const accID = uuid(); 
         db.query(`SELECT * FROM TUTOR WHERE ACC_NO = '${accID}'`, (err, results) => {
           if (err) throw err; 
