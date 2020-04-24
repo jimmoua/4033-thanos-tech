@@ -97,7 +97,7 @@ router.post("/api/registerTutor", (req, res) => {
     })
   }
   // To do: send this data to database
-  res.send(`${firstName} ${lastName} registered as a tutor with the email '${email}' and hash '${hash}'`); 
+  res.send(`${firstName} ${lastName} registered as a tutor with the email '${email}'`); 
 })
 
 router.post("/api/registerParent", (req, res) => {
