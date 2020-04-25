@@ -34,7 +34,7 @@ router.get('/:type/:action', (req, res) => {
           case 'editprofile': {
             db.query(`select * from STUDENT where ACC_NO = '${req.session.user.acc_no}'`, (err, results) => {
               if(err) throw err;
-              res.render('editProfile', {
+              res.render(`student/editProfile`, {
                 name: results[0].FNAME + " " + results[0].LNAME,
                 user: req.session.user
               })
