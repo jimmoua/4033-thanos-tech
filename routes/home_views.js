@@ -14,7 +14,12 @@ router.get('/', (req, res) => {
     switch(req.session.user.type) {
       case ACCOUNT.TUTOR: {
         // Render the tutor view
-        res.send(`You're logged in as a ${ACCOUNT.TUTOR}`)
+        db.query(`select * from TUTOR where ACC_NO = '${req.session.user.acc_no}'`, (err, t_results) => {
+          if(err) throw err;
+          res.render('tutor/homepage', {
+            name: t_results[0].FNAME + " " + t_results[0].LNAME
+          })
+        })
         break;
       }
       case ACCOUNT.PARENT: {
