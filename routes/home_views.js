@@ -48,7 +48,7 @@ router.get('/', (req, res) => {
 
 // * Handling if the users choose to go to the register page.
 router.get('/register', (req, res) => {
-  if(req.session.loggedIn) {
+  if(req.session.user) {
     // Render a page telling them they are already logged in
     res.send(`You're already logged in! Please sign out to register.`);
   }
@@ -58,7 +58,7 @@ router.get('/register', (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-  if(req.session.loggedIn) {
+  if(req.session.user) {
     // Tell the use that they are already logged in, and redirect them to the home page view.
     res.send(`You're already logged in!`);
   }
