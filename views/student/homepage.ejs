@@ -5,116 +5,22 @@
     <title> Home</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   
-   <style>
-      html, body {
-      display: flex;
-      justify-content: space-around;
-      height: 100%;
-      }
-
-      body, div, h1{ 
-      padding: 0;
-      margin: 0;
-      outline: none;
-      font-family: Roboto,  sans-serif;
-      font-size: 16px;
-      color:black;
-      }
-
-      body{
-          background-color:#f05f40;
-          background-image:url(/assets/books.jpeg);   
-          background-size: cover;
-          min-height: 100%;
-          min-width: 100%;
-      }
-
-      
-      h1 {
-      
-      padding: 0px 0;
-      font-size: 32px;
-      font-weight: 300;
-      
-      }
-      
-      
-      .main-block {
-      position: relative;
-      /* width: 1430px;
-      height: 451px; */
-      min-width: 450px;
-      min-height: 40%;
-
-      /* left: 0px;
-      top: 132px; */
-      padding: 30px 30px;
-      margin: auto;
-      border-radius: 5px; 
-      border: solid 1px #ccc;
-      box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
-      background: whitesmoke; 
-    
-      }
-
-      a {
-          text-decoration : none;
-      }
-
-      a:hover{
-          background-color: #f05f40;
-      }
-    
-      
-     
-      .btn-block {
-      margin-top: 10px;
-      text-align: center;
-      }
-      button {
-      position : relative;
-      top :30px;
-      left: 45%;
-      width: 15%;
-      padding: 10px 0;
-      margin: 10px auto;
-      border-radius: 5px; 
-      border: none;
-      background:black; 
-      font-size: 14px;
-      font-weight: 600;
-      color: #fff;
-      }
-      button:hover {
-      background: #f05f40;
-      }
-
-      
-
-      .w3-bar   .w3-button {
-          font-family:"Raleway",sans-serif;
-    padding : 16px;
-
-      
-}
-    </style>
   </head>
   <body>
-
+    <%- include("../partials/navbar-user.ejs") %> 
     <div class="main-block">
       <h1><%- name %> </h1>
       <hr>
-      <h1><a href="/editProfile"><span class="fa fa-edit"></span> Edit Profile  </h1></a></h1>
       <h1><a href=""><span class="fa fa-search"></span> Search For Tutors  </h1></a></h1>
       <h1><a href=""><span class="fa fa-calendar"></span> View Scheduled Appointments </h1></a>                   </h1>
       <h1><a href=""><span class="fa fa-money"></span> Manage Payments </h1></a></h1>
       <h1><a href=""><span class="fa fa-history"></span> View Appointment History </h1></a></h1>
+      <h1><a href="/editProfile"><span class="fa fa-edit"></span> Edit Profile  </h1></a></h1>
       <h1><a href="/student/setparrentacc"><span class="fa fa-users"></span> Set Parent Account </h1></a></h1>
       <form action="/rm-session" method="get">
         <div class="btn-block">
@@ -124,3 +30,11 @@
     </div>
   </body>
 </html>
+
+<style>
+
+  body {
+    background-image:url(/assets/books.jpeg);   
+  }
+
+</style>
