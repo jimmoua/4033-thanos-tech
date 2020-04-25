@@ -5,10 +5,10 @@ const bcrypt = require('bcrypt');
 const ACCOUNT = require('../misc/accountTypes');
 
 router.post('/:type', (req, res) => {
+  const pass = req.body.password;
+  const email = req.body.email;
   switch(req.params.type) {
     case ACCOUNT.STUDENT: {
-      const pass = req.body.password;
-      const email = req.body.email;
       db.query(`SELECT * FROM STUDENT WHERE EMAIL = '${email}';`, (err, results) => {
         if(err) throw err;
         if(results.length < 1) {
@@ -34,9 +34,6 @@ router.post('/:type', (req, res) => {
       break;
     }
     case ACCOUNT.PARENT: {
-      const pass = req.body.password;
-      const email = req.body.email;
-      console.log(email);
       db.query(`SELECT * FROM PARENT WHERE EMAIL = '${email}';`, (err, results) => {
         if(err) throw err;
         if(results.length < 1) {
@@ -62,7 +59,28 @@ router.post('/:type', (req, res) => {
       break;
     }
     case ACCOUNT.TUTOR: {
-      res.send('not implemented yet')
+      db.query(`select * from TUTOR where EMAIL = '${email}'`, (err, t_results) => {
+        if(err) throw err;
+        if(t_results.length == 0) {
+          res.send(`Auth error!`);
+        }
+        else {
+          const hash = t_results[0].PASSWORD;
+          bcrypt.compare(pass, hash, (err, results) => {
+            if(err) throw err;
+            if(results) {
+              req.session.user = {
+                acc_no: t_results[0].ACC_NO,
+                type: ACCOUNT.TUTOR
+              }
+              res.redirect('/');
+            }
+            else {
+              res.send(`Auth error!`);
+            }
+          })
+        }
+      })
       break;
     }
     default: {
