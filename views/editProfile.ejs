@@ -6,10 +6,33 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <title><%- session.name %> - edit profile</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <title>Edit Profile</title>
 </head>
 <body>
-  <h1>Profile Editor</h1>
-  Hello, <%- session.name %>. This is the edit your profile page. Clearly, it's not a priority right now.
+  <div class="main-block">
+    <h1>Edit Profile</h1>
+    <hr>
+    <!-- EDIT PROFILE FORM -->
+    <form action="" method="post" style="text-align: center;">
+      <h3>Profile Picture</h3>
+      <div><img src="/assets/defaultProfilePic.png" alt="profilePic" srcset=""></div>
+      <div><input type="file" name="profilePic" id="profilePif"></div>
+      <h3>Bio</h3>
+      <div><textarea name="bio" id="" cols="30" rows="10" style="resize: none"></textarea></div>
+      <label for="">Gender</label>
+      <div>
+        <select name="gender" id="">
+          <option value="male">Male</option>
+          <option value="female">female</option>
+        </select>
+      </div>
+      <br>
+      <button type="submit">Update Profile</button>
+    </form>
+  </div>
 </body>
 </html>
+
+<style>
+</style>
