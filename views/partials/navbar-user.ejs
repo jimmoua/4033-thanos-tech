@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+ <!--Navbar     (sit on top)  -->
+<div class ="w3-top">
+  <div class="w3-bar w3-white w3-card"  id="myNavbar">
+    <a href="/" class="w3-bar-item w3-button w3-wide">Trustworthy Tutors</a>
+
+    <!-- Right sided Nav bar Links-->
+    <div class="w3-right w3-hide-small">
+      <a href="/" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-home"></span> Home </a>
+      <!-- TODO: search tutor API -->
+      <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-search"></i> Search Tutor </a>
+
+      <!-- TODO: view scheduled appointments API -->
+      <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-calendar"></i> View Appointments </a>
+
+      <!-- TODO: view payments API -->
+      <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-money"></i> Payments </a>
+
+      <!-- TODO: view message -->
+      <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-comment"></i> Message </a>
+
+      <a href="/editProfile" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-user"></i> Edit Profile</a>
+      <a href="/rm-session" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-sign-out"> Sign Out </span></a>
+    </div> 
+
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="sidebar_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+
+  </div>
+</div>
+
+<!-- Sidebar on small screens when clicking the menu icon -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+  <a href="javascript:void(0)" onclick="sidebar_close()" class="w3-bar-item w3-button w3-large">Close ×</a>
+
+  <!-- * Implement the  navbars from above first, then just copy paste onto here -->
+  <a href="/" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-home"></span> Home </a>
+  <!-- TODO: search tutor API -->
+  <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-search"></i> Search Tutor </a>
+
+  <!-- TODO: view scheduled appointments API -->
+  <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-calendar"></i> View Appointments </a>
+
+  <!-- TODO: view payments API -->
+  <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-money"></i> Payments </a>
+
+  <!-- TODO: view message -->
+  <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-comment"></i> Message </a>
+
+  <a href="/editProfile" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-user"></i> Edit Profile</a>
+  <a href="/rm-session" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-sign-out"> Sign Out </span></a>
+</nav>
+
+<script javascript>   
+// Toggle between showing and hiding the sidebar when clicking the menu icon
+var mySidebar = document.getElementById("mySidebar");
+
+function sidebar_open() {
+  if(mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+  } else {
+    mySidebar.style.display = 'block';
+  }
+}
+
+// Close the sidebar with the close button
+function sidebar_close() {
+  mySidebar.style.display = "none";
+}
+
+</script>
+
+<style>
+  .w3-bar   .w3-button {
+    font-family:"Raleway",sans-serif;
+    padding : 16px;
+  }
+
+  body {
+    padding-top: 100px;
+  }
+
+</style>
