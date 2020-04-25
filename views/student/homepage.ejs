@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%- session.name %> - Home</title>
+    <title><%- name %> - Home</title>
     <title> Home</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -102,14 +102,14 @@
   <body>
 
     <!-- TODO: format the name to make it in area as in Figma -->
-    <h1><%- session.name %> </h1>
+    <h1><%- name %> </h1>
     <div class="main-block">
       <a href="/editProfile"><h1><i class="fa fa-edit"></i> Edit Profile  </h1></a>
       <a href=""><h1><i class="fa fa-search"></i> Search For Tutors  </h1></a>
       <a href=""><h1><i class="fa fa-calendar"></i> View Scheduled Appointments </h1></a>                   
       <a href=""><h1><i class="fa fa-money"></i> Manage Payments </h1></a>
       <a href=""><h1><i class="fa fa-history"></i> View Appointment History </h1></a>
-      <a href="/setParrentAcc"><h1><i class="fa fa-users"></i> Set Parent Account </h1></a>
+      <a href="/student/setparrentacc"><h1><i class="fa fa-users"></i> Set Parent Account </h1></a>
       <div class="btn-block">
         <a href="/rm-session"><button type="submit">Sign out</button></a>
       </div>
