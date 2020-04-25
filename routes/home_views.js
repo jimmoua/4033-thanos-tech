@@ -67,19 +67,4 @@ router.get('/login', (req, res) => {
   }
 })
 
-router.get('/editProfile', (req, res) => {
-  if(!req.session.user) {
-    res.redirect('/');
-  }
-  else {
-    db.query(`select * from STUDENT where ACC_NO = '${req.session.user.acc_no}'`, (err, rows) => {
-      if(err) throw err;
-      res.render('editProfile', {
-        name: rows[0].FNAME + " " + rows[0].LNAME,
-        user: req.session.user
-      })
-    })
-  }
-})
-
 module.exports = router;

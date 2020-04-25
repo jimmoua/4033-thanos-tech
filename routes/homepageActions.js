@@ -8,12 +8,15 @@ router.get('/:type/:action', (req, res) => {
     res.redirect('/');
   }
   else {
-    switch(req.params.type.toLowerCase()) {
+    const userType = req.params.type.toLowerCase();
+    const userAction = req.params.action.toLowerCase();
+    switch(userType) {
       //////////////////////////////////////////////////////////// 
       //               STUDENT HOMEPAGE GET
       //////////////////////////////////////////////////////////// 
       case ACCOUNT.STUDENT.toLowerCase(): {
-        switch(req.params.action) {
+        switch(userAction) {
+          // set parent account
           case 'setparrentacc': {
             db.query(`select * from STUDENT where ACC_NO = '${req.session.user.acc_no}'`, (err, s_results) => {
               if(err) throw err;
@@ -26,7 +29,18 @@ router.get('/:type/:action', (req, res) => {
                 })
               })
             })
+            break;
           }
+          case 'editprofile': {
+            db.query(`select * from STUDENT where ACC_NO = '${req.session.user.acc_no}'`, (err, results) => {
+              if(err) throw err;
+              res.render('editProfile', {
+                name: results[0].FNAME + " " + results[0].LNAME,
+                user: req.session.user
+              })
+            })
+          }
+          break;
         }
         break;
       }
