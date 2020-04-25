@@ -1,16 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db_files/db');
-const {v4: uuid} = require('uuid');
 const bcrypt = require('bcrypt');
 const ACCOUNT = require('../misc/accountTypes');
 
 router.post('/:type', (req, res) => {
-  // const foo = req.params.type;
-  const type = req.params.type;
-  console.log(type);
-  console.log(ACCOUNT.STUDENT);
-  switch(type) {
+  switch(req.params.type) {
     case ACCOUNT.STUDENT: {
       const pass = req.body.password;
       const email = req.body.email;
@@ -22,19 +17,11 @@ router.post('/:type', (req, res) => {
         else {
           const hash = results[0].PASSWORD;
           bcrypt.compare(pass, hash, (err, result) => {
-            // If result == true, the provided password was correct
+            if(err) throw err;
             if(result) {
-              req.session.loggedIn = true;
-              req.session.loggedInType = ACCOUNT.STUDENT;
-              req.session.acc_no = results[0].ACC_NO;
-              req.session.pacc_no = results[0].PARENT_ACC_NO;
-              req.session.name = results[0].FNAME + " " + results[0].LNAME;
-              req.session.email = results[0].EMAIL;
-              if(req.session.pacc_no !== null) {
-                db.query(`SELECT EMAIL FROM PARENT WHERE ACC_NO = ${req.session.pacc_no};`, (err, result3) => {
-                  if(err) throw err;
-                  req.session.pemail = result3[0].EMAIL;
-                })
+              req.session.user = {
+                acc_no: results[0].ACC_NO,
+                type: ACCOUNT.STUDENT
               }
               res.redirect('/');
             }
@@ -58,12 +45,12 @@ router.post('/:type', (req, res) => {
         else {
           const hash = results[0].PASSWORD;
           bcrypt.compare(pass, hash, (err, result) => {
-            // If result == true, the provided password was correct
+            if(err) throw err;
             if(result) {
-              req.session.loggedIn = true;
-              req.session.loggedInType = ACCOUNT.PARENT;
-              req.session.name = results[0].FNAME + " " + results[0].LNAME;
-              req.session.acc_no = results[0].ACC_NO;
+              req.session.user = {
+                acc_no: result[0].ACC_NO,
+                type: ACCOUNT.PARENT
+              }
               res.redirect('/');
             }
             else {
@@ -75,6 +62,7 @@ router.post('/:type', (req, res) => {
       break;
     }
     case ACCOUNT.TUTOR: {
+      res.send('not implemented yet')
       break;
     }
     default: {

@@ -37,8 +37,7 @@ app.use('/', require('./routes/home_views'));
 ////////////////////////////////////////////////////////////////////////////////
 //                              API ROUTES
 ////////////////////////////////////////////////////////////////////////////////
-app.use('/api/register/', require('./api/register')); 
-app.use('/api/login/', require('./api/login'));
+app.use('/api/', require('./api/'))
 
 // ! DEBUG GET: type this in the URL bar to delete the current session
 app.get('/rm-session', (req, res) => {
