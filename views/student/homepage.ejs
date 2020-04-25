@@ -13,7 +13,7 @@
    
    <style>
       html, body {
-      display: box;
+      display: flex;
       justify-content: space-around;
       height: 100%;
       }
@@ -29,7 +29,10 @@
 
       body{
           background-color:#f05f40;
-          background-image:url(books.jpeg);   
+          background-image:url(/assets/books.jpeg);   
+          background-size: cover;
+          min-height: 100%;
+          min-width: 100%;
       }
 
       
@@ -43,11 +46,14 @@
       
       
       .main-block {
-      position: absolute;
-      width: 1430px;
-      height: 451px;
-      left: 0px;
-      top: 132px;
+      position: relative;
+      /* width: 1430px;
+      height: 451px; */
+      min-width: 450px;
+      min-height: 40%;
+
+      /* left: 0px;
+      top: 132px; */
       padding: 30px 30px;
       margin: auto;
       border-radius: 5px; 
@@ -72,15 +78,15 @@
       text-align: center;
       }
       button {
-      position :absolute;
-      top :370px;
-      left:1100px;
-      width: 10%;
+      position : relative;
+      top :30px;
+      left: 45%;
+      width: 15%;
       padding: 10px 0;
       margin: 10px auto;
       border-radius: 5px; 
       border: none;
-      background: black; 
+      background:black; 
       font-size: 14px;
       font-weight: 600;
       color: #fff;
@@ -101,18 +107,20 @@
   </head>
   <body>
 
-    <!-- TODO: format the name to make it in area as in Figma -->
-    <h1><%- name %> </h1>
     <div class="main-block">
-      <a href="/editProfile"><h1><i class="fa fa-edit"></i> Edit Profile  </h1></a>
-      <a href=""><h1><i class="fa fa-search"></i> Search For Tutors  </h1></a>
-      <a href=""><h1><i class="fa fa-calendar"></i> View Scheduled Appointments </h1></a>                   
-      <a href=""><h1><i class="fa fa-money"></i> Manage Payments </h1></a>
-      <a href=""><h1><i class="fa fa-history"></i> View Appointment History </h1></a>
-      <a href="/student/setparrentacc"><h1><i class="fa fa-users"></i> Set Parent Account </h1></a>
-      <div class="btn-block">
-        <a href="/rm-session"><button type="submit">Sign out</button></a>
-      </div>
+      <h1><%- name %> </h1>
+      <hr>
+      <h1><a href="/editProfile"><span class="fa fa-edit"></span> Edit Profile  </h1></a></h1>
+      <h1><a href=""><span class="fa fa-search"></span> Search For Tutors  </h1></a></h1>
+      <h1><a href=""><span class="fa fa-calendar"></span> View Scheduled Appointments </h1></a>                   </h1>
+      <h1><a href=""><span class="fa fa-money"></span> Manage Payments </h1></a></h1>
+      <h1><a href=""><span class="fa fa-history"></span> View Appointment History </h1></a></h1>
+      <h1><a href="/student/setparrentacc"><span class="fa fa-users"></span> Set Parent Account </h1></a></h1>
+      <form action="/rm-session" method="get">
+        <div class="btn-block">
+          <button type="submit">Sign out</button>
+        </div>
+      </form>
     </div>
   </body>
 </html>
