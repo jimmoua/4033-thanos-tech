@@ -1,31 +1,35 @@
 const express = require('express')
 const router = express.Router();
 const ACCOUNT = require('../misc/accountTypes');
+const db = require('../db_files/db');
 
 // * This is the routing for '/' get requests.
 // In other words, if users requests to go to our domain, what should be the
 // first thing that renders to them?
 router.get('/', (req, res) => {
-  if(!req.session.loggedIn) {
+  if(!req.session.user) {
     res.render("index")
   }
   else {
-    switch(req.session.loggedInType) {
+    switch(req.session.user.type) {
       case ACCOUNT.TUTOR: {
         // Render the tutor view
-        res.send(`You're logged in as a ${req.session.loggedInType}`)
+        res.send(`You're logged in as a ${ACCOUNT.TUTOR}`)
         break;
       }
       case ACCOUNT.PARENT: {
         // Render the parent view
-        res.send(`You're logged in as a ${req.session.loggedInType}`)
+        res.send(`You're logged in as a ${ACCOUNT.PARENT}`)
         break;
       }
       case ACCOUNT.STUDENT: {
         // Render the student view
-        res.render('student/homepage', {
-          session: req.session
-        });
+        db.query(`select * from STUDENT where ACC_NO = '${req.session.user.acc_no}'`, (err, results) => {
+          if(err) throw err;
+          res.render('student/homepage', {
+            name: results[0].FNAME + " " + results[0].LNAME
+          });
+        })
         break;
       }
       default: {
