@@ -34,10 +34,9 @@ router.get('/setparrentacc', (req, res) => {
     if(err) throw err;
     db.query(`select * from PARENT where ACC_NO = '${s_results[0].PARENT_ACC_NO}'`, (err, p_results) => {
       if(err) throw err;
-      console.log(s_results[0].FNAME + " " + s_results[0].LNAME);
       res.render('student/setParentAcc', {
         user: s_results[0].FNAME + " " + s_results[0].LNAME,
-        pemail: (p_results.legnth != 0 ? p_results[0].EMAIL : false)
+        pemail: (p_results.length != 0 ? p_results[0].EMAIL : false)
       })
     })
   })
