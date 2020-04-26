@@ -7,8 +7,8 @@ const ACCOUNT = require('../misc/accountTypes');
 
 // * This may look like spaghetti, and maybe it is, but it works so let's leave it (for now).
 router.post('/:type', (req, res) => {
-  const fname = req.body.firstName;
-  const lname = req.body.lastName;
+  const fname = req.body.firstName.charAt(0).toUpperCase() + req.body.firstName.slice(1).toLowerCase();
+  const lname = req.body.lastName.charAt(0).toUpperCase() + req.body.lastName.slice(1).toLowerCase();
   const email = req.body.email;
   const pass1 = req.body.password1;
   const pass2 = req.body.password2;
@@ -31,7 +31,7 @@ router.post('/:type', (req, res) => {
               db.query(`INSERT INTO STUDENT ( ACC_NO, FNAME, LNAME, EMAIL, PASSWORD ) VALUES( '${accID}', '${fname}', '${lname}', '${email}', '${hash}' );`, (err, results) => {
                 if(err) throw err;
                 console.log(results);
-                res.send(`You've registered with the account: "${email}" Redirecting to the login page in 3 seconds. <script>
+                res.send(`${fname} ${lname} You've registered with the account: "${email}" Redirecting to the login page in 3 seconds. <script>
                 setTimeout(function() {
                   window.location.href='/login'
                 }, 3000);
