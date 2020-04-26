@@ -33,17 +33,28 @@ router.post('/updateProfile', (req, res) => {
   let data = {
     bio: req.body.bio,
     gender: req.body.gender,
-    acc_no: req.session.user.acc_no
+    acc_no: req.session.user.acc_no,
+    fname: req.body.fname,
+    lname: req.body.lname,
+    email: req.body.email
   }
   if(data.gender == 'none') data.gender = null;
   else {
     data.gender = data.gender == 'male' ? 'M' : 'F';
   }
-  db.query(`update STUDENT set BIO = ?, GENDER = ? where ACC_NO = ?`, [data.bio, data.gender, data.acc_no], (err, results) => {
-    if(err) {
-      throw err;
+  db.query(`Select EMAIL, ACC_NO from STUDENT where EMAIL = ?`, [data.email], (err, r) => {
+    if(err) throw err;
+    if(r.length >= 1 && req.session.user.acc_no !== r[0].ACC_NO) {
+      res.status(400).redirect('/student/editProfile');
     }
-    res.redirect('/');
+    else {
+      db.query(`update STUDENT set BIO = ?, GENDER = ?, FNAME = ?, LNAME = ?, EMAIL = ? where ACC_NO = ?`, [data.bio, data.gender, data.fname, data.lname, data.email, data.acc_no], (err, results) => {
+        if(err) {
+          throw err;
+        }
+        res.redirect('/');
+      })
+    }
   })
 })
 

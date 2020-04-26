@@ -21,10 +21,15 @@ router.get('/appointmenthistory', (req, res) => {
 router.get('/editProfile', (req, res) => {
   db.query(`select * from STUDENT where ACC_NO = '${req.session.user.acc_no}'`, (err, results) => {
     if(err) throw err;
+    const name = {
+      fname: results[0].FNAME,
+      lname: results[0].LNAME
+    }
     res.render(`student/editProfile`, {
-      name: results[0].FNAME + " " + results[0].LNAME,
+      name: name,
       user: req.session.user,
-      profile: results
+      profile: results,
+      email: results[0].EMAIL
     })
   })
 });

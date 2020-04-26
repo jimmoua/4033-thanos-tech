@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/css/main.css">
   <title>Edit Profile</title>
 </head>
@@ -15,11 +16,21 @@
     <h1>Edit Profile</h1>
     <hr>
     <!-- EDIT PROFILE FORM -->
-    <form action="/api/users/student/updateProfile" method="post" style="text-align: center;">
+    <form action="/api/users/student/updateProfile" method="post">
+      <h3>Email</h3>
+      <input type="email" name="email" id="email" required placeholder="Email Address" value="<%- email %> ">
+      <span id="emailExistsMsg" style="color: red;"></span>
+      <h3>Name</h3>
+      <div style="text-align: center;">
+        <input type="text" name="fname" id="" required placeholder="First Name" value="<%- name.fname %>">
+        <input type="text" name="lname" id="" required placeholder="Last Name" value="<%- name.lname %>">
+      </div>
       <h3>Bio</h3>
-      <div><textarea name="bio" id="" cols="30" rows="10" style="resize: none" placeholder="Your bio is empty!"><% if (profile[0].BIO) { %><%-profile[0].BIO %><% } %></textarea></div>
-      <label for="">Gender</label>
+      <div style="text-align: center;">
+        <div><textarea name="bio" id="" cols="40" rows="10" style="resize: none" placeholder="Your bio is empty!"><% if (profile[0].BIO) { %><%-profile[0].BIO %><% } %></textarea></div>
+      </div>
       <div>
+        <span><label for="" style="font-size: 24px;">Gender</label></span>
         <select name="gender" id="">
           <% if (!profile[0].GENDER) { %>
             <option value="none" selected disabled hidden>Not Set</option>
@@ -35,7 +46,9 @@
         </select>
       </div>
       <br>
-      <button type="submit">Update Profile</button>
+      <div style="text-align: right;">
+        <button type="submit" id="post-btn">Update Profile</button>
+      </div>
     </form>
   </div>
 </body>
@@ -43,3 +56,31 @@
 
 <style>
 </style>
+
+<script>
+  const initEmail = $('#email').val();
+  async function emailGood(type) {
+    fetch('/AJAX/emailExists', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        email: $('#email').val(),
+        type: type
+      })
+    }).then(results => {
+      if(results.status === 302 && initEmail !== $('#email').val()) {
+        $('#post-btn').prop('disabled', true)
+        $('#email').css('border', 'red 1px solid')
+        $('#emailExistsMsg').html('The email already belongs to another user!');
+      } else {
+        $('#post-btn').prop('disabled', false)
+        $('#email').css('border', '');
+        $('#emailExistsMsg').html('');
+      }
+    });
+  }
+
+  $('#email').on('change', function() {
+    emailGood('STUDENT');
+  })
+</script>
