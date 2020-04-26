@@ -44,7 +44,7 @@ router.get('/', (req, res) => {
       }
     }
   }
-}).use(require('./homepageActions'));
+})
 
 // * Handling if the users choose to go to the register page.
 router.get('/register', (req, res) => {

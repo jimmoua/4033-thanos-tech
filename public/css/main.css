@@ -1,4 +1,4 @@
-html, body{
+body{
   display: flex;
   justify-content: space-around;
   height: 100%;
@@ -9,17 +9,21 @@ body, div, form, input, p {
   margin: 0;
   outline: none;
   font-family: Roboto,  sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   color: #666;
 }
 
 body {
-  background-color: #f05f40;
+  /* background-color: #f05f40; */
   background-size: cover;
 }
 
+body, html {
+  height: 100%;
+}
+
 .background {
-  background-color: #f05f40;
+  /* background-color: #f05f40; */
   background-repeat: no-repeat;
   background-size: cover;
 }

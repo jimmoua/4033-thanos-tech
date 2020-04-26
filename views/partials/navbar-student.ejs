@@ -9,53 +9,37 @@
     <a href="/" class="w3-bar-item w3-button w3-wide">Trustworthy Tutors</a>
 
     <!-- Right sided Nav bar Links-->
-    <div class="w3-right w3-hide-small">
+    <div class="w3-right w3-hide-small w3-hide-medium">
       <a href="/" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-home"></span> Home </a>
-      <!-- TODO: search tutor API -->
-      <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-search"></i> Search Tutor </a>
-
-      <!-- TODO: view scheduled appointments API -->
-      <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-calendar"></i> View Appointments </a>
-
-      <!-- TODO: view payments API -->
-      <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-money"></i> Payments </a>
-
-      <!-- TODO: view message -->
-      <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-comment"></i> Message </a>
-
-      <a href="/student/editProfile" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-user"></i> Edit Profile</a>
+      <a href="/student/search" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-search"></span> Search Tutor </a>
+      <a href="/student/scheduleappointments" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-calendar"></span> View Appointments </a>
+      <a href="/student/managepayments" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-money"></span> Payments </a>
+      <a href="/student/messages" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-comment"></span> Message </a>
+      <a href="/student/editProfile" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-user"></span> Edit Profile</a>
       <a href="/rm-session" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-sign-out"> Sign Out </span></a>
     </div> 
 
     <!-- Hide right-floated links on small screens and replace them with a menu icon -->
-    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="sidebar_open()">
-      <i class="fa fa-bars"></i>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large" onclick="sidebar_open()">
+      <span class="fa fa-bars"></span>
     </a>
 
   </div>
 </div>
 
 <!-- Sidebar on small screens when clicking the menu icon -->
-<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
-  <a href="javascript:void(0)" onclick="sidebar_close()" class="w3-bar-item w3-button w3-large">Close ×</a>
-
-  <!-- * Implement the  navbars from above first, then just copy paste onto here -->
-  <a href="/" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-home"></span> Home </a>
-  <!-- TODO: search tutor API -->
-  <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-search"></i> Search Tutor </a>
-
-  <!-- TODO: view scheduled appointments API -->
-  <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-calendar"></i> View Appointments </a>
-
-  <!-- TODO: view payments API -->
-  <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-money"></i> Payments </a>
-
-  <!-- TODO: view message -->
-  <a href="/" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-comment"></i> Message </a>
-
-  <a href="/student/editProfile" class="w3-bar-item w3-button anchor-scrolls"><i class="fa fa-user"></i> Edit Profile</a>
-  <a href="/rm-session" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-sign-out"> Sign Out </span></a>
-</nav>
+<div style="display: inline;">
+  <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-large" style="display:none; " id="mySidebar">
+    <a href="javascript:void(0)" onclick="sidebar_close()" class="w3-bar-item w3-button w3-large">Close ×</a>
+    <a href="/" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-home"></span> Home </a>
+    <a href="/student/search" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-search"></span> Search Tutor </a>
+    <a href="/student/scheduleappointments" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-calendar"></span> View Appointments </a>
+    <a href="/student/managepayments" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-money"></span> Payments </a>
+    <a href="/student/messages" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-comment"></span> Message </a>
+    <a href="/student/editProfile" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-user"></span> Edit Profile</a>
+    <a href="/rm-session" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-sign-out"> Sign Out </span></a>
+  </nav>
+</div>
 
 <script javascript>   
 // Toggle between showing and hiding the sidebar when clicking the menu icon

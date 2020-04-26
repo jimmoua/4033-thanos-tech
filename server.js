@@ -2,6 +2,7 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
+const morgan = require('morgan');
 
 // Create server called app
 const app = express();
@@ -19,6 +20,7 @@ app.use(session({
     maxAge: 1000 * 60 * 10 // (1000 ms * 60 * 10 = 60k ms = 600 seconds = 10min
   }
 }))
+app.use(morgan('dev'));
 
 // Set static folder for public files
 app.use(express.static(path.join(__dirname, 'public')));

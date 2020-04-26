@@ -10,22 +10,28 @@
   <title>Edit Profile</title>
 </head>
 <body>
-  <%- include("./partials/navbar-student.ejs") %> 
+  <%- include("../partials/navbar-student.ejs") %> 
   <div class="main-block">
     <h1>Edit Profile</h1>
     <hr>
     <!-- EDIT PROFILE FORM -->
-    <form action="" method="post" style="text-align: center;">
-      <h3>Profile Picture</h3>
-      <div><img src="/assets/defaultProfilePic.png" alt="profilePic" srcset=""></div>
-      <div><input type="file" name="profilePic" id="profilePif"></div>
+    <form action="/api/users/student/updateProfile" method="post" style="text-align: center;">
       <h3>Bio</h3>
-      <div><textarea name="bio" id="" cols="30" rows="10" style="resize: none"></textarea></div>
+      <div><textarea name="bio" id="" cols="30" rows="10" style="resize: none" placeholder="Your bio is empty!"><% if (profile[0].BIO) { %><%-profile[0].BIO %><% } %></textarea></div>
       <label for="">Gender</label>
       <div>
         <select name="gender" id="">
+          <% if (!profile[0].GENDER) { %>
+            <option value="none" selected disabled hidden>Not Set</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          <% } else if(profile[0].GENDER == 'M') { %>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          <% } else { %> 
+          <option value="female">Female</option>
           <option value="male">Male</option>
-          <option value="female">female</option>
+          <% } %> 
         </select>
       </div>
       <br>
