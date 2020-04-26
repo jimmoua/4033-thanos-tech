@@ -23,6 +23,8 @@
         <select name="gender" id="">
           <% if (!profile[0].GENDER) { %>
             <option value="none" selected disabled hidden>Not Set</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
           <% } else if(profile[0].GENDER == 'M') { %>
             <option value="male">Male</option>
             <option value="female">Female</option>
