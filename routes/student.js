@@ -2,13 +2,20 @@ const express = require('express')
 const router = express.Router();
 const db = require('../db_files/db');
 
+router.get('/search', (req, res) => {
+  res.render('student/search');
+})
+
 router.get('/scheduledappointments', (req, res) => {
+  res.render('student/scheduledappointment')
 });
 
 router.get('/managepayments', (req, res) => {
+  res.render('student/managepayment')
 });
 
 router.get('/appointmenthistory', (req, res) => {
+  res.render('student/appointmenthistory')
 });
 
 router.get('/editProfile', (req, res) => {
