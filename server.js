@@ -47,5 +47,10 @@ app.get('/rm-session', (req, res) => {
   res.redirect('/');
 })
 
+////////////////////////////////////////////////////////////////////////////////
+//                              AJAX CALL ROUTES
+////////////////////////////////////////////////////////////////////////////////
+app.use('/AJAX/', require('./AJAX/'));
+
 // Listen on port
 app.listen(port, () => console.log(`Listening on port ${port}.`));
