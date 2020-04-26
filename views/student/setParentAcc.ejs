@@ -8,17 +8,19 @@
 </head>
 <body>
   <%- include("../partials/navbar-student") %> 
-  <center>
-    <div><h1>Current Parent Account</h1></div>
-    <% if (!pemail) { %>
-      <p>No parent account defined.</p>
-    <% } else { %>
-     <p><%- pemail %></p>
-    <% } %> 
-    <form action="/api/users/student/setParentAccount" method="post">
-      <input type="text" name="pemail" id="">
-      <button type="submit">Set</button>
-    </form>
-  </center>
+  <div class="main-block">
+    <center>
+      <div><h1>Current Parent Account</h1></div>
+      <% if (!pemail) { %>
+        <p>No parent account defined.</p>
+      <% } else { %>
+        <p><%- pemail %></p>
+      <% } %> 
+      <form action="/api/users/student/setParentAccount" method="post">
+        <input type="text" name="pemail" id="">
+        <button type="submit">Set</button>
+      </form>
+    </center>
+  </div>
 </body>
 </html>
