@@ -36,7 +36,8 @@ router.get('/:type/:action', (req, res) => {
               if(err) throw err;
               res.render(`student/editProfile`, {
                 name: results[0].FNAME + " " + results[0].LNAME,
-                user: req.session.user
+                user: req.session.user,
+                profile: results
               })
             })
           }
