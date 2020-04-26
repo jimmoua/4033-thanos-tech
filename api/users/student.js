@@ -30,21 +30,26 @@ router.post('/setParentAccount', (req, res) => {
 });
 
 router.post('/updateProfile', (req, res) => {
-  let data = {
-    bio: req.body.bio,
-    gender: req.body.gender,
-    acc_no: req.session.user.acc_no
+  if (res.session.user.type != ACCOUNT.STUDENT) {
+    res.redirect('/'); 
   }
-  if(data.gender == 'none') data.gender = null;
   else {
-    data.gender = data.gender == 'male' ? 'M' : 'F';
-  }
-  db.query(`update STUDENT set BIO = ?, GENDER = ? where ACC_NO = ?`, [data.bio, data.gender, data.acc_no], (err, results) => {
-    if(err) {
-      throw err;
+    let data = {
+      bio: req.body.bio,
+      gender: req.body.gender,
+      acc_no: req.session.user.acc_no
     }
-    res.redirect('/');
-  })
+    if(data.gender == 'none') data.gender = null;
+    else {
+      data.gender = data.gender == 'male' ? 'M' : 'F';
+    }
+    db.query(`update STUDENT set BIO = ?, GENDER = ? where ACC_NO = ?`, [data.bio, data.gender, data.acc_no], (err, results) => {
+      if(err) {
+        throw err;
+      }
+      res.redirect('/');
+    })
+  }
 })
 
 module.exports = router;
