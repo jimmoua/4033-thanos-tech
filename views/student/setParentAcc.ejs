@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
   <title><%- user %> - Set Parent Account</title>
 </head>
 <body>
+  <%- include("../partials/navbar-student") %> 
   <center>
     <div><h1>Current Parent Account</h1></div>
     <% if (!pemail) { %>
