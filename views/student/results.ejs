@@ -19,17 +19,23 @@
       <% course.forEach(e => { %>
         <div class="w3-col l4 m6 w3-margin-bottom">
           <div class="w3-card">
-            <img src="/assets/emc2.jpeg" alt="course-image" style="width:100%">
-            <div class="w3-container">
-              <h2 class="w3-opacity" style="text-align: center;"><%- e.FNAME+" "+e.LNAME %></h3>
-              <h3 class="w3-opacity" style="text-align: center;"><%- e.COURSE_NAME %></h3>
-              <p><%- e.BIO %></p>
-            </div>
+            <a href="/student/viewCourse?courseid=<%- e.COURSE_ID %>">
+              <img src="/assets/defaultProfilePic.png" alt="course-image" style="width:100%">
+              <div class="w3-container">
+                <h2 class="w3-opacity" style="text-align: center;"><%- e.FNAME+" "+e.LNAME %></h3>
+                <h3 class="w3-opacity" style="text-align: center;"><%- e.COURSE_NAME %></h3>
+              </div>
+            </a>
           </div>
         </div>
       <% }) %>
     <% } %> 
-
   </div>
 </body>
 </html>
+
+<style>
+  a {
+    text-decoration: none;
+  }
+</style>

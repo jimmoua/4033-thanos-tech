@@ -95,4 +95,24 @@ router.get('/setparrentacc', (req, res) => {
   }
 })
 
+router.get('/viewCourse', (req, res) => {
+  if(!req.session.user || req.session.user.type != ACCOUNT.STUDENT || !req.query.courseid) {
+    res.redirect('/');
+  } else {
+    const cid = req.query.courseid;
+    db.query(`SELECT COURSES.COURSE_ID, COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL, TUTOR.BIO FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_ID = ?`, [cid], (err, results) => {
+      if(err) throw err;
+      if(results.length == 0) {
+        res.status(404).send(`
+        <center><h1>404 Not Found</h1></center>
+        `)
+      } else {
+        res.render('student/courseview', {
+          course: results[0]
+        })
+      }
+    })
+  }
+})
+
 module.exports = router;
