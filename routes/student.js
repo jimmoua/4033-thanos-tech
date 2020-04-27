@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router();
 const db = require('../db_files/db');
+const ACCOUNT = require('../misc/accountTypes');
 
 router.get('/search', (req, res) => {
-  if (!req.session.user) {
+  if (!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
     res.redirect('/'); 
   }
   else {
@@ -12,7 +13,7 @@ router.get('/search', (req, res) => {
 })
 
 router.get('/scheduledappointments', (req, res) => {
-  if (!req.session.user) {
+  if (!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
     res.redirect('/'); 
   }
   else {
@@ -21,7 +22,7 @@ router.get('/scheduledappointments', (req, res) => {
 });
 
 router.get('/managepayments', (req, res) => {
-  if (!req.session.user) {
+  if (!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
     res.redirect('/'); 
   }
   else {
@@ -30,7 +31,7 @@ router.get('/managepayments', (req, res) => {
 });
 
 router.get('/appointmenthistory', (req, res) => {
-  if (!req.session.user) {
+  if (!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
     res.redirect('/'); 
   }
   else {
@@ -39,7 +40,7 @@ router.get('/appointmenthistory', (req, res) => {
 });
 
 router.get('/editProfile', (req, res) => {
-  if (!res.session.user) {
+  if (!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
     res.redirect('/'); 
   }
   else {
@@ -55,7 +56,7 @@ router.get('/editProfile', (req, res) => {
 });
 
 router.get('/setparrentacc', (req, res) => {
-  if (!res.session.user) {
+  if (!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
     res.redirect('/'); 
   }
   else {

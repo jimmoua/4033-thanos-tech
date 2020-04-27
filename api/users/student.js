@@ -4,7 +4,7 @@ const ACCOUNT = require('../../misc/accountTypes');
 const db = require('../../db_files/db');
 
 router.post('/setParentAccount', (req, res) => {
-  if (!req.session.user) {
+  if (!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
     res.redirect('/'); 
   }
   else {
@@ -35,11 +35,11 @@ router.post('/setParentAccount', (req, res) => {
 });
 
 router.post('/updateProfile', (req, res) => {
-  if (!res.session.user) {
+  if (!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
     res.redirect('/'); 
   }
   else {
-    if (res.session.user.type != ACCOUNT.STUDENT) {
+    if (req.session.user.type != ACCOUNT.STUDENT) {
       res.redirect('/'); 
     }
     else {
