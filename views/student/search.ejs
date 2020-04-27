@@ -15,9 +15,9 @@
     <%- include("../partials/navbar-student") %> 
     <div class="wrap">
       <div>
-        <form action="#" method="post">
+        <form action="/api/users/student/search" method="post">
           <button type="submit" class="searchButton"><span class="fa fa-search"></span></button>
-          <input type="text" class="searchTerm" placeholder="Enter a course name">
+          <input type="text" name="course" class="searchTerm" placeholder="Enter a course name">
         </form>
       </div>
    </div>

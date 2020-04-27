@@ -62,4 +62,21 @@ router.post('/updateProfile', (req, res) => {
   }
 })
 
+router.post('/search', (req, res) => {
+  if(!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
+  } else {
+    const course = req.body.course.toString().toLowerCase().split(' ');
+    console.log(course);
+    let q_string = `SELECT COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL, TUTOR.BIO FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_NAME like '%${course[0]}%'`;
+    for(var i = 1; i < course.length; i++) {
+      q_string+=` OR COURSES.COURSE_NAME LIKE '%${course[i]}%'`;
+    }
+    console.log(q_string);
+    db.query(q_string, (err, results) => {
+      if(err) throw err;
+      res.json( results.length == 0 ? 'None' : results);
+    })
+  }
+})
+
 module.exports = router;
