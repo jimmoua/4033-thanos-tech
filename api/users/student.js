@@ -74,7 +74,9 @@ router.post('/search', (req, res) => {
     console.log(q_string);
     db.query(q_string, (err, results) => {
       if(err) throw err;
-      res.json( results.length == 0 ? 'None' : results);
+      res.render('student/results', {
+        course: results.length == 0 ? false : results
+      });
     })
   }
 })

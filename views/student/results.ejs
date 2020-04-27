@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/main/main.css">
+  <title>Document</title>
+</head>
+<body>
+  <%- include("../partials/navbar-student") %> 
+  <div class="w3-row-padding" style="margin-top:64px">
+
+    <% if (!course) { %>
+      <h1 style="text-align: center;">NO ONE TUTORS THAT COURSE</h1>
+    <% } else { %>
+      <% course.forEach(e => { %>
+        <div class="w3-col l4 m6 w3-margin-bottom">
+          <div class="w3-card">
+            <img src="/assets/emc2.jpeg" alt="course-image" style="width:100%">
+            <div class="w3-container">
+              <h2 class="w3-opacity" style="text-align: center;"><%- e.FNAME+" "+e.LNAME %></h3>
+              <h3 class="w3-opacity" style="text-align: center;"><%- e.COURSE_NAME %></h3>
+              <p><%- e.BIO %></p>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    <% } %> 
+
+  </div>
+</body>
+</html>
