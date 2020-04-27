@@ -24,8 +24,8 @@
           <textarea name="bio" id="bio" cols="40" rows="10" style="resize: none;" placeholder="Your bio is empty!"><% if (bio) { %><%- bio %><% } %></textarea>
         </div>
       </div>
-      <div>
-        <span><label for="" style="font-size: 24px;">Gender</label></span>
+      <h3>Gender</h3>
+      <div style="text-align: center;">
         <select name="gender" id="">
           <% if (!gender) { %>
             <option value="none" selected disabled hidden>Not Set</option>
@@ -41,6 +41,15 @@
         </select>
       </div>
       <br>
+      <div>
+        <h3>Courses Tutored</h3>
+        <div style="text-align: center;">
+          <span>
+            <label for="">COURSE</label>
+            <input type="text" placeholder="MY COURSE NAME">
+          </span>
+        </div>
+      </div>
       <div style="text-align: right;">
         <button type="submit" id="post-btn">Update Profile</button>
       </div>
