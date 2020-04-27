@@ -5,94 +5,88 @@ const bcrypt = require('bcrypt');
 const ACCOUNT = require('../misc/accountTypes');
 
 router.post('/:type', (req, res) => {
-  if(!req.session.user) {
-    res.redirect('/'); 
-  }
-  else {
-    const pass = req.body.password;
-    const email = req.body.email;
-    switch(req.params.type) {
-      case ACCOUNT.STUDENT: {
-        db.query(`SELECT * FROM STUDENT WHERE EMAIL = '${email}';`, (err, results) => {
-          if(err) throw err;
-          if(results.length < 1) {
-            res.send(`Auth error!`);
-          }
-          else {
-            const hash = results[0].PASSWORD;
-            bcrypt.compare(pass, hash, (err, result) => {
-              if(err) throw err;
-              if(result) {
-                req.session.user = {
-                  acc_no: results[0].ACC_NO,
-                  type: ACCOUNT.STUDENT
-                }
-                res.redirect('/');
+  const pass = req.body.password;
+  const email = req.body.email;
+  switch(req.params.type) {
+    case ACCOUNT.STUDENT: {
+      db.query(`SELECT * FROM STUDENT WHERE EMAIL = '${email}';`, (err, results) => {
+        if(err) throw err;
+        if(results.length < 1) {
+          res.send(`Auth error!`);
+        }
+        else {
+          const hash = results[0].PASSWORD;
+          bcrypt.compare(pass, hash, (err, result) => {
+            if(err) throw err;
+            if(result) {
+              req.session.user = {
+                acc_no: results[0].ACC_NO,
+                type: ACCOUNT.STUDENT
               }
-              else {
-                res.send(`Auth error!`)
+              res.redirect('/');
+            }
+            else {
+              res.send(`Auth error!`)
+            }
+          })
+        }
+      });
+      break;
+    }
+    case ACCOUNT.PARENT: {
+      db.query(`SELECT * FROM PARENT WHERE EMAIL = '${email}';`, (err, results) => {
+        if(err) throw err;
+        if(results.length < 1) {
+          res.send(`Auth error: no matching`);
+        }
+        else {
+          const hash = results[0].PASSWORD;
+          bcrypt.compare(pass, hash, (err, result) => {
+            if(err) throw err;
+            if(result) {
+              req.session.user = {
+                acc_no: result[0].ACC_NO,
+                type: ACCOUNT.PARENT
               }
-            })
-          }
-        });
-        break;
-      }
-      case ACCOUNT.PARENT: {
-        db.query(`SELECT * FROM PARENT WHERE EMAIL = '${email}';`, (err, results) => {
-          if(err) throw err;
-          if(results.length < 1) {
-            res.send(`Auth error: no matching`);
-          }
-          else {
-            const hash = results[0].PASSWORD;
-            bcrypt.compare(pass, hash, (err, result) => {
-              if(err) throw err;
-              if(result) {
-                req.session.user = {
-                  acc_no: result[0].ACC_NO,
-                  type: ACCOUNT.PARENT
-                }
-                res.redirect('/');
+              res.redirect('/');
+            }
+            else {
+              res.send(`Auth error!`)
+            }
+          })
+        }
+      });
+      break;
+    }
+    case ACCOUNT.TUTOR: {
+      db.query(`select * from TUTOR where EMAIL = '${email}'`, (err, t_results) => {
+        if(err) throw err;
+        if(t_results.length == 0) {
+          res.send(`Auth error!`);
+        }
+        else {
+          const hash = t_results[0].PASSWORD;
+          bcrypt.compare(pass, hash, (err, results) => {
+            if(err) throw err;
+            if(results) {
+              req.session.user = {
+                acc_no: t_results[0].ACC_NO,
+                type: ACCOUNT.TUTOR
               }
-              else {
-                res.send(`Auth error!`)
-              }
-            })
-          }
-        });
-        break;
-      }
-      case ACCOUNT.TUTOR: {
-        db.query(`select * from TUTOR where EMAIL = '${email}'`, (err, t_results) => {
-          if(err) throw err;
-          if(t_results.length == 0) {
-            res.send(`Auth error!`);
-          }
-          else {
-            const hash = t_results[0].PASSWORD;
-            bcrypt.compare(pass, hash, (err, results) => {
-              if(err) throw err;
-              if(results) {
-                req.session.user = {
-                  acc_no: t_results[0].ACC_NO,
-                  type: ACCOUNT.TUTOR
-                }
-                res.redirect('/');
-              }
-              else {
-                res.send(`Auth error!`);
-              }
-            })
-          }
-        })
-        break;
-      }
-      default: {
-        res.status(500).send('Account type did not match');
-      }
+              res.redirect('/');
+            }
+            else {
+              res.send(`Auth error!`);
+            }
+          })
+        }
+      })
+      break;
+    }
+    default: {
+      res.status(500).send('Account type did not match');
     }
   }
-  
 })
 
 module.exports = router;
