@@ -13,7 +13,6 @@ router.post('/setParentAccount', (req, res) => {
     }
     else {
       const pemail = req.body.pemail;
-      console.log('the email is ', pemail)
       db.query(`select ACC_NO from PARENT where EMAIL = '${pemail}';`, (err, p_results) => {
         if(p_results.length == 0) {
           res.send(`The parent email doesn't exist`);
@@ -67,9 +66,8 @@ router.post('/search', (req, res) => {
     for(var i = 1; i < course.length; i++) {
       searchTerm+='|'+course[i];
     }
-    console.log(course);
-    let q_string = `SELECT COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL, TUTOR.BIO FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_NAME REGEXP ?`;
-    console.log(q_string);
+    searchTerm = searchTerm.replace(/[^a-z0-9+]+/gi, ' ');
+    let q_string = `SELECT COURSES.COURSE_ID, COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL, TUTOR.BIO FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_NAME REGEXP ?`;
     db.query(q_string, [searchTerm], (err, results) => {
       if(err) throw err;
       res.render('student/results', {
