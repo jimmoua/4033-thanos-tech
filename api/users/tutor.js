@@ -14,7 +14,8 @@ router.post('/updateprofile', (req, res) => {
       lname: req.body.lname,
       gender: req.body.gender,
       bio: req.body.bio,
-      email: req.body.email  
+      email: req.body.email,  
+      course: req.body.courseAdd
     }
     if(data.gender == 'none') data.gender = null;
     else {
@@ -22,8 +23,10 @@ router.post('/updateprofile', (req, res) => {
     }
     // Run the query and update
     db.query(`UPDATE TUTOR SET FNAME = ?, LNAME = ?, GENDER = ?, BIO = ?, EMAIL = ? WHERE ACC_NO = ?`, [data.fname, data.lname, data.gender, data.bio, data.email, req.session.user.acc_no], (err, results) => {
-      if (err) throw err; 
-      res.redirect('/');
+      db.query(`INSERT INTO COURSES VALUES (?, ?)`, [req.session.user.acc_no, data.course], (err, courseResults) => {
+        if (err) throw err;
+        res.redirect('/');
+      })
     });
   }
 });
