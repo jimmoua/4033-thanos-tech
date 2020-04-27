@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
+  <title></title>
+</head>
+<body>
+  <div class="main-block">
+    <h2>Edit Profile</h2>
+    <form action="" method="post">
+      <h3>Email</h3>
+      <input type="email" name="email" id="email" required placeholder="Email Address" value="<%- email %> ">
+      <span id="emailExistsMsg"></span>
+      <h3>Name</h3>
+      <div style="text-align: center;">
+        <input type="text" name="fname" id="fname" placeholder="First Name" value="<%- fname %>">
+        <input type="text" name="fname" id="fname" placeholder="First Name" value="<%- lname %>">
+      </div>
+      <h3>Bio</h3>
+      <div style="text-align: center;">
+        <div>
+          <textarea name="bio" id="bio" cols="40" rows="10" style="resize: none;" placeholder="Your bio is empty!"><% if (bio) { %><%- bio %><% } %></textarea>
+        </div>
+      </div>
+      <div>
+        <span><label for="" style="font-size: 24px;">Gender</label></span>
+        <select name="gender" id="">
+          <% if (!gender) { %>
+            <option value="none" selected disabled hidden>Not Set</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          <% } else if(gender == 'M') { %>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          <% } else { %> 
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+          <% } %> 
+        </select>
+      </div>
+      <br>
+      <div style="text-align: right;">
+        <button type="submit" id="post-btn">Update Profile</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
