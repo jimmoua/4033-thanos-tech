@@ -8,6 +8,27 @@ router.get('/search', (req, res) => {
     res.redirect('/'); 
   }
   else {
+    if(req.query.courses) {
+      let course = req.query.courses.toString().toLowerCase().split('+')
+      let searchTerm = course[0];
+      searchTerm = searchTerm.split(' ').filter(e => {
+        return e !== ''
+      });
+      let queryTerm = searchTerm[0];
+      for(var i = 1; i < searchTerm.length; i++) {
+        queryTerm+='|'+searchTerm[i];
+      }
+      console.log(searchTerm)
+      console.log(queryTerm)
+      let q_string = `SELECT COURSES.COURSE_ID, COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL, TUTOR.BIO FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_NAME REGEXP ?`;
+      db.query(q_string, [queryTerm], (err, results) => {
+        if(err) throw err;
+        res.render('student/results', {
+          course: results.length == 0 ? false : results
+        });
+      })
+      return;
+    }
     res.render('student/search');
   }  
 })

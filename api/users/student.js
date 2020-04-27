@@ -64,16 +64,10 @@ router.post('/search', (req, res) => {
     });
     let searchTerm = course[0];
     for(var i = 1; i < course.length; i++) {
-      searchTerm+='|'+course[i];
+      searchTerm+='+'+course[i];
     }
     searchTerm = searchTerm.replace(/[^a-z0-9+]+/gi, ' ');
-    let q_string = `SELECT COURSES.COURSE_ID, COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL, TUTOR.BIO FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_NAME REGEXP ?`;
-    db.query(q_string, [searchTerm], (err, results) => {
-      if(err) throw err;
-      res.render('student/results', {
-        course: results.length == 0 ? false : results
-      });
-    })
+    res.redirect(`/student/search?courses=${searchTerm}`)
   }
 })
 
