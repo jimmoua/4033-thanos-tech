@@ -44,12 +44,13 @@ router.get('/editProfile', (req, res) => {
     res.redirect('/'); 
   }
   else {
-    db.query(`select * from STUDENT where ACC_NO = '${req.session.user.acc_no}'`, (err, results) => {
+    db.query(`select FNAME, LNAME, BIO, GENDER, EMAIL from STUDENT EMAIL where ACC_NO = '${req.session.user.acc_no}'`, (err, results) => {
       if(err) throw err;
       res.render(`student/editProfile`, {
-        name: results[0].FNAME + " " + results[0].LNAME,
+        name: ({fname: results[0].FNAME, lname: results[0].LNAME}),
         user: req.session.user,
-        profile: results
+        profile: results[0],
+        email: results[0].EMAIL
       })
     })
   }
