@@ -65,14 +65,17 @@ router.post('/updateProfile', (req, res) => {
 router.post('/search', (req, res) => {
   if(!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
   } else {
-    const course = req.body.course.toString().toLowerCase().split(' ');
-    console.log(course);
-    let q_string = `SELECT COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL, TUTOR.BIO FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_NAME like '%${course[0]}%'`;
+    const course = req.body.course.toString().toLowerCase().trim(' ').split(' ').filter(e => {
+      return e !== '';
+    });
+    let searchTerm = course[0];
     for(var i = 1; i < course.length; i++) {
-      q_string+=` OR COURSES.COURSE_NAME LIKE '%${course[i]}%'`;
+      searchTerm+='|'+course[i];
     }
+    console.log(course);
+    let q_string = `SELECT COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL, TUTOR.BIO FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_NAME REGEXP ?`;
     console.log(q_string);
-    db.query(q_string, (err, results) => {
+    db.query(q_string, [searchTerm], (err, results) => {
       if(err) throw err;
       res.render('student/results', {
         course: results.length == 0 ? false : results
