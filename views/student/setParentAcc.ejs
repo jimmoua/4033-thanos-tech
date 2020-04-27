@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script javascript src="/javascript/emailExist.js"></script>
   <title><%- user %> - Set Parent Account</title>
 </head>
 <body>
@@ -14,13 +16,17 @@
       <% if (!pemail) { %>
         <p>No parent account defined.</p>
       <% } else { %>
-        <p><%- pemail %></p>
+        <p id="pemail"><%- pemail %></p>
       <% } %> 
       <form action="/api/users/student/setParentAccount" method="post">
         <input type="text" name="pemail" id="">
         <button type="submit">Set</button>
       </form>
+      <div id="emailExistsMsg"></div>
     </center>
   </div>
 </body>
 </html>
+
+<script>
+</script>
