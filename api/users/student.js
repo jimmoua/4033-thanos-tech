@@ -39,26 +39,21 @@ router.post('/updateProfile', (req, res) => {
     res.redirect('/'); 
   }
   else {
-    if (req.session.user.type != ACCOUNT.STUDENT) {
-      res.redirect('/'); 
+    let data = {
+      bio: req.body.bio ? req.body.bio : null,
+      gender: req.body.gender,
+      acc_no: req.session.user.acc_no
     }
+    if(data.gender == 'none') data.gender = null;
     else {
-      let data = {
-        bio: req.body.bio ? req.body.bio : null,
-        gender: req.body.gender,
-        acc_no: req.session.user.acc_no
-      }
-      if(data.gender == 'none') data.gender = null;
-      else {
-        data.gender = data.gender == 'male' ? 'M' : 'F';
-      }
-      db.query(`update STUDENT set BIO = ?, GENDER = ? where ACC_NO = ?`, [data.bio, data.gender, data.acc_no], (err, results) => {
-        if(err) {
-          throw err;
-        }
-        res.redirect('/');
-      })
+      data.gender = data.gender == 'male' ? 'M' : 'F';
     }
+    db.query(`update STUDENT set BIO = ?, GENDER = ? where ACC_NO = ?`, [data.bio, data.gender, data.acc_no], (err, results) => {
+      if(err) {
+        throw err;
+      }
+      res.redirect('/');
+    })
   }
 })
 
