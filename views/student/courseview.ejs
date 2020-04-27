@@ -3,8 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
   <title>Course View</title>
 </head>
 <body>
+  <%- include("../partials/navbar-student") %> 
+  <div class="main-block">
+    <span style="text-align: center;"><h2><%- course.FNAME %> <%- course.LNAME %></h2></span>
+    <span style="text-align: center;"><h3><%- course.COURSE_NAME %></h3></span>
+    <div style="text-align: center;">
+      <img src="/assets/defaultProfilePic.png" alt="profilepic" srcset="">
+    </div>
+    <br>
+    <div id="bio" style="text-align: center;">
+      <%- course.BIO %>
+    </div>
+    <br>
+    <form action="#" method="post" style="text-align: center;">
+      <button type="submit">Message</button>
+    </form>
+  </div>
 </body>
 </html>
+
+<style>
+  a {
+    text-decoration: none;
+  }
+</style>
