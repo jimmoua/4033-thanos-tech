@@ -44,7 +44,7 @@ router.post('/updateProfile', (req, res) => {
     }
     else {
       let data = {
-        bio: req.body.bio,
+        bio: req.body.bio ? req.body.bio : null,
         gender: req.body.gender,
         acc_no: req.session.user.acc_no
       }
