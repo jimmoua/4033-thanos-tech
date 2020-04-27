@@ -45,6 +45,11 @@
         <h3>Courses Tutored</h3>
         <div style="text-align: center;">
           <span>
+            <% if (courses) { %>
+              <% courses.forEach(e => { %>
+                <p><%- e.COURSE_NAME %></p>
+              <% }) %>
+            <% } %>
             <label for="">COURSE</label>
             <input type="text" placeholder="MY COURSE NAME">
           </span>
