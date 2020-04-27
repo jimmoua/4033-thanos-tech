@@ -45,7 +45,7 @@ router.post('/:type', (req, res) => {
             if(err) throw err;
             if(result) {
               req.session.user = {
-                acc_no: result[0].ACC_NO,
+                acc_no: results[0].ACC_NO,
                 type: ACCOUNT.PARENT
               }
               res.redirect('/');
