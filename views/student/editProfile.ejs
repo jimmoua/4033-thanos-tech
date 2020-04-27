@@ -27,16 +27,16 @@
       </div>
       <h3>Bio</h3>
       <div style="text-align: center;">
-        <div><textarea name="bio" id="" cols="40" rows="10" style="resize: none" placeholder="Your bio is empty!"><% if (profile[0].BIO) { %><%-profile[0].BIO %><% } %></textarea></div>
+        <div><textarea name="bio" id="" cols="40" rows="10" style="resize: none" placeholder="Your bio is empty!"><% if (profile.BIO) { %><%-profile.BIO %><% } %></textarea></div>
       </div>
       <div>
         <span><label for="" style="font-size: 24px;">Gender</label></span>
         <select name="gender" id="">
-          <% if (!profile[0].GENDER) { %>
+          <% if (!profile.GENDER) { %>
             <option value="none" selected disabled hidden>Not Set</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
-          <% } else if(profile[0].GENDER == 'M') { %>
+          <% } else if(profile.GENDER == 'M') { %>
             <option value="male">Male</option>
             <option value="female">Female</option>
           <% } else { %> 
