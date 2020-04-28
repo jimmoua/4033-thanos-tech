@@ -57,4 +57,12 @@ router.get('/viewappointmenthistory', (req, res) => {
   }
 })
 
+
+router.get('/messages', (req, res) => {
+  if(!req.session.user || req.session.user.type !== ACCOUNT.TUTOR) {
+    res.redirect('/');
+    return;
+  }
+  res.render('tutor/messages')
+})
 module.exports = router;
