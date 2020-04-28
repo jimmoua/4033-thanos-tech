@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(session({
   secret: 'foobar',
-  resave: false,
+  resave: true,
   saveUninitialized: false,
   store: require('./db_files/sessionStore'),
   rolling: true,
