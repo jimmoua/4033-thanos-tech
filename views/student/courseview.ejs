@@ -7,30 +7,51 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/main.css">
+  <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
   <title>Course View</title>
 </head>
 <body>
   <%- include("../partials/navbar-student") %> 
   <div class="main-block">
-    <span style="text-align: center;"><h2><%- course.FNAME %> <%- course.LNAME %></h2></span>
-    <span style="text-align: center;"><h3><%- course.COURSE_NAME %></h3></span>
-    <div style="text-align: center;">
-      <img src="/assets/defaultProfilePic.png" alt="profilepic" srcset="">
+    <div>
+      <span style="text-align: center;"><h2><%- course.FNAME %> <%- course.LNAME %></h2></span>
+      <span style="text-align: center;"><h3><%- course.COURSE_NAME %></h3></span>
+      <div style="text-align: center;">
+        <img src="/assets/defaultProfilePic.png" alt="profilepic" srcset="">
+      </div>
+      <br>
+      <div id="bio" style="text-align: center;">
+        <%- course.BIO %>
+      </div>
+      <br>
+      <div style="text-align: center;">
+        <button id="msgBtn" type="submit" onclick="toggleMsgBox()">Message</button>
+      </div>
     </div>
-    <br>
-    <div id="bio" style="text-align: center;">
-      <%- course.BIO %>
-    </div>
-    <br>
-    <form action="#" method="post" style="text-align: center;">
-      <button type="submit">Message</button>
+    <form action="" method="post">
+      <div id="msgBox" style="text-align: center;">
+        <textarea name="" id="" cols="30" rows="5" placeholder="Your message" style="resize: none;"></textarea>
+        <div>
+          <button type="button" id="cancelBtn" onclick="toggleMsgBox()">Cancel</button>
+          <button id="sendBtn">Send</button>
+        </div>
+      </div>
     </form>
   </div>
 </body>
 </html>
 
+<script>
+  $('#msgBox').hide(true);
+  function toggleMsgBox() {
+    $("#msgBox").toggle();
+    $("#msgBtn").toggle();
+  }
+</script>
+
 <style>
   a {
     text-decoration: none;
   }
+
 </style>
