@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/javascript/jquery.js"></script>
+  <title>Messages</title>
+</head>
+<body>
+  <%- include("../partials/navbar-tutor") %> 
+  <div class="main-block">
+    <div style="text-align: center;"><h2>Messages</h2></div>
+    <!-- * begin table div -->
+    <div class="data-table">
+      <table class="w3-table-all">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Student</th>
+          </tr>
+        </thead>
+        <% for(let i = 0; i < 25; i++) { %> 
+          <!-- TODO: data-href leads to conversaion (provide student id and perform table merge using said student id) -->
+          <tr data-href="#">
+            <td>student@email.edu</td>
+            <td>first last</td>
+          </tr>
+        <% } %> 
+      </table>
+    </div>
+    <!-- * end table div -->
+  </div>
+</body>
+</html>
+
+<script>
+  $('tr[data-href]').on("click", function() {
+    document.location = $(this).data('href');
+  });
+  $('tr[data-href]').hover(function() {
+    $(this).css('background-color', '#f05f40');
+    $(this).css('cursor', 'pointer');
+  }, function() {
+    $(this).css('background-color', '');
+  });
+</script>
+
+<style>
+  th {
+    font-size: large;
+  }
+</style>
