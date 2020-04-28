@@ -9,7 +9,7 @@ router.post('/:type', (req, res) => {
   const email = req.body.email;
   switch(req.params.type) {
     case ACCOUNT.STUDENT: {
-      db.query(`SELECT * FROM STUDENT WHERE EMAIL = '${email}';`, (err, results) => {
+      db.query(`SELECT * FROM STUDENT WHERE EMAIL = ?;`, [email], (err, results) => {
         if(err) throw err;
         if(results.length < 1) {
           res.send(`Auth error!`);
@@ -34,7 +34,7 @@ router.post('/:type', (req, res) => {
       break;
     }
     case ACCOUNT.PARENT: {
-      db.query(`SELECT * FROM PARENT WHERE EMAIL = '${email}';`, (err, results) => {
+      db.query(`SELECT * FROM PARENT WHERE EMAIL = ?;`, [email], (err, results) => {
         if(err) throw err;
         if(results.length < 1) {
           res.send(`Auth error: no matching`);
@@ -59,7 +59,7 @@ router.post('/:type', (req, res) => {
       break;
     }
     case ACCOUNT.TUTOR: {
-      db.query(`select * from TUTOR where EMAIL = '${email}'`, (err, t_results) => {
+      db.query(`select * from TUTOR where EMAIL = ?`, [email], (err, t_results) => {
         if(err) throw err;
         if(t_results.length == 0) {
           res.send(`Auth error!`);

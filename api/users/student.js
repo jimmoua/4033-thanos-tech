@@ -14,12 +14,12 @@ router.post('/setParentAccount', (req, res) => {
     }
     else {
       const pemail = req.body.pemail;
-      db.query(`select ACC_NO from PARENT where EMAIL = '${pemail}';`, (err, p_results) => {
+      db.query(`select ACC_NO from PARENT where EMAIL = ?;`, [pemail], (err, p_results) => {
         if(p_results.length == 0) {
           res.send(`The parent email doesn't exist`);
         }
         else {
-          db.query(`update STUDENT set PARENT_ACC_NO = '${p_results[0].ACC_NO}' where ACC_NO = '${req.session.user.acc_no}'`, (err, results) => {
+          db.query(`update STUDENT set PARENT_ACC_NO = ? where ACC_NO = ?`, [p_results[0].ACC_NO, req.session.user.acc_no], (err, results) => {
             if(err) {
               res.send(`${err}`);
               throw err;

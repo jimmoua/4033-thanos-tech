@@ -68,7 +68,7 @@ router.get('/editProfile', (req, res) => {
     res.redirect('/'); 
   }
   else {
-    db.query(`select FNAME, LNAME, BIO, GENDER, EMAIL from STUDENT EMAIL where ACC_NO = '${req.session.user.acc_no}'`, (err, results) => {
+    db.query(`select FNAME, LNAME, BIO, GENDER, EMAIL from STUDENT EMAIL where ACC_NO = ?`, [req.session.user.acc_no], (err, results) => {
       if(err) throw err;
       res.render(`student/editProfile`, {
         name: ({fname: results[0].FNAME, lname: results[0].LNAME}),
@@ -85,9 +85,9 @@ router.get('/setparrentacc', (req, res) => {
     res.redirect('/'); 
   }
   else {
-    db.query(`select * from STUDENT where ACC_NO = '${req.session.user.acc_no}'`, (err, s_results) => {
+    db.query(`select * from STUDENT where ACC_NO = ?`, [req.session.user.acc_no], (err, s_results) => {
       if(err) throw err;
-      db.query(`select * from PARENT where ACC_NO = '${s_results[0].PARENT_ACC_NO}'`, (err, p_results) => {
+      db.query(`select * from PARENT where ACC_NO = ?`, [s_results[0].PARENT_ACC_NO], (err, p_results) => {
         if(err) throw err;
         res.render('student/setParentAcc', {
           user: s_results[0].FNAME + " " + s_results[0].LNAME,

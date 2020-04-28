@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     switch(req.session.user.type) {
       case ACCOUNT.TUTOR: {
         // Render the tutor view
-        db.query(`select * from TUTOR where ACC_NO = '${req.session.user.acc_no}'`, (err, t_results) => {
+        db.query(`select * from TUTOR where ACC_NO = ?`, [req.session.user.acc_no], (err, t_results) => {
           if(err) throw err;
           res.render('tutor/homepage', {
             name: t_results[0].FNAME + " " + t_results[0].LNAME
@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
       }
       case ACCOUNT.STUDENT: {
         // Render the student view
-        db.query(`select * from STUDENT where ACC_NO = '${req.session.user.acc_no}'`, (err, results) => {
+        db.query(`select * from STUDENT where ACC_NO = ?`, [req.session.user.acc_no], (err, results) => {
           if(err) throw err;
           res.render('student/homepage', {
             name: results[0].FNAME + " " + results[0].LNAME

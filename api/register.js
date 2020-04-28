@@ -22,7 +22,7 @@ router.post('/:type', (req, res) => {
       bcrypt.genSalt(saltRounds, (err, salt) => {
         bcrypt.hash(pass1, salt, (err, hash) => {
           const accID = uuid();
-          db.query(`SELECT * FROM STUDENT WHERE EMAIL = '${email}'`, (err, results) => {
+          db.query(`SELECT * FROM STUDENT WHERE EMAIL = ?`, [email], (err, results) => {
             if(err) throw err;
             if(results.length > 0) {
               good = false;
@@ -58,7 +58,7 @@ router.post('/:type', (req, res) => {
                 if (err) throw err; 
                 console.log(results); 
               })
-              db.query(`SELECT * FROM TUTOR WHERE ACC_NO = '${accID}'`, (err, results) => {
+              db.query(`SELECT * FROM TUTOR WHERE ACC_NO = ?`, [accID], (err, results) => {
                 if (err) throw err; 
                 console.log(results); 
               })
@@ -80,7 +80,7 @@ router.post('/:type', (req, res) => {
         bcrypt.hash(pass1, salt, (err, hash) => {
           const accID = uuid();
           // * Check to see if email exists in the database already.
-          db.query(`SELECT * FROM PARENT WHERE EMAIL = '${email}'`, (err, results) => {
+          db.query(`SELECT * FROM PARENT WHERE EMAIL = ?`, [email], (err, results) => {
             if(err) throw err;
             // * If email exists, send them a page telling them
             if(results.length > 0) {
