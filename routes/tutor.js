@@ -63,6 +63,23 @@ router.get('/messages', (req, res) => {
     res.redirect('/');
     return;
   }
-  res.render('tutor/messages')
+  if(!req.query.view) {
+    db.query(`select MESSAGES.STUDENT, STUDENT.FNAME, STUDENT.LNAME, STUDENT.EMAIL FROM MESSAGES right outer join TUTOR on TUTOR.ACC_NO in(MESSAGES.TUTOR) right outer join STUDENT on STUDENT.ACC_NO in (MESSAGES.STUDENT) where MESSAGES.TUTOR = ? GROUP BY MESSAGES.STUDENT;`, [req.session.user.acc_no], (err, results) => {
+      if(err) {
+        res.json(err);
+        return;
+      }
+      res.render('tutor/messages', {
+        msg: results
+      })
+    })
+    return;
+  } else {
+    // * If there is a query to view a message id
+    if(req.query.view) {
+      // TODO: Send messages of student and tutor to EJS file.
+      res.send('not yet implemented!')
+    }
+  }
 })
 module.exports = router;

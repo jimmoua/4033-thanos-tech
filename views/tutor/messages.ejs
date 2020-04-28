@@ -24,11 +24,10 @@
             <th>Student</th>
           </tr>
         </thead>
-        <% for(let i = 0; i < 25; i++) { %> 
-          <!-- TODO: data-href leads to conversaion (provide student id and perform table merge using said student id) -->
-          <tr data-href="#">
-            <td>student@email.edu</td>
-            <td>first last</td>
+        <% for(let i = 0; i < msg.length; i++) { %> 
+          <tr data-href="/tutor/messages?view=<%- msg[i].STUDENT %>">
+            <td><%- msg[i].EMAIL %> </td>
+            <td><%- msg[i].FNAME %>  <%- msg[i].LNAME %> </td>
           </tr>
         <% } %> 
       </table>
