@@ -91,13 +91,8 @@ router.post('/sendMessage', (req, res) => {
           res.json(err)
           return;
         }
-        res.send('message sent!')
+        res.redirect(`/student/viewCourse?courseid=${results[0].COURSE_ID}&messageSent=true`);
       })
-      // res.json({
-      //   results: results[0],
-      //   msg: req.body.studentMessage,
-      //   date: new Date().getTime()/1000 // Time in seconds since Epoch
-      // })
     })
   }
 })
