@@ -37,4 +37,21 @@ router.post('/updateprofile', (req, res) => {
   }
 });
 
+router.post('/sendMessage', (req, res) => {
+  if(!req.session.user || req.session.user.type !== ACCOUNT.TUTOR) {
+    res.redirect('/');
+  }
+  if(req.query) {
+    const msg = req.body.tutorMessage;
+    const sid = req.query.sid;
+    db.query(`insert into MESSAGES values(?, ?, ?, ?, ?, ?)`, [uuid(), req.session.user.acc_no, sid, msg, new Date().getTime()/1000, req.session.user.type], (err) => {
+      if(err) {
+        res.json(err);
+        return;
+      }
+      res.redirect(`/tutor/messages?view=${sid}`)
+    })
+  }
+})
+
 module.exports = router;
