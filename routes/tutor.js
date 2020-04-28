@@ -39,12 +39,12 @@ router.get('/viewscheduledappointments', (req, res) => {
   }
 })
 
-router.get('/manageincome', (req, res) => {
+router.get('/income', (req, res) => {
   if(!req.session.user || req.session.user.type != ACCOUNT.TUTOR) {
     res.redirect('/'); 
   }
   else {
-    res.render('tutor/manageincome');
+    res.render('tutor/income');
   }
 })
 
