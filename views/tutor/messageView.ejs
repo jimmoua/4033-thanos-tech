@@ -12,6 +12,7 @@
   <title>Message View</title>
 </head>
 <body>
+  <%- include("../partials/navbar-tutor") %> 
   <div class="main-block">
     <div><h2>Messages with <%- msg[0].FNAME %> <%- msg[0].LNAME %></h2></div>
     <div class="data-table" id="of-div">
@@ -20,9 +21,9 @@
           <tr>
             <!-- * SENDER RIGHT/LEFT ALIGN -->
             <% if(msg[i].SENDER === "Student") { %>
-              <td style="text-align: left;"><p><%- msg[i].MESSAGE %></p></td>
+              <td style="text-align: left;"><p><b><%- msg[0].FNAME %> <%- msg[0].LNAME %></b>: <%- msg[i].MESSAGE %></p></td>
             <% } else { %> 
-              <td style="text-align: right;"><p><%- msg[i].MESSAGE %></p></td>
+              <td style="text-align: right;"><p><b>You</b>: <%- msg[i].MESSAGE %></p></td>
             <% } %> 
             <!-- * END SENDER RIGHT/LEFT ALIGN -->
           </tr>
