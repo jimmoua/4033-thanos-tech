@@ -3,9 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/javascript/jquery.js"></script>
+  <title>Scheduled Appointments</title>
 </head>
 <body>
-  <h1> Scheduled Appointments </h1>
+  <%- include('../partials/navbar-tutor') %> 
+  <div class="main-block">
+    <div><h2>Scheduled Appointments</h2></div>
+    <!-- * Table of appointments -->
+    <div style="overflow-y: auto; max-height: 500px;">
+      <!-- *  -->
+      <table class="w3-table-all">
+        <thead>
+          <tr>
+            <th>STATUS</th>
+            <th>COURSE</th>
+            <th>STUDENT</th>
+            <th>REQUESTED TIME</th>
+          </tr>
+        </thead>
+          <% for(let i = 0; i < 25; i++) { %> 
+            <!-- TODO: Clicking on an appointment will lead us to a page where it displays a detailed page of the appointment. -->
+            <!-- ! This is just some filler data until we implement a way to pull data from DB -->
+            <tr data-href="#">
+              <td>PENDING</td>
+              <td>math</td>
+              <td>student@atu.edu</td>
+              <td> 2020/05/13 12:45</td>
+            </tr>
+          <% } %> 
+      </table>
+      <!-- * End table of appointments -->
+    </div>
+  </div>
 </body>
 </html>
+
+<script>
+  $('tr[data-href]').on("click", function() {
+    document.location = $(this).data('href');
+  });
+  $('tr[data-href]').hover(function() {
+    $(this).css('background-color', '#f05f40');
+    $(this).css('cursor', 'pointer');
+  }, function() {
+    $(this).css('background-color', '');
+  });
+</script>
