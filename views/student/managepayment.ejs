@@ -9,11 +9,48 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/javascript/jquery.js"></script>
   </head>
   <body>
     <%- include("../partials/navbar-student") %> 
     <div class="main-block">
-      <h1><i class="fa fa-money"></i> Manage Payments
+      <h1><span class="fa fa-money"></span> Manage Payments</h1>
+
+      <div style="overflow-y: auto; max-height: 500px;">
+        <table class="w3-table-all">
+          <thead>
+            <tr>
+              <th>STATUS</th>
+              <th>PAY TO</th>
+            </tr>
+          </thead>
+          <% for( let index = 0; index < 25; index++ ) { %>
+            <tr data-href="">
+              <td>NOT PAYED</td>
+              <td>foobar@email.com</td>
+            </tr>
+          <% } %>
+        </table>
+      </div>
+
     </div>
   </body>
 </html>
+
+<script>
+  $('tr[data-href]').on("click", function() {
+    document.location = $(this).data('href');
+  });
+  $('tr[data-href]').hover(function() {
+    $(this).css('background-color', '#f05f40');
+    $(this).css('cursor', 'pointer');
+  }, function() {
+    $(this).css('background-color', '');
+  });
+</script>
+
+<style>
+  th {
+    font-size: large;
+  }
+</style>
