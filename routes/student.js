@@ -125,7 +125,7 @@ router.get('/messages', (req, res) => {
   }
   if(req.query.view) {
     const t_id = req.query.view;
-    db.query(`select MESSAGES.* , TUTOR.FNAME as TFNAME, TUTOR.LNAME as TLNAME, TUTOR.EMAIL AS TEMAIL, STUDENT.FNAME SFNAME, STUDENT.LNAME as SLNAME, STUDENT.EMAIL AS SEMAIL from MESSAGES right outer join TUTOR on MESSAGES.TUTOR = TUTOR.ACC_NO right outer join STUDENT on MESSAGES.STUDENT = STUDENT.ACC_NO where  MESSAGES.STUDENT = ? and MESSAGES.TUTOR = ? ORDER BY MESSAGES.TIME DESC;`, [req.session.user.acc_no, req.query.view], (err, results) => {
+    db.query(`select MESSAGES.* , TUTOR.FNAME as TFNAME, TUTOR.LNAME as TLNAME, TUTOR.EMAIL AS TEMAIL, STUDENT.FNAME SFNAME, STUDENT.LNAME as SLNAME, STUDENT.EMAIL AS SEMAIL from MESSAGES right outer join TUTOR on MESSAGES.TUTOR = TUTOR.ACC_NO right outer join STUDENT on MESSAGES.STUDENT = STUDENT.ACC_NO where  MESSAGES.STUDENT = ? and MESSAGES.TUTOR = ? ORDER BY MESSAGES.TIME ASC;`, [req.session.user.acc_no, req.query.view], (err, results) => {
       if(results.length == 0) {
         res.status(404).send(`<h1>404 Not Found</h1>`);
         return;
