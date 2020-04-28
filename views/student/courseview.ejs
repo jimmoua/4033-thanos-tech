@@ -12,8 +12,24 @@
   <title>Course View</title>
 </head>
 <body>
-  <%- include("../partials/navbar-student") %> 
+  <%- include("../partials/navbar-student.ejs") %> 
   <div class="main-block">
+    <!-- * MESSAGE SENT -->
+    <div id="msgSentAlert" onclick="msgSentAlertClose()">
+      <div class="w3-panel w3-green"">
+        <h3>Success!</h3>
+        <p>Message was sent!</p>
+      </div>
+    </div> 
+     
+    <!-- * APPOINTMENT REQUESTED -->
+    <div id="appReq" onclick="appReqClose()">
+      <div class="w3-panel w3-green"">
+        <h3>You have requested a tutor session!</h3>
+        <p>There is where you wait for <%- course.FNAME %> <%- course.LNAME %>'s reponse!</p>
+        <br>
+      </div>
+    </div> 
     <div>
       <span style="text-align: center;"><h2><%- course.FNAME %> <%- course.LNAME %></h2></span>
       <span style="text-align: center;"><h3><%- course.COURSE_NAME %></h3></span>
@@ -46,18 +62,35 @@
 
 <script>
   $('#msgBox').hide(true);
+  $('#msgSentAlert').hide(true);
+  $('#appReq').hide(true)
   function toggleMsgBox() {
     $("#msgBox").toggle();
     $("#msgBtn").toggle();
   }
   if(getUrlVars().messageSent) {
-    alert('Message Sent!')
+    $('#msgSentAlert').show(true);
+  }
+  if(getUrlVars().appReq) {
+    $('#appReq').show(true);
+  }
+  function msgSentAlertClose() {
+    $('#msgSentAlert').hide(true);
+  }
+
+  function appReqClose() {
+    $('#appReq').hide(true)
   }
 </script>
 
 <style>
+
   a {
     text-decoration: none;
+  }
+
+  html, body {
+    display: flow-root;
   }
 
 </style>
