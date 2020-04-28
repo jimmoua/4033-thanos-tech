@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/javascript/jquery.js"></script>
+  <script src="/javascript/main.js"></script>
+  <title>Message View</title>
+</head>
+<body>
+  <%- include("../partials/navbar-student") %> 
+  <div class="main-block">
+    <div style="text-align: center;">
+      <h2>Messages with <%- msg[0].TFNAME %> <%- msg[0].TLNAME %> </h2>
+    </div>
+    <div>
+      <div id="of-div" style="overflow-y:auto; max-height: 200px;">
+        <table class="w3-table-all">
+          <% for( let i = 0; i < msg.length; i++ ) { %>
+            <tr>
+              <!-- * SENDER RIGHT/LEFT ALIGN -->
+              <% if(msg[i].SENDER === "Student") { %>
+                <td style="text-align: right;"><p><%- msg[i].MESSAGE %></p></td>
+              <% } else { %> 
+                <td style="text-align: left;"><p><%- msg[i].MESSAGE %></p></td>
+              <% } %> 
+              <!-- * END SENDER RIGHT/LEFT ALIGN -->
+            </tr>
+          <% } %>
+        </table>
+      </div>
+      <br>
+      <div style="text-align: right;">
+        <form id="sendMessageForm" action="" method="post">
+         <input type="text" name="studentMessage" id="">
+         <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+  $('tr[data-href]').on("click", function() {
+    document.location = $(this).data('href');
+  });
+  $('tr[data-href]').hover(function() {
+    $(this).css('background-color', '#f05f40');
+    $(this).css('cursor', 'pointer');
+  }, function() {
+    $(this).css('background-color', '');
+  });
+  $('#sendMessageForm').attr('action', `/api/users/student/sendMessage?view=${getUrlVars().view}`)
+  $('#of-div').scrollTop($(document).height())
+</script>
+
+<style>
+  th {
+    font-size: large;
+  }
+</style>
