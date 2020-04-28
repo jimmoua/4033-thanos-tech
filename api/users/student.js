@@ -67,7 +67,6 @@ router.post('/search', (req, res) => {
     for(var i = 1; i < course.length; i++) {
       searchTerm+='+'+course[i];
     }
-    searchTerm = searchTerm.replace(/[^a-z0-9+]+/gi, ' ');
     res.redirect(`/student/search?courses=${searchTerm}`)
   }
 })

@@ -11,6 +11,7 @@ router.get('/search', (req, res) => {
     if(req.query.courses) {
       let course = req.query.courses.toString().toLowerCase().split('+')
       let searchTerm = course[0];
+      searchTerm = searchTerm.replace(/[^a-z0-9+]+/gi, ' ');
       searchTerm = searchTerm.split(' ').filter(e => {
         return e !== ''
       });
@@ -18,8 +19,6 @@ router.get('/search', (req, res) => {
       for(var i = 1; i < searchTerm.length; i++) {
         queryTerm+='|'+searchTerm[i];
       }
-      console.log(searchTerm)
-      console.log(queryTerm)
       let q_string = `SELECT COURSES.COURSE_ID, COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL, TUTOR.BIO FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_NAME REGEXP ?`;
       db.query(q_string, [queryTerm], (err, results) => {
         if(err) throw err;
