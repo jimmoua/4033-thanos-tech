@@ -74,3 +74,14 @@ a {
 a:hover{
   background-color: #f05f40;
 }
+
+.data-table {
+  min-width: 500px;
+  max-width: 500px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+th {
+  font-size: large;
+}
