@@ -114,4 +114,12 @@ router.get('/viewCourse', (req, res) => {
   }
 })
 
+router.get('/messages', (req, res) => {
+  if(!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
+    res.redirect('/');
+    return;
+  }
+  res.render('student/messages')
+})
+
 module.exports = router;
