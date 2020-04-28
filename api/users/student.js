@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ACCOUNT = require('../../misc/accountTypes');
 const db = require('../../db_files/db');
+const {v4: uuid} = require('uuid')
 
 router.post('/setParentAccount', (req, res) => {
   if (!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
@@ -72,12 +73,31 @@ router.post('/search', (req, res) => {
 })
 
 router.post('/sendMessage', (req, res) => {
+  if(!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
+    res.redirect('/');
+    return;
+  }
   if(!req.query.cid) {
     res.status(500).send();
   } else {
     const cid = req.query.cid;
+    if(!req.body.studentMessage) {
+      res.status(400).send('<h1>400 Bad Request</h1>')
+      return;
+    }
     db.query(`SELECT TUTOR.ACC_NO, COURSES.COURSE_ID, COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_ID = ?`, [cid], (err, results) => {
-      res.json(results[0]);
+      db.query(`insert into MESSAGES values (?, ?, ?, ?, ?, ?)`, [uuid(), results[0].ACC_NO, req.session.user.acc_no, req.body.studentMessage, new Date().getTime()/1000, req.session.user.type], (err) => {
+        if(err) {
+          res.json(err)
+          return;
+        }
+        res.send('message sent!')
+      })
+      // res.json({
+      //   results: results[0],
+      //   msg: req.body.studentMessage,
+      //   date: new Date().getTime()/1000 // Time in seconds since Epoch
+      // })
     })
   }
 })
