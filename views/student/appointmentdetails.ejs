@@ -48,7 +48,7 @@
       <br>
       <div>
         <% if(apt.STATUS === "PENDING") { %> 
-          <form action="/api/users/student/cancelappointment?aptid=<%- apt.APPOINTMENT_ID %>">
+          <form action="/api/users/student/cancelappointment?aptid=<%- apt.APPOINTMENT_ID %>" method="POST">
             <button>Cancel Appointment</button>
           </form>
         <% } %> 

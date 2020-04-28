@@ -118,4 +118,18 @@ router.post('/scheduleappointment', (req, res) => {
   })
 })
 
+router.post('/cancelappointment', (req, res) => {
+  if(!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
+    res.redirect('/');
+    return;
+  }
+  db.query(`delete from APPOINTMENTS where APPOINTMENT_ID = ?`, [req.query.aptid], (err) => {
+    if(err) {
+      res.json(err);
+      return;
+    }
+    res.redirect('/student/scheduledappointments');
+  })
+})
+
 module.exports = router;
