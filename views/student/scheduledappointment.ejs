@@ -27,7 +27,7 @@
             </tr>
           </thead>
           <% for( let i = 0; i < apts.length; i++ ) { %>
-            <tr data-href="/student/appointmentdetils?aptid=<%- apts[i].APPOINTMENT_ID %>">
+            <tr data-href="/student/appointmentdetails?aptid=<%- apts[i].APPOINTMENT_ID %>">
               <td id="status" name="status"><%- apts[i].STATUS %> </td>
               <td id="course" name="course"><%- apts[i].COURSE_NAME %></td>
               <td id="tutor" name="tutor"><%- apts[i].EMAIL %> </td>

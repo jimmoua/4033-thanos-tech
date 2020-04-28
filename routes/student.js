@@ -126,4 +126,16 @@ router.get('/messages', (req, res) => {
   res.render('student/messages')
 })
 
+router.get('/appointmentdetails', (req, res) => {
+  if(!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
+    res.redirect('/');
+    return;
+  }
+  const foo = {
+    a: req.body,
+    b: req.query
+  }
+  res.json(foo);
+})
+
 module.exports = router;
