@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/javascript/jquery.js"></script>
+  <title>Message View</title>
+</head>
+<body>
+  <div class="main-block">
+    <div><h2>Messages with <%- msg[0].FNAME %> <%- msg[0].LNAME %></h2></div>
+    <div class="data-table" id="of-div">
+      <table class="w3-table-all">
+        <% for( let i = 0; i < msg.length; i++ ) { %>
+          <tr>
+            <!-- * SENDER RIGHT/LEFT ALIGN -->
+            <% if(msg[i].SENDER === "Student") { %>
+              <td style="text-align: left;"><p><%- msg[i].MESSAGE %></p></td>
+            <% } else { %> 
+              <td style="text-align: right;"><p><%- msg[i].MESSAGE %></p></td>
+            <% } %> 
+            <!-- * END SENDER RIGHT/LEFT ALIGN -->
+          </tr>
+        <% } %>
+      </table>
+    </div>
+    <br>
+    <div style="text-align: right;">
+      <form id="sendMessageForm" action="/api/users/tutor/sendMessage?sid=<%- msg[0].STUDENT %>" method="post">
+        <input type="text" name="studentMessage" id="">
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+  $('#of-div').scrollTop($(document).height())
+</script>
