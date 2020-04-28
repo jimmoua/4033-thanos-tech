@@ -123,7 +123,15 @@ router.get('/messages', (req, res) => {
     res.redirect('/');
     return;
   }
-  res.render('student/messages')
+  db.query(`select MESSAGES.TUTOR, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL from MESSAGES right outer join TUTOR on MESSAGES.TUTOR = TUTOR.ACC_NO where MESSAGES.STUDENT = ? group by MESSAGES.TUTOR;`, [req.session.user.acc_no], (err, results) => {
+    if(err) {
+      res.json(err);
+      return;
+    }
+    res.render('student/messages', {
+      msg: results
+    })
+  })
 })
 router.get('/appointmentdetails', (req, res) => {
   if(!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {

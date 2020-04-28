@@ -22,14 +22,12 @@
             <tr>
               <th>Email</th>
               <th>Tutor</th>
-              <th>Latest Message</th>
             </tr>
           </thead>
-          <% for( let index = 0; index < 25; index++ ) { %>
-            <tr data-href="">
-              <td id="tutoremail" name="tutoremail">tutor@email.com</td>
-              <td id="tutorname" name="tutorname">TUTOR NAME</td>
-              <td id="latestmsg" name="latestmsg">LATEST MESSAGE</td>
+          <% for( let i = 0; i < msg.length; i++ ) { %>
+            <tr data-href="/student/messages?view=<%- msg[i].TUTOR %> ">
+              <td id="tutoremail" name="tutoremail"><%- msg[i].EMAIL %> </td>
+              <td id="tutorname" name="tutorname"><%- msg[i].FNAME %> <%- msg[i].LNAME %></td>
             </tr>
           <% } %>
         </table>
