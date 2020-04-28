@@ -125,17 +125,22 @@ router.get('/messages', (req, res) => {
   }
   res.render('student/messages')
 })
-
 router.get('/appointmentdetails', (req, res) => {
   if(!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
     res.redirect('/');
     return;
   }
-  const foo = {
-    a: req.body,
-    b: req.query
-  }
-  res.json(foo);
+  db.query(`select TUTOR.FNAME, TUTOR.LNAME, APPOINTMENTS.APPOINTMENT_ID, APPOINTMENTS.STATUS, COURSES.COURSE_NAME, TUTOR.EMAIL, APPOINTMENTS.COURSE, APPOINTMENTS.APPOINTMENT_DATE, APPOINTMENTS.APPOINTMENT_TIME FROM APPOINTMENTS right outer join COURSES on APPOINTMENTS.COURSE = COURSES.COURSE_ID right outer join TUTOR on APPOINTMENTS.TUTOR_ID = TUTOR.ACC_NO where APPOINTMENTS.APPOINTMENT_ID = ?`, [req.query.aptid], async (err, result) => {
+    if(result.length == 0) {
+      res.status(404).send(`
+      <center><h1>404 Not Found</h1></center>
+      `)
+      return;
+    }
+    res.render('student/appointmentdetails', {
+      apt: result[0]
+    });
+  })
 })
 
 module.exports = router;

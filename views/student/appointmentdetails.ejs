@@ -3,8 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/javascript/jquery.js"></script>
+  <title>Appointment Details</title>
 </head>
 <body>
+  <%- include("../partials/navbar-student") %> 
+  <div class="main-block" style="min-width: 500px;">
+    <div style="text-align: center;">
+      <h2>Appointment Details</h2>
+      <!-- * TABLE -->
+      <table style="width:100%" class="w3-table-all">
+        <tr>
+          <th>Appointment ID:</th>
+          <td><%- apt.APPOINTMENT_ID %></td>
+        </tr>
+        <tr>
+          <th>Status:</th>
+          <td><%- apt.STATUS %> </td>
+        </tr>
+        <tr>
+          <th>Course Name:</th>
+          <td><%- apt.COURSE_NAME %> </td>
+        </tr>
+        <tr>
+          <th>Tutor Name</th>
+          <td><%- apt.FNAME %> <%- apt.LNAME %></td>
+        </tr>
+        <tr>
+          <th>Tutor Email</th>
+          <td><%- apt.EMAIL %> </td>
+        </tr>
+        <tr>
+          <th>Time</th>
+          <td><%- apt.APPOINTMENT_DATE %> <%- apt.APPOINTMENT_TIME %> </td>
+        </tr>
+      </table>
+      <!-- * END TABLE -->
+      <!-- * BTN -->
+      <br>
+      <div>
+        <% if(apt.STATUS === "PENDING") { %> 
+          <form action="/api/users/student/cancelappointment?aptid=<%- apt.APPOINTMENT_ID %>">
+            <button>Cancel Appointment</button>
+          </form>
+        <% } %> 
+      </div>
+    </div>
+  </div>
 </body>
 </html>
+
+<style>
+</style>
