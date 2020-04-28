@@ -71,4 +71,15 @@ router.post('/search', (req, res) => {
   }
 })
 
+router.post('/sendMessage', (req, res) => {
+  if(!req.query.cid) {
+    res.status(500).send();
+  } else {
+    const cid = req.query.cid;
+    db.query(`SELECT TUTOR.ACC_NO, COURSES.COURSE_ID, COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_ID = ?`, [cid], (err, results) => {
+      res.json(results[0]);
+    })
+  }
+})
+
 module.exports = router;

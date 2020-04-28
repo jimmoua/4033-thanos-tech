@@ -28,10 +28,11 @@
         <button id="msgBtn" type="submit" onclick="toggleMsgBox()">Message</button>
       </div>
     </div>
-    <form action="" method="post">
+    <form action="/api/users/student/sendMessage?cid=<%- course.COURSE_ID %>" method="post">
       <div id="msgBox" style="text-align: center;">
-        <textarea name="" id="" cols="30" rows="5" placeholder="Your message" style="resize: none;"></textarea>
+        <textarea name="studentMessage" id="" cols="30" rows="5" placeholder="Your message" style="resize: none;" required minlength="6"></textarea>
         <div>
+          <br>
           <button type="button" id="cancelBtn" onclick="toggleMsgBox()">Cancel</button>
           <button id="sendBtn">Send</button>
         </div>
