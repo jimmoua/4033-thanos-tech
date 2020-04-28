@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Income</title>
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/javascript/jquery.js"></script>
+</head>
+<body>
+  <%- include('../partials/navbar-tutor') %> 
+  <div class="main-block">
+    <div><h2 style="text-align: center;">Payments</h2></div>
+    <div class="data-table">
+      <table class="w3-table-all">
+        <thead>
+          <th>Status</th>
+          <th>Amount</th>
+          <th>Transaction ID</th>
+          <th>From</th>
+        </thead>
+        <!-- TODO: needs data from a table passed into EJS -->
+        <% for(let i = 0; i < 25; i++) { %> 
+          <tr data-href="#">
+            <td>PENDING</td>
+            <td style="text-align: right;">420.69</td>
+            <td>ae2c93-d4c2e93-fe34d9</td>
+            <td>student@email.edu</td>
+          </tr>
+        <% } %> 
+      </table>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+  $('tr[data-href]').on("click", function() {
+    document.location = $(this).data('href');
+  });
+  $('tr[data-href]').hover(function() {
+    $(this).css('background-color', '#f05f40');
+    $(this).css('cursor', 'pointer');
+  }, function() {
+    $(this).css('background-color', '');
+  });
+</script>
