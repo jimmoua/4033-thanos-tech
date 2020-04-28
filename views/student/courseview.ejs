@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/main.css">
+  <script src="/javascript/main.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
   <title>Course View</title>
 </head>
@@ -16,6 +17,7 @@
     <div>
       <span style="text-align: center;"><h2><%- course.FNAME %> <%- course.LNAME %></h2></span>
       <span style="text-align: center;"><h3><%- course.COURSE_NAME %></h3></span>
+      <span style="text-align: center;"><h4><%- course.EMAIL %></h4></span>
       <div style="text-align: center;">
         <img src="/assets/defaultProfilePic.png" alt="profilepic" srcset="">
       </div>
@@ -47,6 +49,9 @@
   function toggleMsgBox() {
     $("#msgBox").toggle();
     $("#msgBtn").toggle();
+  }
+  if(getUrlVars().messageSent) {
+    alert('Message Sent!')
   }
 </script>
 
