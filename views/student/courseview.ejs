@@ -13,7 +13,7 @@
 </head>
 <body>
   <%- include("../partials/navbar-student.ejs") %> 
-  <div class="main-block">
+  <div class="main-block" style="min-width: 500px;">
     <!-- * MESSAGE SENT -->
     <div id="msgSentAlert" onclick="msgSentAlertClose()">
       <div class="w3-panel w3-green"">
@@ -43,9 +43,15 @@
       </div>
       <br>
       <div style="text-align: center;">
-        <button id="msgBtn" type="submit" onclick="toggleMsgBox()">Message</button>
+        <span>
+          <button id="msgBtn" type="button" onclick="toggleMsgBox()">Message</button>
+        </span>
+        <span>
+          <button id="appReqBtn" type="button" onclick="toggleAptBox()">Schedule Session</button>
+        </span>
       </div>
     </div>
+    <!-- * Send message form -->
     <form action="/api/users/student/sendMessage?cid=<%- course.COURSE_ID %>" method="post">
       <div id="msgBox" style="text-align: center;">
         <textarea name="studentMessage" id="" cols="30" rows="5" placeholder="Your message" style="resize: none;" required minlength="6"></textarea>
@@ -56,6 +62,21 @@
         </div>
       </div>
     </form>
+    <!-- * end msg form -->
+    <!-- * Appointment Form -->
+    <form action="/api/users/student/scheduleappointment?cid=<%- course.COURSE_ID %>" method="POST" id="appointmentForm">
+      <div style="text-align: center;">
+        <input type="date" name="appointmentdate" id="appointmentdate" required>
+        <input type="time" name="appointmenttime" id="appointmenttime" required value="06:00">
+        <br>
+        <br>
+        <div>
+          <button id="appCancel" type="button" onclick="toggleAptBox()">Cancel</button>
+          <button id="appSbmtBtn" type="submit">Request</button>
+        </div>
+      </div>
+    </form>
+    <!-- * end appointment form -->
   </div>
 </body>
 </html>
@@ -63,10 +84,12 @@
 <script>
   $('#msgBox').hide(true);
   $('#msgSentAlert').hide(true);
-  $('#appReq').hide(true)
+  $('#appReq').hide(true);
+  $('#appointmentForm').hide(true);
   function toggleMsgBox() {
     $("#msgBox").toggle();
     $("#msgBtn").toggle();
+    $('#appReqBtn').toggle();
   }
   if(getUrlVars().messageSent) {
     $('#msgSentAlert').show(true);
@@ -81,16 +104,18 @@
   function appReqClose() {
     $('#appReq').hide(true)
   }
+
+  function toggleAptBox() {
+    $('#appointmentForm').toggle();
+    $('#appReqBtn').toggle();
+    $('#msgBtn').toggle();
+  }
 </script>
 
 <style>
 
   a {
     text-decoration: none;
-  }
-
-  html, body {
-    display: flow-root;
   }
 
 </style>
