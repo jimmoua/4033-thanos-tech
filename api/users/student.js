@@ -96,4 +96,26 @@ router.post('/sendMessage', (req, res) => {
   }
 })
 
+router.post('/scheduleappointment', (req, res) => {
+  if(!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
+    res.redirect('/');
+    return;
+  }
+  const data = {
+    date: req.body.appointmentdate,
+    time: req.body.appointmenttime,
+    cid: req.query.cid,
+  }
+  db.query(`select ACC_NO from COURSES where COURSE_ID = ?`, [data.cid], (err, tutor) => {
+    const acc_no = tutor[0].ACC_NO;
+    db.query(`insert into APPOINTMENTS values (?, ?, ?, ?, ?, ?, ?)`, [uuid(), 'PENDING', data.cid, acc_no, req.session.user.acc_no, data.date, data.time], (err) => {
+      if(err) {
+        res.json(err);
+        return;
+      }
+      res.redirect(`/student/viewCourse?courseid=${data.cid}&appReq=true`)
+    })
+  })
+})
+
 module.exports = router;
