@@ -26,12 +26,12 @@
               <th>APPOINTMENT TIME</th>
             </tr>
           </thead>
-          <% for( let index = 0; index < 25; index++ ) { %>
-            <tr data-href="">
-              <td id="status" name="status" style="color: orange">PENDING</td>
-              <td id="course" name="course">COMS 4033</td>
-              <td id="tutor" name="tutor">Foo Bar</td>
-              <td id="date" name="date">1/23/4567</td>
+          <% for( let i = 0; i < apts.length; i++ ) { %>
+            <tr data-href="/student/appointmentdetils?aptid=<%- apts[i].APPOINTMENT_ID %>">
+              <td id="status" name="status"><%- apts[i].STATUS %> </td>
+              <td id="course" name="course"><%- apts[i].COURSE_NAME %></td>
+              <td id="tutor" name="tutor"><%- apts[i].EMAIL %> </td>
+              <td id="date" name="date"><%- apts[i].APPOINTMENT_TIME %> <%- apts[i].APPOINTMENT_DATE %> </td>
             </tr>
           <% } %>
         </table>

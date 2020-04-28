@@ -37,7 +37,11 @@ router.get('/scheduledappointments', (req, res) => {
     res.redirect('/'); 
   }
   else {
-    res.render('student/scheduledappointment')
+    db.query(`select APPOINTMENTS.APPOINTMENT_ID, APPOINTMENTS.STATUS, COURSES.COURSE_NAME, TUTOR.EMAIL, APPOINTMENTS.COURSE, APPOINTMENTS.APPOINTMENT_DATE, APPOINTMENTS.APPOINTMENT_TIME FROM APPOINTMENTS right outer join COURSES on APPOINTMENTS.COURSE = COURSES.COURSE_ID right outer join TUTOR on APPOINTMENTS.TUTOR_ID = TUTOR.ACC_NO where APPOINTMENTS.STUDENT_ID = ?;`, [req.session.user.acc_no], (err, results) => {
+      res.render('student/scheduledappointment', {
+        apts: results
+      })
+    })
   }
 });
 
