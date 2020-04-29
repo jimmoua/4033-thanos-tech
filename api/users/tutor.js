@@ -64,7 +64,7 @@ router.post('/accept', (req, res) => {
     const amt = req.body.amount;
     // Check for amount. We have a check implemented where it has to be [0, inf], but client can always
     // modify the HTML attributes. In that case, send a 400.
-    if(!amt || amt < 0) {
+    if(!amt || amt < 0 || isNaN(amt)) {
       res.status(400).sendFile(path.resolve('public/html/400.html'))
       return;
     }
@@ -72,18 +72,43 @@ router.post('/accept', (req, res) => {
     db.query(`select * from APPOINTMENTS where APPOINTMENT_ID = ?`, [req.query.aptid], (err, apt_details) => {
       if(err) {
         res.json(err);
-        return;
+        return false;
       }
       // If the appointment tutor ID isn't the same as the session account number ID,
       // someone is trying to spoof. In this case, send them a 400 page.
       if(apt_details[0].TUTOR_ID != req.session.user.acc_no) {
         res.status(400).sendFile(path.resolve('public/html/400.html'));
-        return;
+        return false;
       }
-    })
-    db.query(`UPDATE APPOINTMENTS SET STATUS = 'ACCEPTED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err, results) => {
-      if(err) throw err; 
-      res.redirect(`/tutor/viewscheduledappointments?aptid=${req.query.aptid}&updated=true`);
+
+      // Update the appointments and set the status to true
+      db.query(`UPDATE APPOINTMENTS SET STATUS = 'ACCEPTED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err, results) => {
+        if(err) {
+          res.status(500).json(err);
+        }
+        return;
+      })
+
+      // Run another query to create a transaction with the amount
+      db.query(`select TUTOR_ID, STUDENT_ID from APPOINTMENTS where APPOINTMENT_ID = ?`, [req.query.aptid], (err, results) => {
+        if(err) {
+          res.status(500).json(err)
+          return;
+        }
+        const apt = results[0];
+        db.query(`insert into TRANSACTIONS values (?, ?, ?, ?, ?, ?)`, [uuid(), req.query.aptid, req.session.user.acc_no, apt.STUDENT_ID, 'NOT PAID', amt], (err) => {
+          if(err) {
+            const foo = {
+              err,
+              studentid: apt.STUDENT_ID,
+              tutorid: apt.TUTOR_ID
+            }
+            res.status(500).json(foo);
+            return;
+          }
+          res.redirect(`/tutor/viewscheduledappointments?aptid=${req.query.aptid}&updated=true`);
+        })
+      })
     })
   }
 });
