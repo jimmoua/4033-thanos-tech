@@ -23,8 +23,8 @@
           <th>Status:</th>
           <% if (apt.STATUS == 'PENDING') { %>
             <td style="color: orange;">PENDING</td>
-          <% } else if(apt.STATUS == 'DENIED') {%>
-            <td style="color: red;">DENIED</td>
+          <% } else if(apt.STATUS == 'REJECTED') {%>
+            <td style="color: red;">REJECTED</td>
           <% } else if(apt.STATUS == 'ACCEPTED') {%>
             <td style="color: green;">ACCEPTED</td>
           <% } else {%>

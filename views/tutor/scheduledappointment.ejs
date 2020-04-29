@@ -33,8 +33,8 @@
             <tr data-href="/tutor/viewscheduledappointments?aptid=<%- apmt[i].ID %>">
               <% if (apmt[i].STATUS == 'PENDING') { %>
                 <td style="color: orange;">PENDING</td>
-              <% } else if(apmt[i].STATUS == 'DENIED') {%>
-                <td style="color: red;">DENIED</td>
+              <% } else if(apmt[i].STATUS == 'REJECTED') {%>
+                <td style="color: red;">REJECTED</td>
               <% } else if(apmt[i].STATUS == 'ACCEPTED') {%>
                 <td style="color: green;">ACCEPTED</td>
               <% } else {%>
