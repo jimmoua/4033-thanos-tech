@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/javascript/jquery.js"></script>
+  <title>Homepage</title>
+</head>
+<body>
+  <%- include('../partials/navbar-parent') %> 
+  <div class="main-block">
+    <h2 style="text-align: center;">Hello, <%- p.FNAME %> <%- p.LNAME %> </h2>
+      <h3><a href="/parent/scheduledappointments"><span class="fa fa-calendar"></span> &nbspView children appointments </a></h3>
+      <h3><a href="/parent/managepayments"><span class="fa fa-money"></span> &nbspPay tutor session </a></h3>
+      <h3><a href="/parent/appointmenthistory"><span class="fa fa-history"></span> &nbsp View Appointment History </a></h3>
+      <h3><a href="/parent/editprofile"><span class="fa fa-user"></span><span style="text-align: right;"> &nbsp &nbspEdit Profile</span></a></h3>
+  </div>
+</body>
+</html>

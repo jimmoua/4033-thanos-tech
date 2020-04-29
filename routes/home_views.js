@@ -24,7 +24,15 @@ router.get('/', (req, res) => {
       }
       case ACCOUNT.PARENT: {
         // Render the parent view
-        res.send(`You're logged in as a ${ACCOUNT.PARENT}`)
+        db.query(`select FNAME, LNAME from PARENT where ACC_NO = ?`, [req.session.user.acc_no], (err, results) => {
+          if(err) {
+            res.json(err);
+            return;
+          }
+          res.render('parent/homepage', {
+            p: results[0]
+          })
+        })
         break;
       }
       case ACCOUNT.STUDENT: {
