@@ -46,11 +46,11 @@
         <td><%- apt.TEMAIL %> </td>
       </tr>
       <tr>
-        <th>Child Name</th>
+        <th>Student Name</th>
         <td><%- apt.FNAME %> <%- apt.LNAME %></td>
       </tr>
       <tr>
-        <th>Child Email</th>
+        <th>Student Email</th>
         <td><%- apt.EMAIL %></td>
       </tr>
       <tr>
@@ -65,6 +65,14 @@
     <!-- * END TABLE -->
     <br>
     <% if (apt.STATUS == 'PENDING') { %>
+      <form id="accept" action="/api/users/tutor/accept?aptid=<%- apt.ID %>" method="post">
+        <center>
+          <div>
+            <span class="fa fa-dollar" style="padding: 10px;"></span><input type="number" name="amount" id="" required min="0.00" step="0.50" style="text-align: right; max-width: 100px;">
+          </div>
+        </center>
+      </form>
+      <br>
       <form style="position: relative;" action="/api/users/tutor/reject?aptid=<%- apt.ID %>" method="post">
         <div style="text-align: center;">
           <span>
@@ -77,8 +85,6 @@
         </div>
       </form>
       <br>
-      <form id="accept" action="/api/users/tutor/accept?aptid=<%- apt.ID %>" method="post">
-      </form>
     <% } %>
    </div>
 </body>
