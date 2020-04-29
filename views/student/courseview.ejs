@@ -67,9 +67,14 @@
     <!-- * Appointment Form -->
     <form action="/api/users/student/scheduleappointment?cid=<%- course.COURSE_ID %>" method="POST" id="appointmentForm">
       <div style="text-align: center;">
-        <input type="date" name="appointmentdate" id="appointmentdate" required>
-        <input type="time" name="appointmenttime" id="appointmenttime" required value="06:00">
+        <div>
+          <input type="date" name="appointmentdate" id="appointmentdate" required>
+          <input type="time" name="appointmenttime" id="appointmenttime" required value="06:00">
+        </div>
         <br>
+        <div>
+          <input type="text" name="place" placeholder="describe meeting location" style="min-width: auto;" required>
+        </div>
         <br>
         <div>
           <button id="appCancel" type="button" onclick="toggleAptBox()">Cancel</button>

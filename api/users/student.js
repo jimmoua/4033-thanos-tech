@@ -3,6 +3,7 @@ const router = express.Router();
 const ACCOUNT = require('../../misc/accountTypes');
 const db = require('../../db_files/db');
 const {v4: uuid} = require('uuid')
+const path = require('path');
 
 router.post('/setParentAccount', (req, res) => {
   if (!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
@@ -116,10 +117,15 @@ router.post('/scheduleappointment', (req, res) => {
     date: req.body.appointmentdate,
     time: req.body.appointmenttime,
     cid: req.query.cid,
+    place: req.body.place ? req.body.place : null
+  }
+  if(!data.place) {
+    res.status(400).sendFile(path.resolve('public/html/400.html'));
+    return;
   }
   db.query(`select ACC_NO from COURSES where COURSE_ID = ?`, [data.cid], (err, tutor) => {
     const acc_no = tutor[0].ACC_NO;
-    db.query(`insert into APPOINTMENTS values (?, ?, ?, ?, ?, ?, ?, NULL)`, [uuid(), 'PENDING', data.cid, acc_no, req.session.user.acc_no, data.date, data.time], (err) => {
+    db.query(`insert into APPOINTMENTS values (?, ?, ?, ?, ?, ?, ?, ?)`, [uuid(), 'PENDING', data.cid, acc_no, req.session.user.acc_no, data.date, data.time, data.place], (err) => {
       if(err) {
         res.json(err);
         return;
