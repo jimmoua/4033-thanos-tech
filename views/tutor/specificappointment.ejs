@@ -52,9 +52,15 @@
     </table>
     <!-- * END TABLE -->
     <br>
-    <form action="/api/users/tutor/accept?aptid=<%- apt.ID %>" method="post">
+    <form action="/api/users/tutor/reject?aptid=<%- apt.ID %>" method="post">
       <div style="text-align: center;">
         <button>Reject Appointment</button>
+      </div>
+    </form>
+    <br>
+    <form action="/api/users/tutor/accept?aptid=<%- apt.ID %>" method="post">
+      <div style="text-align: center;">
+        <button>Accept Appointment</button>
       </div>
     </form>
    </div>
