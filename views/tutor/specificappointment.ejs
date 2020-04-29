@@ -52,17 +52,22 @@
     </table>
     <!-- * END TABLE -->
     <br>
-    <form action="/api/users/tutor/reject?aptid=<%- apt.ID %>" method="post">
-      <div style="text-align: center;">
-        <button>Reject Appointment</button>
-      </div>
-    </form>
-    <br>
-    <form action="/api/users/tutor/accept?aptid=<%- apt.ID %>" method="post">
-      <div style="text-align: center;">
-        <button>Accept Appointment</button>
-      </div>
-    </form>
+    <% if (apt.STATUS == 'PENDING') { %>
+      <form style="position: relative;" action="/api/users/tutor/reject?aptid=<%- apt.ID %>" method="post">
+        <div style="text-align: center;">
+          <span>
+            <button>Reject Appointment</button>
+          </span>
+          &nbsp&nbsp
+          <span>
+            <button form="accept">Accept Appointment</button>
+          </span>
+        </div>
+      </form>
+      <br>
+      <form id="accept" action="/api/users/tutor/accept?aptid=<%- apt.ID %>" method="post">
+      </form>
+    <% } %>
    </div>
 </body>
 </html>
