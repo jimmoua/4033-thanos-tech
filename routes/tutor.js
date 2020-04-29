@@ -35,7 +35,16 @@ router.get('/viewscheduledappointments', (req, res) => {
     res.redirect('/'); 
   }
   else {
-    res.render('tutor/scheduledappointment');
+    db.query(`SELECT APPOINTMENTS.STATUS AS STATUS, COURSES.COURSE_NAME AS COURSE, STUDENT.EMAIL AS EMAIL, APPOINTMENTS.APPOINTMENT_DATE AS DATE, APPOINTMENTS.APPOINTMENT_TIME AS TIME FROM APPOINTMENTS LEFT JOIN STUDENT ON APPOINTMENTS.STUDENT_ID = STUDENT.ACC_NO LEFT JOIN COURSES ON APPOINTMENTS.COURSE = COURSES.COURSE_ID WHERE APPOINTMENTS.TUTOR_ID = ? GROUP BY APPOINTMENT_ID `, [req.session.user.acc_no], (err, results) => {
+      if(err) {
+        res.json(err);
+        return;
+      }
+      console.log(results); 
+      res.render('tutor/scheduledappointment', {
+        apmt: results
+      }); 
+    });
   }
 })
 
