@@ -36,8 +36,7 @@ router.get('/viewscheduledappointments', (req, res) => {
   }
   else {
     if(req.query.aptid) {
-      const aptid = req.query.apt;
-      db.query(`SELECT APPOINTMENTS.APPOINTMENT_ID AS ID, APPOINTMENTS.STATUS AS STATUS, COURSES.COURSE_NAME AS COURSE, STUDENT.FNAME AS FNAME, STUDENT.LNAME AS LNAME, STUDENT.EMAIL AS EMAIL, APPOINTMENTS.APPOINTMENT_DATE AS DATE, APPOINTMENTS.APPOINTMENT_TIME AS TIME FROM APPOINTMENTS LEFT JOIN STUDENT ON APPOINTMENTS.STUDENT_ID = STUDENT.ACC_NO LEFT JOIN COURSES ON APPOINTMENTS.COURSE = COURSES.COURSE_ID WHERE APPOINTMENTS.APPOINTMENT_ID = ? GROUP BY APPOINTMENT_ID `, [req.query.aptid], (err, results) => {
+      db.query(`SELECT TUTOR.FNAME AS TFNAME, TUTOR.LNAME AS TLNAME, TUTOR.EMAIL as TEMAIL, APPOINTMENTS.APPOINTMENT_ID AS ID, APPOINTMENTS.STATUS AS STATUS, COURSES.COURSE_NAME AS COURSE, STUDENT.FNAME AS FNAME, STUDENT.LNAME AS LNAME, STUDENT.EMAIL AS EMAIL, APPOINTMENTS.APPOINTMENT_DATE AS DATE, APPOINTMENTS.APPOINTMENT_TIME AS TIME FROM APPOINTMENTS LEFT JOIN STUDENT ON APPOINTMENTS.STUDENT_ID = STUDENT.ACC_NO LEFT JOIN COURSES ON APPOINTMENTS.COURSE = COURSES.COURSE_ID RIGHT OUTER JOIN TUTOR ON APPOINTMENTS.TUTOR_ID IN(TUTOR.ACC_NO) WHERE APPOINTMENTS.APPOINTMENT_ID = ? GROUP BY APPOINTMENT_ID `, [req.query.aptid], (err, results) => {
         if(err) throw err; 
         if (results.length == 0) {
           res.send(`No appointments found!`)
@@ -46,8 +45,7 @@ router.get('/viewscheduledappointments', (req, res) => {
           res.send(`Multiple appointment selected`)
           return; 
         } else {
-          res.json({
-            // * Shorten the pass by passing it as an object instead of individual items.
+          res.render('tutor/specificappointment', {
             apt: results[0]
           })
         }
