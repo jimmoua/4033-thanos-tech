@@ -37,15 +37,26 @@ router.get('/viewscheduledappointments', (req, res) => {
   else {
     if(req.query.aptid) {
       const aptid = req.query.apt;
-      db.query(`UPDATE APPOINTMENTS SET STATUS = 'ACCEPTED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err, results) => {
+      db.query(`SELECT APPOINTMENTS.APPOINTMENT_ID AS ID, APPOINTMENTS.STATUS AS STATUS, COURSES.COURSE_NAME AS COURSE, STUDENT.FNAME AS FNAME, STUDENT.LNAME AS LNAME, STUDENT.EMAIL AS EMAIL, APPOINTMENTS.APPOINTMENT_DATE AS DATE, APPOINTMENTS.APPOINTMENT_TIME AS TIME FROM APPOINTMENTS LEFT JOIN STUDENT ON APPOINTMENTS.STUDENT_ID = STUDENT.ACC_NO LEFT JOIN COURSES ON APPOINTMENTS.COURSE = COURSES.COURSE_ID WHERE APPOINTMENTS.APPOINTMENT_ID = ? GROUP BY APPOINTMENT_ID `, [req.query.aptid], (err, results) => {
         if(err) throw err; 
-        res.send(`Appointment accepted
-        <script>
-        setTimeout(function() {
-          window.location.href='/scheduledappointment'
-        }, 3000);
-        </script>
-        `)
+        if (results.length == 0) {
+          res.send(`No appointments found!`)
+          return; 
+        } else if (results.length > 1) {
+          res.send(`Multiple appointment selected`)
+          return; 
+        } else {
+          res.json({
+            appointmentid: results[0].ID, 
+            status: results[0].STATUS, 
+            coursename: results[0].COURSE, 
+            studentfname: results[0].FNAME, 
+            studentlname: results[0].LNAME, 
+            email: results[0].EMAIL, 
+            date: results[0].DATE, 
+            time: results[0].TIME
+          })
+        }
       })
       return; 
     }
