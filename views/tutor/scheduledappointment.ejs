@@ -30,7 +30,7 @@
           <% for(let i = 0; i < apmt.length; i++) { %> 
             <!-- TODO: Clicking on an appointment will lead us to a page where it displays a detailed page of the appointment. -->
             <!-- ! This is just some filler data until we implement a way to pull data from DB -->
-            <tr data-href="#">
+            <tr data-href="/tutor/viewscheduledappointments?aptid=<%- apmt[i].ID %>">
               <td><%- apmt[i].STATUS %></td>
               <td><%- apmt[i].COURSE %></td>
               <td><%- apmt[i].EMAIL %></td>
