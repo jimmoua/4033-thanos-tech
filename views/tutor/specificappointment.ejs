@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/javascript/jquery.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <%- include('../partials/navbar-tutor') %> 
+  <div class="main-block">
+    <div style="text-align: center;"><h2>Appointment Details</h2></div>
+    <!-- * TABLE -->
+    <table class="w3-table-all">
+      <tr>
+        <th>Appointment ID:</th>
+        <td><%- apt.ID %></td>
+      </tr>
+      <tr>
+        <th>Status:</th>
+        <td><%- apt.STATUS %> </td>
+      </tr>
+      <tr>
+        <th>Course Name:</th>
+        <td><%- apt.COURSE %> </td>
+      </tr>
+      <tr>
+        <th>Tutor Name</th>
+        <td><%- apt.TFNAME %> <%- apt.TLNAME %></td>
+      </tr>
+      <tr>
+        <th>Tutor Email</th>
+        <td><%- apt.TEMAIL %> </td>
+      </tr>
+      <tr>
+        <th>Child Name</th>
+        <td><%- apt.FNAME %> <%- apt.LNAME %></td>
+      </tr>
+      <tr>
+        <th>Child Email</th>
+        <td><%- apt.EMAIL %></td>
+      </tr>
+      <tr>
+        <th>Time</th>
+        <td><%- apt.DATE %> <%- apt.TIME %></td>
+      </tr>
+    </table>
+    <!-- * END TABLE -->
+    <br>
+    <form action="/api/users/tutor/accept?aptid=<%- apt.ID %>" method="post">
+      <div style="text-align: center;">
+        <button>Reject Appointment</button>
+      </div>
+    </form>
+   </div>
+</body>
+</html>
