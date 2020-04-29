@@ -27,14 +27,14 @@
             <th>REQUESTED TIME</th>
           </tr>
         </thead>
-          <% for(let i = 0; i < 25; i++) { %> 
+          <% for(let i = 0; i < apmt.length; i++) { %> 
             <!-- TODO: Clicking on an appointment will lead us to a page where it displays a detailed page of the appointment. -->
             <!-- ! This is just some filler data until we implement a way to pull data from DB -->
             <tr data-href="#">
-              <td>PENDING</td>
-              <td>math</td>
-              <td>student@atu.edu</td>
-              <td> 2020/05/13 12:45</td>
+              <td><%- apmt[i].STATUS %></td>
+              <td><%- apmt[i].COURSE %></td>
+              <td><%- apmt[i].EMAIL %></td>
+              <td> <%- apmt[i].DATE %> <%- apmt[i].TIME %> </td>
             </tr>
           <% } %> 
       </table>
