@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/javascript/jquery.js"></script>
+  <title>Children Appointments</title>
+</head>
+<body>
+  <div class="main-block">
+    <div style="text-align: center;"><h3>Scheduled Appointments</h3></div>
+    <div class="data-table">
+      <table class="w3-table-all">
+        <thead>
+          <!-- * These style attributes look disgusting, but the CSS wouldn't target them, so I had to do this. -->
+          <th style="text-align: center;">Course</th>
+          <th style="text-align: center;">Status</th>
+          <th style="text-align: center;">Tutor Email</th>
+          <th style="text-align: center;">Tutor Name</th>
+          <th style="text-align: center;">Child Email</th>
+          <th style="text-align: center;">Child Name</th>
+          <th style="text-align: center;">Date</th>
+          <th style="text-align: center;">Location</th>
+        </thead>
+        <% for(let i = 0; i < apt.length; i++) { %> 
+          <tr data-href="/parent/scheduledappointments?view=<%- apt[i].APPOINTMENT_ID %>">
+            <td style="text-align: center;"><%- apt[i].COURSE_NAME %></td>
+            <% if (apt[i].STATUS == 'PENDING') { %>
+              <td style="text-align: center; color: orange;">PENDING</td>
+            <% } else if(apt[i].STATUS == 'DENIED') {%>
+              <td style="text-align: center; color: red;">DENIED</td>
+            <% } else if(apt[i].STATUS == 'IN SESSION') {%>
+              <td style="text-align: center; color: green;">IN SESSION</td>
+            <% } else {%> 
+              <td style="text-align: center; color: crimson;">UI ERROR</td>
+            <% } %> 
+            <td style="text-align: center;"><%- apt[i].TEMAIL %></td>
+            <td style="text-align: center;"><%- apt[i].TFNAME %> <%- apt[i].TLNAME %></td>
+            <td style="text-align: center;"><%- apt[i].SEMAIL %></td>
+            <td style="text-align: center;"><%- apt[i].SFNAME %> <%- apt[i].SLNAME %></td>
+            <td style="text-align: center;"><%- apt[i].DATE %> <%- apt[i].TIME %></td>
+            <% if(!apt[i].LOCATION) { %> 
+              <td style="text-align: center; color: red;">NOT SET</td>
+            <% } else {%> 
+              <td><%- apt[i].LOCATION %> </td>
+            <% } %> 
+          </tr>
+        <% } %> 
+      </table>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+  $('tr[data-href]').on("click", function() {
+    document.location = $(this).data('href');
+  });
+  $('tr[data-href]').hover(function() {
+    $(this).css('background-color', '#f05f40');
+    $(this).css('cursor', 'pointer');
+  }, function() {
+    $(this).css('background-color', '');
+  });
+</script>
