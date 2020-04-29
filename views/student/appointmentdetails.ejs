@@ -24,7 +24,15 @@
         </tr>
         <tr>
           <th>Status:</th>
-          <td><%- apt.STATUS %> </td>
+          <% if (apt.STATUS == 'PENDING') { %>
+            <td style="color: orange;">PENDING</td>
+          <% } else if(apt.STATUS == 'REJECTED') {%>
+            <td style="color: red;">REJECTED</td>
+          <% } else if(apt.STATUS == 'ACCEPTED') {%>
+            <td style="color: green;">ACCEPTED</td>
+          <% } else {%>
+            <td style="color: crimson;">UI ERROR</td>
+          <% } %> 
         </tr>
         <tr>
           <th>Course Name:</th>
