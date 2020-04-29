@@ -77,7 +77,7 @@ a:hover{
 
 .data-table {
   min-width: 500px;
-  max-width: 500px;
+  max-width: 1250px;
   max-height: 500px;
   overflow-y: auto;
 }
