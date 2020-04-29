@@ -28,7 +28,7 @@ router.post('/:type', (req, res) => {
               good = false;
               res.send(`A user with the email "${email}" already exists.`);
             } else {
-              db.query(`INSERT INTO STUDENT VALUES ( ?, ?, ?, ?, ? ));`, [accID, fname, lname, email, hash], (err, results) => {
+              db.query(`INSERT INTO STUDENT VALUES ( ?, ?, ?, ?, null, null, ?, null);`, [accID, fname, lname, email, hash], (err, results) => {
                 if(err) throw err;
                 console.log(results);
                 res.send(`${fname} ${lname} You've registered with the account: "${email}" Redirecting to the login page in 3 seconds. <script>
@@ -54,7 +54,7 @@ router.post('/:type', (req, res) => {
               res.send(`A user with the email: '${email}' already exists`); 
             }
             else {
-              db.query(`INSERT INTO TUTOR VALUES (?, ?, ?, ?, ?)`, [accID, fname, lname, email, hash], (err, results) => {
+              db.query(`INSERT INTO TUTOR VALUES (?, ?, ?, ?, null, ?, null)`, [accID, fname, lname, email, hash], (err, results) => {
                 if (err) throw err; 
                 console.log(results); 
               })
