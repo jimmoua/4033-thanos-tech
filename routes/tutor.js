@@ -47,14 +47,8 @@ router.get('/viewscheduledappointments', (req, res) => {
           return; 
         } else {
           res.json({
-            appointmentid: results[0].ID, 
-            status: results[0].STATUS, 
-            coursename: results[0].COURSE, 
-            studentfname: results[0].FNAME, 
-            studentlname: results[0].LNAME, 
-            email: results[0].EMAIL, 
-            date: results[0].DATE, 
-            time: results[0].TIME
+            // * Shorten the pass by passing it as an object instead of individual items.
+            apt: results[0]
           })
         }
       })
