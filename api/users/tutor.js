@@ -3,6 +3,7 @@ const router = express.Router();
 const ACCOUNT = require('../../misc/accountTypes');
 const db = require('../../db_files/db');
 const {v4: uuid} = require('uuid');
+const path = require('path');
 
 
 // "/tutor/updateprofile"
@@ -59,6 +60,18 @@ router.post('/accept', (req, res) => {
     res.redirect('/');
   }
   if(req.query.aptid) {
+    db.query(`select * from APPOINTMENTS where APPOINTMENT_ID = ?`, [req.query.aptid], (err, apt_details) => {
+      if(err) {
+        res.json(err);
+        return;
+      }
+      // If the appointment tutor ID isn't the same as the session account number ID,
+      // someone is trying to spoof. In this case, send them a 400 page.
+      if(apt_details[0].TUTOR_ID != req.session.user.acc_no) {
+        res.status(400).sendFile(path.resolve('public/html/400.html'));
+        return;
+      }
+    })
     db.query(`UPDATE APPOINTMENTS SET STATUS = 'ACCEPTED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err, results) => {
       if(err) throw err; 
       res.redirect(`/tutor/viewscheduledappointments?aptid=${req.query.aptid}&updated=true`);
@@ -71,6 +84,18 @@ router.post('/reject', (req, res) => {
     res.redirect('/');
   }
   if(req.query.aptid) {
+    db.query(`select * from APPOINTMENTS where APPOINTMENT_ID = ?`, [req.query.aptid], (err, apt_details) => {
+      if(err) {
+        res.json(err);
+        return;
+      }
+      // If the appointment tutor ID isn't the same as the session account number ID,
+      // someone is trying to spoof. In this case, send them a 400 page.
+      if(apt_details[0].TUTOR_ID != req.session.user.acc_no) {
+        res.status(400).sendFile(path.resolve('public/html/400.html'));
+        return;
+      }
+    })
     db.query(`UPDATE APPOINTMENTS SET STATUS = 'REJECTED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err, results) => {
       if(err) throw err; 
       res.redirect(`/tutor/viewscheduledappointments?aptid=${req.query.aptid}&updated=true`);
