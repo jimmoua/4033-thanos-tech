@@ -119,7 +119,7 @@ router.post('/scheduleappointment', (req, res) => {
   }
   db.query(`select ACC_NO from COURSES where COURSE_ID = ?`, [data.cid], (err, tutor) => {
     const acc_no = tutor[0].ACC_NO;
-    db.query(`insert into APPOINTMENTS values (?, ?, ?, ?, ?, ?, ?)`, [uuid(), 'PENDING', data.cid, acc_no, req.session.user.acc_no, data.date, data.time], (err) => {
+    db.query(`insert into APPOINTMENTS values (?, ?, ?, ?, ?, ?, ?, NULL)`, [uuid(), 'PENDING', data.cid, acc_no, req.session.user.acc_no, data.date, data.time], (err) => {
       if(err) {
         res.json(err);
         return;
