@@ -35,16 +35,31 @@ router.get('/viewscheduledappointments', (req, res) => {
     res.redirect('/'); 
   }
   else {
-    db.query(`SELECT APPOINTMENTS.APPOINTMENT_ID AS ID, APPOINTMENTS.STATUS AS STATUS, COURSES.COURSE_NAME AS COURSE, STUDENT.EMAIL AS EMAIL, APPOINTMENTS.APPOINTMENT_DATE AS DATE, APPOINTMENTS.APPOINTMENT_TIME AS TIME FROM APPOINTMENTS LEFT JOIN STUDENT ON APPOINTMENTS.STUDENT_ID = STUDENT.ACC_NO LEFT JOIN COURSES ON APPOINTMENTS.COURSE = COURSES.COURSE_ID WHERE APPOINTMENTS.TUTOR_ID = ? GROUP BY APPOINTMENT_ID `, [req.session.user.acc_no], (err, results) => {
-      if(err) {
-        res.json(err);
-        return;
-      }
-      console.log(results); 
-      res.render('tutor/scheduledappointment', {
-        apmt: results
-      }); 
-    });
+    if(req.query.aptid) {
+      const aptid = req.query.apt;
+      db.query(`UPDATE APPOINTMENTS SET STATUS = 'ACCEPTED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err, results) => {
+        if(err) throw err; 
+        res.send(`Appointment accepted
+        <script>
+        setTimeout(function() {
+          window.location.href='/scheduledappointment'
+        }, 3000);
+        </script>
+        `)
+      })
+      return; 
+    }
+    else {
+      db.query(`SELECT APPOINTMENTS.APPOINTMENT_ID AS ID, APPOINTMENTS.STATUS AS STATUS, COURSES.COURSE_NAME AS COURSE, STUDENT.EMAIL AS EMAIL, APPOINTMENTS.APPOINTMENT_DATE AS DATE, APPOINTMENTS.APPOINTMENT_TIME AS TIME FROM APPOINTMENTS LEFT JOIN STUDENT ON APPOINTMENTS.STUDENT_ID = STUDENT.ACC_NO LEFT JOIN COURSES ON APPOINTMENTS.COURSE = COURSES.COURSE_ID WHERE APPOINTMENTS.TUTOR_ID = ? GROUP BY APPOINTMENT_ID `, [req.session.user.acc_no], (err, results) => {
+        if(err) {
+          res.json(err);
+          return;
+        }
+        res.render('tutor/scheduledappointment', {
+          apmt: results
+        });         
+      });
+    }    
   }
 })
 
