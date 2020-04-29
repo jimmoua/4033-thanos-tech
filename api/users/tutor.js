@@ -60,6 +60,15 @@ router.post('/accept', (req, res) => {
     res.redirect('/');
   }
   if(req.query.aptid) {
+    // If there is a query to accept the appointment given appointment ID (aptid)
+    const amt = req.body.amount;
+    // Check for amount. We have a check implemented where it has to be [0, inf], but client can always
+    // modify the HTML attributes. In that case, send a 400.
+    if(!amt || amt < 0) {
+      res.status(400).sendFile(path.resolve('public/html/400.html'))
+      return;
+    }
+
     db.query(`select * from APPOINTMENTS where APPOINTMENT_ID = ?`, [req.query.aptid], (err, apt_details) => {
       if(err) {
         res.json(err);
