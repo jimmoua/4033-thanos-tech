@@ -71,7 +71,21 @@ router.get('/income', (req, res) => {
     res.redirect('/'); 
   }
   else {
-    res.render('tutor/income');
+    const qstring =
+      "SELECT" + 
+      " STATUS, AMOUNT, TRANSACTION_ID, FNAME, LNAME" +
+      " FROM TRANSACTIONS" +
+      " RIGHT OUTER JOIN STUDENT ON STUDENT_ID IN(STUDENT.ACC_NO)" +
+      " WHERE TUTOR_ID = ?";
+    db.query(qstring, [req.session.user.acc_no], (err, results) => {
+      if(err) {
+        res.json(err);
+        return;
+      }
+      res.render('tutor/income', {
+        transactions: results
+      });
+    })
   }
 })
 

@@ -18,18 +18,24 @@
     <div class="data-table">
       <table class="w3-table-all">
         <thead>
-          <th>Status</th>
-          <th>Amount</th>
-          <th>Transaction ID</th>
-          <th>From</th>
+          <th style="text-align: center;">Status</th>
+          <th style="text-align: center;">Amount</th>
+          <th style="text-align: center;">Transaction ID</th>
+          <th style="text-align: center;">Customer</th>
         </thead>
-        <!-- TODO: needs data from a table passed into EJS -->
-        <% for(let i = 0; i < 25; i++) { %> 
-          <tr data-href="#">
-            <td>PENDING</td>
-            <td style="text-align: right;">420.69</td>
-            <td>ae2c93-d4c2e93-fe34d9</td>
-            <td>student@email.edu</td>
+        <% for(let i = 0; i < transactions.length; i++) { %> 
+          <tr data-href="/tutor/income?details=<%- transactions[i].TRANSACTION_ID %> ">
+            <!-- * PAID STATUS -->
+            <% if (transactions[i].STATUS == 'PAID') { %>
+              <td style="color: green; text-align: center;">PAID</td>
+            <% } else %>
+              <td style="color: red; text-align: center;">NOT PAID</td>
+            <!-- * AMOUNT -->
+            <td style="text-align: center;">$ <%- transactions[i].AMOUNT %></td>
+            <!-- * TRANSACTION ID -->
+            <td style="text-align: center;"><%- transactions[i].TRANSACTION_ID %></td>
+            <!-- * Cusomter (student) -->
+            <td style="text-align: center;"><%- transactions[i].FNAME %> <%- transactions[i].LNAME %></td>
           </tr>
         <% } %> 
       </table>
