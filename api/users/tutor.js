@@ -66,4 +66,16 @@ router.post('/accept', (req, res) => {
   }
 });
 
+router.post('/reject', (req, res) => {
+  if(!req.session.user || req.session.user.type !== ACCOUNT.TUTOR) {
+    res.redirect('/');
+  }
+  if(req.query.aptid) {
+    db.query(`UPDATE APPOINTMENTS SET STATUS = 'REJECTED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err, results) => {
+      if(err) throw err; 
+      res.redirect(`/tutor/viewscheduledappointments?aptid=${req.query.aptid}&updated=true`);
+    })
+  }
+});
+
 module.exports = router;
