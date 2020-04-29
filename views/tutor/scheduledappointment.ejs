@@ -31,7 +31,6 @@
             <!-- TODO: Clicking on an appointment will lead us to a page where it displays a detailed page of the appointment. -->
             <!-- ! This is just some filler data until we implement a way to pull data from DB -->
             <tr data-href="/tutor/viewscheduledappointments?aptid=<%- apmt[i].ID %>">
-              <!-- <td><%- apmt[i].STATUS %></td> -->
               <% if (apmt[i].STATUS == 'PENDING') { %>
                 <td style="color: orange;">PENDING</td>
               <% } else if(apmt[i].STATUS == 'DENIED') {%>
