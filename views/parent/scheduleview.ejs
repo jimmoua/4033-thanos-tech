@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Appointment View</title>
+</head>
+<body>
+  <div class="main-block">
+    <h2><%- apt.SFNAME %> <%- apt.SLNAME %>'s Appointment</h2>
+    <div class="data-table">
+      <table class="w3-table-all">
+        <tr>
+          <th>Appointment ID:</th>
+          <td><%- apt.APPOINTMENT_ID %></td>
+        </tr>
+        <tr>
+          <th>Status:</th>
+          <% if (apt.STATUS == 'PENDING') { %>
+            <td style="color: orange;">PENDING</td>
+          <% } else if(apt.STATUS == 'DENIED') {%>
+            <td style="color: red;">DENIED</td>
+          <% } else if(apt.STATUS == 'IN SESSION') {%>
+            <td style="color: green;">IN SESSION</td>
+          <% } else {%>
+            <td style="color: crimson;">UI ERROR</td>
+          <% } %> 
+        </tr>
+        <tr>
+          <th>Tutor Email:</th>
+          <td><%- apt.TEMAIL %> </td>
+        </tr>
+        <tr>
+          <th>Tutor Name:</th>
+          <td><%- apt.TFNAME %> <%- apt.TLNAME %></td>
+        </tr>
+        <tr>
+          <th>Date</th>
+          <td><%- apt.DATE %> <%- apt.TIME %></td>
+        </tr>
+        <tr>
+          <th>Location Details</th>
+          <% if(!apt.LOCATION) { %> 
+            <td style="color: red;">N/A</td>
+          <% } else {%> 
+            <td><%- apt.LOCATION %> </td>
+          <% } %> 
+        </tr>
+      </table>
+    </div>
+    <br>
+    <% if (apt.STATUS == 'PENDING') { %>
+      <form action="/api/users/parent/cancelappointment?aptid=<%- apt.APPOINTMENT_ID %>" method="POST">
+        <div style="text-align: center;">
+          <button>Cancel Appointment</button>
+        </div>
+      </form>
+    <% } %>
+  </div>
+</body>
+</html>
