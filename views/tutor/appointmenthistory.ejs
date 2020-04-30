@@ -3,9 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/javascript/jquery.js"></script>
   <title>Document</title>
 </head>
 <body>
-  <h1>Appointment history</h1>
+  <%- include('../partials/navbar-tutor') %> 
+  <div class="main-block">
+    <center><h1>Appointment History</h1></center>
+    <div class="data-table" style="min-width: 750px">
+      <table class="w3-table-all">
+        <thead>
+          <tr>
+            <th style="text-align: center;">Status</th>
+            <th style= "text-align: center;">Appointment ID</th>
+            <th style= "text-align: center;">Course</th>
+            <th style= "text-align: center;">Student</th>
+            <th style= "text-align: center;">Date</th>
+            <th style= "text-align: center;">Location</th>
+          </tr>
+        </thead>
+        <% for( let i = 0; i < 25; i++ ) { %>
+          <tr>
+            <td style= "text-align: center;">status</td>
+            <td style= "text-align: center;">app id</td>
+            <td style= "text-align: center;">course</td>
+            <td style= "text-align: center;">fname lname</td>
+            <td style= "text-align: center;">some date</td>
+            <td style= "text-align: center;">some loc</td>
+          </tr>
+        <% } %>
+      </table>
+    </div>
+  </div>
 </body>
 </html>
