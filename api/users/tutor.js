@@ -137,4 +137,20 @@ router.post('/reject', (req, res) => {
   }
 });
 
+router.post('/cancelAppointment', (req, res) => {
+  if(!req.session.user || req.session.user.type !== ACCOUNT.TUTOR) {
+    res.redirect('/');
+  }
+  if(req.query.aptid) {
+    db.query(`UPDATE APPOINTMENTS SET STATUS = 'CANCELLED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err, results) => {
+      if (err) throw err; 
+      db.query(`DELETE FROM TRANSACTIONS WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err, results) => {
+        if (err) throw err; 
+        res.redirect(`/tutor/viewscheduledappointments`); 
+      })
+    })
+    
+  }
+});
+
 module.exports = router;
