@@ -63,6 +63,8 @@
           <form action="/api/users/student/cancelappointment?aptid=<%- apt.APPOINTMENT_ID %>" method="POST">
             <button>Cancel Appointment</button>
           </form>
+        <% } else { %> 
+          <button onclick="window.history.back()">BACK</button>
         <% } %> 
       </div>
     </div>
