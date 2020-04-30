@@ -28,7 +28,15 @@
           </thead>
           <% for( let i = 0; i < apts.length; i++ ) { %>
             <tr data-href="/student/appointmentdetails?aptid=<%- apts[i].APPOINTMENT_ID %>">
-              <td id="status" name="status"><%- apts[i].STATUS %> </td>
+              <% if (apts[i].STATUS == 'PENDING') { %>
+                <td style="color: orange;">PENDING</td>
+              <% } else if(apts[i].STATUS == 'REJECTED') {%>
+                <td style="color: red;">REJECTED</td>
+              <% } else if(apts[i].STATUS == 'ACCEPTED') {%>
+                <td style="color: green;">ACCEPTED</td>
+              <% } else {%>
+                <td style="color: crimson;">UI ERROR</td>
+              <% } %> 
               <td id="course" name="course"><%- apts[i].COURSE_NAME %></td>
               <td id="tutor" name="tutor"><%- apts[i].EMAIL %> </td>
               <td id="date" name="date"><%- apts[i].APPOINTMENT_TIME %> <%- apts[i].APPOINTMENT_DATE %> </td>
