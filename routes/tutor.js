@@ -141,7 +141,15 @@ router.get('/viewappointmenthistory', (req, res) => {
     res.redirect('/');
   }
   else {
-    res.render('tutor/appointmenthistory')
+    db.query(`SELECT APPOINTMENTS.STATUS AS status, APPOINTMENTS.APPOINTMENT_ID, COURSES.COURSE_NAME AS COURSE, STUDENT.FNAME, STUDENT.LNAME FROM APPOINTMENTS LEFT JOIN STUDENT ON STUDENT.ACC_NO = APPOINTMENTS.STUDENT_ID LEFT JOIN COURSES ON APPOINTMENTS.COURSE = COURSES.COURSE_ID WHERE APPOINTMENTS.STATUS='FINISHED' OR APPOINTMENTS.STATUS = 'CANCELLED' GROUP BY APPOINTMENTS.APPOINTMENT_ID`, (err, results) => {
+      if (err) {
+        res.json(err); 
+        return; 
+      }      
+      res.render('tutor/appointmenthistory', {
+        apt: results
+      })
+    })
   }
 })
 
@@ -178,4 +186,6 @@ router.get('/messages', (req, res) => {
     }
   }
 })
+
+
 module.exports = router;
