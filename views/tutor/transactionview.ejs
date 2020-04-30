@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/javascript/jquery.js"></script>
+  <title>Payment View</title>
+</head>
+<body>
+  <%- include('../partials/navbar-tutor') %> 
+  <div class="main-block">
+    <center><h2>Payment View</h2></center>
+    <div class="data-table">
+      <table class="w3-table-all">
+        <tr>
+          <th style="text-align: center;">Status</th>
+          <% if (t.STATUS == 'PAID') { %>
+            <td style="text-align: center; color: green;"><%- t.STATUS %> </td>
+          <% } else { %>
+              <td style="text-align: center; color: red;"><%- t.STATUS %> </td>
+          <% } %> 
+        </tr>
+        <tr>
+          <th style="text-align: center;">Transaction ID</th>
+          <td style="text-align: center;"><%- t.TRANSACTION_ID %> </td>
+        </tr>
+        <tr>
+          <th style="text-align: center;">Tutor Name</th>
+          <td style="text-align: center;"><%- t.TFNAME %> <%- t.TLNAME %></td>
+        </tr>
+        <tr>
+          <th style="text-align: center;">Tutor Email</th>
+          <td style="text-align: center;"><%- t.TEMAIL %></td>
+        </tr>
+        <tr>
+          <th style="text-align: center;">Student Name</th>
+          <td style="text-align: center;"><%- t.SFNAME %> <%- t.SLNAME %></td>
+        </tr>
+        <tr>
+          <th style="text-align: center;">Student Email</th>
+          <td style="text-align: center;"><%- t.SEMAIL %></td>
+        </tr>
+        <tr>
+          <th style="text-align: center;">Appointment ID</th>
+          <td style="text-align: center;"><%- t.APPOINTMENT_ID %></td>
+        </tr>
+        <tr>
+          <th style="text-align: center;">Course</th>
+          <td style="text-align: center;"><%- t.COURSE_NAME %></td>
+        </tr>
+      </table>
+      <br>
+      <div>
+        <center>
+          <button onclick="window.history.back()" style="min-width: 75px;">BACK</button>
+        </center>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

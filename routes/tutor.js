@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const db = require('../db_files/db');
 const ACCOUNT = require('../misc/accountTypes');
+const path = require('path');
 
 router.get('/editprofile', (req, res) => {
   if (!req.session.user || req.session.user.type != ACCOUNT.TUTOR) {
@@ -71,6 +72,43 @@ router.get('/income', (req, res) => {
     res.redirect('/'); 
   }
   else {
+    // If the query field has details
+    // details == transaction id
+    if(req.query.details) {
+      const qstring = 
+        "SELECT"+
+          " TRANSACTIONS.STATUS,"+
+          " TRANSACTIONS.AMOUNT,"+
+          " TRANSACTIONS.TRANSACTION_ID,"+
+          " TRANSACTIONS.APPOINTMENT_ID,"+
+          " COURSES.COURSE_NAME,"+
+          " TUTOR.FNAME AS TFNAME,"+
+          " TUTOR.LNAME AS TLNAME,"+
+          " TUTOR.EMAIL AS TEMAIL,"+
+          " STUDENT.FNAME AS SFNAME,"+
+          " STUDENT.LNAME AS SLNAME,"+
+          " STUDENT.EMAIL AS SEMAIL"+
+        " FROM TRANSACTIONS"+
+        " RIGHT OUTER JOIN TUTOR ON TRANSACTIONS.TUTOR_ID IN(TUTOR.ACC_NO)"+
+        " RIGHT OUTER JOIN STUDENT ON TRANSACTIONS.STUDENT_ID IN(STUDENT.ACC_NO)"+
+        " RIGHT OUTER JOIN APPOINTMENTS ON TRANSACTIONS.APPOINTMENT_ID IN (APPOINTMENTS.APPOINTMENT_ID)"+
+        " RIGHT OUTER JOIN COURSES ON APPOINTMENTS.COURSE IN(COURSES.COURSE_ID)"+
+        " WHERE TRANSACTIONS.TRANSACTION_ID = ?";
+      db.query(qstring, [req.query.details], (err, results) => {
+        if(err) {
+          res.status(500).json(err);
+          return;
+        }
+        if(results.length == 0) {
+          res.sendFile(path.resolve('public/html/404.html'));
+          return;
+        }
+        res.render('tutor/transactionview', {
+          t: results[0]
+        });
+      })
+      return;
+    }
     const qstring =
       "SELECT" + 
       " STATUS, AMOUNT, TRANSACTION_ID, FNAME, LNAME" +
