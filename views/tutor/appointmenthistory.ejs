@@ -15,7 +15,7 @@
   <%- include('../partials/navbar-tutor') %> 
   <div class="main-block">
     <center><h1>Appointment History</h1></center>
-    <div class="data-table" style="min-width: 750px">
+    <div class="data-table">
       <table class="w3-table-all">
         <thead>
           <tr>
@@ -23,18 +23,18 @@
             <th style= "text-align: center;">Appointment ID</th>
             <th style= "text-align: center;">Course</th>
             <th style= "text-align: center;">Student</th>
-            <th style= "text-align: center;">Date</th>
-            <th style= "text-align: center;">Location</th>
           </tr>
         </thead>
-        <% for( let i = 0; i < 25; i++ ) { %>
+        <% for( let i = 0; i < apt.length; i++ ) { %>
           <tr>
-            <td style= "text-align: center;">status</td>
-            <td style= "text-align: center;">app id</td>
-            <td style= "text-align: center;">course</td>
-            <td style= "text-align: center;">fname lname</td>
-            <td style= "text-align: center;">some date</td>
-            <td style= "text-align: center;">some loc</td>
+            <% if (apt[i].status == 'FINISHED') { %>
+              <td style= "text-align: center; color: green;">FINISHED</td>
+            <% } else if (apt[i].status == 'CANCELLED') { %>
+              <td style= "text-align: center; color: red;">CANCELLED</td>
+            <% } %> 
+            <td style= "text-align: center;"><%- apt[i].APPOINTMENT_ID %></td>
+            <td style= "text-align: center;"><%- apt[i].COURSE %></td>
+            <td style= "text-align: center;"><%- apt[i].FNAME %> <%- apt[i].LNAME %></td>
           </tr>
         <% } %>
       </table>
