@@ -14,20 +14,34 @@
   <body>
     <%- include("../partials/navbar-student") %> 
     <div class="main-block">
-      <h1><span class="fa fa-money"></span> Manage Payments</h1>
+      <center>
+        <div>
+          <h1><span class="fa fa-money"></span> Manage Payments</h1>
+        </div>
+      </center>
 
       <div style="overflow-y: auto; max-height: 500px;">
         <table class="w3-table-all">
           <thead>
             <tr>
-              <th>STATUS</th>
-              <th>PAY TO</th>
+              <th style="text-align: center;">Status</th>
+              <th style="text-align: center;">Amount</th>
+              <th style="text-align: center;">Transaction ID</th>
+              <th style="text-align: center;">Tutor</th>
             </tr>
           </thead>
-          <% for( let index = 0; index < 25; index++ ) { %>
-            <tr data-href="">
-              <td>NOT PAYED</td>
-              <td>foobar@email.com</td>
+          <% for( let i = 0; i < p.length; i++ ) { %>
+            <tr data-href="/student/managepayments?details=<%- p[i].TRANSACTION_ID %>">
+              <!-- * Status -->
+              <% if (p[i].STATUS == 'PAID') { %>
+                <td style="text-align: center; color:green;">PAID</td>
+              <% } else { %>
+                <td style="text-align: center; color: red;">NOT PAID</td>
+              <% } %> 
+              <!-- Amount -->
+              <td style="text-align: center;"><%- p[i].AMOUNT %> </td>
+              <td style="text-align: center;"><%- p[i].TRANSACTION_ID %> </td>
+              <td style="text-align: center;"><%- p[i].FNAME %> <%- p[i].LNAME %></td>
             </tr>
           <% } %>
         </table>

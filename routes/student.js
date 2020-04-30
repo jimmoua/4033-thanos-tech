@@ -50,7 +50,26 @@ router.get('/managepayments', (req, res) => {
     res.redirect('/'); 
   }
   else {
-    res.render('student/managepayment')
+    const qstring =
+      "SELECT"+
+        " TR.STATUS,"+
+        " TR.AMOUNT,"+
+        " TR.TRANSACTION_ID,"+
+        " T.FNAME,"+
+        " T.LNAME"+
+      " FROM TRANSACTIONS TR"+
+      " RIGHT OUTER JOIN TUTOR T ON TR.TUTOR_ID IN(T.ACC_NO)"+
+      " WHERE TR.STUDENT_ID = ?";
+    db.query(qstring, [req.session.user.acc_no], (err, results) => {
+      if(err) {
+        res.json(err);
+        return;
+      }
+      res.render('student/managepayment', {
+        p: results
+      })
+    })
+    return;
   }
 });
 
