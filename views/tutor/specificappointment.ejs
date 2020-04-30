@@ -29,6 +29,8 @@
           <td style="color: red;">REJECTED</td>
         <% } else if(apt.STATUS == 'ACCEPTED') {%>
           <td style="color: green;">ACCEPTED</td>
+        <% } else if(apt[i].STATUS == 'CANCELLED') {%>
+          <td style="text-align: center; color: red;">CANCELLED</td>
         <% } else {%>
           <td style="color: crimson;">UI ERROR</td>
         <% } %> 
@@ -59,7 +61,7 @@
       </tr>
       <tr>
         <th>Time</th>
-        <td><%- apt.DATE %> <%- apt.TIME %></td>
+        <td><span id="date"><%- apt.DATE %></span> <span id="time"><%- apt.TIME %></span></td>
       </tr>
     </table>
     <!-- * END TABLE -->
@@ -92,10 +94,14 @@
         </form>
         <form action="/api/users/tutor/cancelAppointment?aptid=<%- apt.ID %>" method="POST">
           <button>CANCEL</button>
-          <button form="endapp">END APPOINTMENT</button>
+          <button form="endapp" id="endappbtn">END APPOINTMENT</button>
         </form>
       </center>
     <% } %>
    </div>
 </body>
 </html>
+
+<script>
+  $('#date').html()
+</script>
