@@ -96,7 +96,7 @@ router.post('/accept', (req, res) => {
           return;
         }
         const apt = results[0];
-        db.query(`insert into TRANSACTIONS values (?, ?, ?, ?, ?, ?)`, [uuid(), req.query.aptid, req.session.user.acc_no, apt.STUDENT_ID, 'NOT PAID', amt], (err) => {
+        db.query(`insert into TRANSACTIONS values (?, ?, ?, ?, ?, ?, NULL)`, [uuid(), req.query.aptid, req.session.user.acc_no, apt.STUDENT_ID, 'NOT PAID', amt], (err) => {
           if(err) {
             const foo = {
               err,

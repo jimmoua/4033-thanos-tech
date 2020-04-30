@@ -45,19 +45,9 @@
         </tr>
         <tr>
           <th>Location Details</th>
-          <% if(!apt.LOCATION) { %> 
-            <td style="color: red;">N/A</td>
-          <% } else {%> 
-            <td><%- apt.LOCATION %> </td>
-          <% } %> 
+          <td><%- apt.PLACE %></td>
         </tr>
       </table>
-    </div>
-    <br>
-    <div>
-      <center>
-        <button onclick="window.history.back()">BACK</button>
-      </center>
     </div>
     <br>
     <% if (apt.STATUS == 'PENDING') { %>
@@ -67,6 +57,12 @@
         </div>
       </form>
     <% } %>
+    <br>
+    <div>
+      <center>
+        <button onclick="window.history.back()">BACK</button>
+      </center>
+    </div>
   </div>
 </body>
 </html>

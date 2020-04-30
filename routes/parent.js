@@ -45,4 +45,33 @@ router.get('/scheduledappointments', (req, res) => {
   }
 })
 
+// * Parent routing to manage payment
+router.get('/managepayments', (req, res) => {
+  const qstring =
+    " SELECT"+
+      " TR.TRANSACTION_ID,"+
+      " TR.STATUS,"+
+      " S.FNAME AS SFNAME,"+
+      " S.LNAME AS SLNAME,"+
+      " S.EMAIL AS SEMAIL,"+
+      " T.FNAME AS TFNAME,"+
+      " T.LNAME AS TLNAME,"+
+      " T.EMAIL AS TEMAIL"+
+    " FROM TRANSACTIONS TR"+
+    " RIGHT OUTER JOIN STUDENT S ON TR.STUDENT_ID IN(S.ACC_NO)"+
+    " RIGHT OUTER JOIN TUTOR T ON TR.TUTOR_ID IN (T.ACC_NO)"+
+    " WHERE S.PARENT_ACC_NO = ?"+
+    " AND TR.STATUS = 'NOT PAID'";
+  db.query(qstring, [req.session.user.acc_no], (err, results) => {
+    if(err) {
+      res.status(500).json(err);
+      return;
+    }
+    res.json(results);
+    // res.render('parent/pay', {
+    //   p: results
+    // })
+  })
+})
+
 module.exports = router;
