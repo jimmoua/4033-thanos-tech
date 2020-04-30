@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+ <!--Navbar     (sit on top)  -->
+<div class ="w3-top">
+  <div class="w3-bar w3-white w3-card"  id="myNavbar">
+    <a href="/" class="w3-bar-item w3-button w3-wide">Trustworthy Tutors</a>
+
+    <!-- Right sided Nav bar Links-->
+    <div class="w3-right w3-hide-small w3-hide-medium">
+      <a href="/" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-home"></span> Home </a>
+      <a href="/student/search" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-search"></span> Search Course </a>
+      <a href="/student/scheduledappointments" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-calendar"></span> View Appointments </a>
+      <a href="/student/managepayments" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-money"></span> Payments </a>
+      <a href="/student/messages" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-comment"></span> Message </a>
+      <a href="/student/editProfile" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-user"></span> Edit Profile</a>
+      <a href="/rm-session" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-sign-out"> Sign Out </span></a>
+    </div> 
+
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large" onclick="sidebar_open()">
+      <span class="fa fa-bars"></span>
+    </a>
+
+  </div>
+</div>
+
+<!-- Sidebar on small screens when clicking the menu icon -->
+<div style="display: inline;">
+  <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-large" style="display:none; " id="mySidebar">
+    <a href="javascript:void(0)" onclick="sidebar_close()" class="w3-bar-item w3-button w3-large">Close ×</a>
+    <a href="/" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-home"></span> Home </a>
+    <a href="/student/search" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-search"></span> Search Course </a>
+    <a href="/student/scheduledappointments" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-calendar"></span> View Appointments </a>
+    <a href="/student/managepayments" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-money"></span> Payments </a>
+    <a href="/student/messages" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-comment"></span> Message </a>
+    <a href="/student/editProfile" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-user"></span> Edit Profile</a>
+    <a href="/rm-session" class="w3-bar-item w3-button anchor-scrolls"><span class="fa fa-sign-out"> Sign Out </span></a>
+  </nav>
+</div>
+
+<script javascript>   
+// Toggle between showing and hiding the sidebar when clicking the menu icon
+var mySidebar = document.getElementById("mySidebar");
+
+function sidebar_open() {
+  if(mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+  } else {
+    mySidebar.style.display = 'block';
+  }
+}
+
+// Close the sidebar with the close button
+function sidebar_close() {
+  mySidebar.style.display = "none";
+}
+
+</script>
+
+<style>
+  .w3-bar   .w3-button {
+    font-family:"Raleway",sans-serif;
+    padding : 16px;
+  }
+
+  body {
+    padding-top: 100px;
+  }
+
+</style>
