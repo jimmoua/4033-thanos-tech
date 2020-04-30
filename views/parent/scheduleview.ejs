@@ -29,6 +29,8 @@
             <td style="color: green;">ACCEPTED</td>
           <% } else if(apt.STATUS == 'CANCELLED') {%>
             <td style="text-align: center; color: red;">CANCELLED</td>
+          <% } else if(apt.STATUS == 'FINISHED') {%>
+            <td style="text-align: center; color: green;">FINISHED</td>
           <% } else {%>
             <td style="color: crimson;">UI ERROR</td>
           <% } %> 

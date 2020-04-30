@@ -38,6 +38,8 @@
               <td style="text-align: center; color: green;">ACCEPTED</td>
             <% } else if(apt[i].STATUS == 'CANCELLED') {%>
               <td style="text-align: center; color: red;">CANCELLED</td>
+            <% } else if(apt[i].STATUS == 'FINISHED') {%>
+              <td style="text-align: center; color:green;">FINISHED</td>
             <% } else {%> 
               <td style="text-align: center; color: crimson;">UI ERROR</td>
             <% } %> 

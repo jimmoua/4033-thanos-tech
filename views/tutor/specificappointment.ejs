@@ -31,6 +31,8 @@
           <td style="color: green;">ACCEPTED</td>
         <% } else if(apt.STATUS == 'CANCELLED') {%>
           <td style="text-align: center; color: red;">CANCELLED</td>
+        <% } else if(apt.STATUS == 'FINISHED') {%>
+          <td style="text-align: center; color: green;">FINISHED</td>
         <% } else {%>
           <td style="color: crimson;">UI ERROR</td>
         <% } %> 
@@ -94,7 +96,9 @@
         </form>
         <form action="/api/users/tutor/cancelAppointment?aptid=<%- apt.ID %>" method="POST">
           <button>CANCEL</button>
-          <button form="endapp" id="endappbtn">END APPOINTMENT</button>
+          <% if (passedEpoch <= 0) { %>
+            <button form="endapp" id="endappbtn">END APPOINTMENT</button>
+          <% } %>
         </form>
       </center>
     <% } %>
@@ -103,5 +107,4 @@
 </html>
 
 <script>
-  $('#date').html()
 </script>
