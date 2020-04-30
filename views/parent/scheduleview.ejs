@@ -54,6 +54,12 @@
       </table>
     </div>
     <br>
+    <div>
+      <center>
+        <button onclick="window.history.back()">BACK</button>
+      </center>
+    </div>
+    <br>
     <% if (apt.STATUS == 'PENDING') { %>
       <form action="/api/users/parent/cancelappointment?aptid=<%- apt.APPOINTMENT_ID %>" method="POST">
         <div style="text-align: center;">
