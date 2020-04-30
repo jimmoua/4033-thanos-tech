@@ -88,8 +88,11 @@
     <% } %>
     <% if (apt.STATUS == 'ACCEPTED') { %>
       <center>
-        <form action="/api/users/tutor/cancelAppointment?aptid=<%- apt.ID %>">
+        <form id="endapp" action="/api/users/tutor/endAppointment?aptid=<%- apt.ID %>" method="POST">
+        </form>
+        <form action="/api/users/tutor/cancelAppointment?aptid=<%- apt.ID %>" method="POST">
           <button>CANCEL</button>
+          <button form="endapp">END APPOINTMENT</button>
         </form>
       </center>
     <% } %>
