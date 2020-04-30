@@ -86,6 +86,13 @@
       </form>
       <br>
     <% } %>
+    <% if (apt.STATUS == 'ACCEPTED') { %>
+      <center>
+        <form action="/api/users/tutor/cancelAppointment<%- apt.ID %>">
+          <button>CANCEL</button>
+        </form>
+      </center>
+    <% } %>
    </div>
 </body>
 </html>
