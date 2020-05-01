@@ -24,7 +24,7 @@
           <th>Child Email</th>
         </thead>
         <% for(let i = 0; i < p.length; i++) { %> 
-          <tr data-href="/api/users/parent/pay?tid=<%- p[i].TRANSACTION_ID %>">
+          <tr data-href="/parent/managepayments?tid=<%- p[i].TRANSACTION_ID %>">
             <td><%- p[i].STATUS %></td>
             <td><%- p[i].TRANSACTION_ID %></td>
             <td><%- p[i].TEMAIL %></td>
