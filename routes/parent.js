@@ -90,6 +90,10 @@ router.get('/scheduledappointments', (req, res) => {
 
 // * Parent routing to manage payment
 router.get('/managepayments', (req, res) => {
+  if(!req.session.user || req.session.user != ACCOUNT.PARENT) {
+    res.redirect('/')
+    return;
+  }
   if(req.query.tid) {
     const qstring =
       "SELECT"+
@@ -156,16 +160,19 @@ router.get('/paymenthistory', (req, res) => {
   }
   else {
     const qstring =
-      "SELECT TRANSACTIONS.TRANSACTION_ID,"+
-      " TRANSACTIONS.STATUS,"+
-      " COURSES.COURSE_NAME,"+
-      " TRANSACTIONS.APPOINTMENT_ID"+
-      " FROM TRANSACTIONS "+
-      " LEFT JOIN COURSES ON TUTOR_ID IN (COURSES.ACC_NO)"+
-      " WHERE TRANSACTIONS.STUDENT_ID IN "+
-      " (SELECT ACC_NO FROM STUDENT WHERE " +
-      " PARENT_ACC_NO = ?) "
-      " AND TRANSACTIONS.STATUS = 'PAID'";
+    " SELECT"+
+      " TR.STATUS,"+
+      " TR.TRANSACTION_ID,"+
+      " C.COURSE_NAME,"+
+      " A.APPOINTMENT_ID,"+
+      " S.FNAME AS SFNAME,"+
+      " S.LNAME AS SLNAME"+
+    " FROM TRANSACTIONS TR"+
+    " INNER JOIN APPOINTMENTS A ON TR.APPOINTMENT_ID IN(A.APPOINTMENT_ID)"+
+    " INNER JOIN COURSES C ON A.COURSE IN(C.COURSE_ID)"+
+    " INNER JOIN STUDENT S ON TR.STUDENT_ID IN (S.ACC_NO)"+
+    " WHERE TR.PAID_BY = ?"+
+    " AND TR.STATUS = 'PAID';"
     db.query(qstring, [req.session.user.acc_no], (err, results) => {
       if(err) {
         res.json(err)
@@ -184,6 +191,8 @@ router.get('/appointmenthistory', (req, res) => {
     res.redirect('/');
     return;
   }
+  res.json(req.session);
+  return;
   res.render('parent/appointmenthistory');
 })
 
