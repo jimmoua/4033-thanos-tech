@@ -171,12 +171,9 @@ router.get('/paymenthistory', (req, res) => {
         res.json(err)
         return;
       }
-      if(results.length == 0) {
-        res.status(404).sendFile(path.resolve('public/html/404.html'));
-        return;
-      }
-      //res.render('parent/paymenthistory')
-      res.json(results)
+      res.render('parent/paymenthistory', {
+        t: results
+      })
     })
     return;
   }
