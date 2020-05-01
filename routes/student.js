@@ -92,8 +92,7 @@ router.get('/managepayments', (req, res) => {
         " RIGHT OUTER JOIN TUTOR T ON TR.TUTOR_ID IN(T.ACC_NO)"+
         " RIGHT OUTER JOIN APPOINTMENTS A ON TR.APPOINTMENT_ID IN (A.APPOINTMENT_ID)"+
         " RIGHT OUTER JOIN COURSES C ON C.COURSE_ID IN(A.COURSE)"+
-        " WHERE TR.STATUS = 'NOT PAID'"+
-          " AND TRANSACTION_ID = ?";
+          " WHERE TRANSACTION_ID = ?";
       db.query(qstring, [req.query.details], (err, results) => {
         if(err) {
           res.status(500).json(err);
