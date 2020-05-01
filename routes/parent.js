@@ -172,18 +172,18 @@ router.get('/paymenthistory', (req, res) => {
       if(results.length == 0) {
         res.status(404).sendFile(path.resolve('public/html/404.html'));
       }
-      res.json({
-        results: results
-      })
+      res.render('parent/paymenthistory')
     })
     return;
   }
 })
 
 router.get('/appointmenthistory', (req, res) => {
-  if(!req.user.session || req.user.session.type != ACCOUNT.TUTOR) {
-
+  if(!req.session.user || req.session.user.type != ACCOUNT.PARENT) {
+    res.redirect('/');
+    return;
   }
+  res.render('parent/appointmenthistory');
 })
 
 module.exports = router;
