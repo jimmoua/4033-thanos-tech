@@ -150,4 +150,14 @@ router.get('/managepayments', (req, res) => {
   })
 })
 
+router.get('/paymenthistory', (req, res) => {
+
+})
+
+router.get('/appointmenthistory', (req, res) => {
+  if(!req.user.session || req.user.session.type != ACCOUNT.TUTOR) {
+
+  }
+})
+
 module.exports = router;
