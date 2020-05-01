@@ -20,15 +20,15 @@
         <thead>
           <th>Status</th>
           <th>Transaction ID</th>
-          <th>Appointment Number</th>
+          <th>Appointment ID</th>
           <th>Course</th>
         </thead>
-        <% for(let i = 0; i < 25; i++) { %> 
+        <% for(let i = 0; i < t.length; i++) { %> 
           <tr>
-            <td>status</td>
-            <td>tid</td>
-            <td>apt id</td>
-            <td>course name</td>
+            <td><%- t[i].STATUS %></td>
+            <td><%- t[i].TRANSACTIONS_ID %></td>
+            <td><%- t[i].APPOINTMENT_ID %> </td>
+            <td><%- t[i].COURSE_NAME %> </td>
           </tr>
         <% } %> 
       </table>
