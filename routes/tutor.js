@@ -46,14 +46,7 @@ router.get('/viewscheduledappointments', (req, res) => {
           res.send(`Multiple appointment selected`)
           return; 
         } else {
-          // ! CONVERT TO JS
-          let date = results[0].DATE;
-          let time = results[0].TIME;
-          var hms = time;
-          var a = hms.split(':');
-          const seconds = (+a[0]) * 60 * 60 + (+a[1]); 
-          const nowEpoch = ((new Date(date).getTime()/1000)+seconds - (new Date().getTime()/1000));
-          // ! CONVERT TO JS
+          const nowEpoch = new Date(results[0].DATE+" "+results[0].TIME).getTime()/1000/60 - new Date().getTime()/1000/60;
           res.render('tutor/specificappointment', {
             apt: results[0],
             passedEpoch: nowEpoch
