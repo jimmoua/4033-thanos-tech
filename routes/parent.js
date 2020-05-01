@@ -107,10 +107,9 @@ router.get('/managepayments', (req, res) => {
       res.status(500).json(err);
       return;
     }
-    res.json(results);
-    // res.render('parent/pay', {
-    //   p: results
-    // })
+    res.render('parent/pay', {
+      p: results
+    })
   })
 })
 
