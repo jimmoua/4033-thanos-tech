@@ -22,13 +22,15 @@
           <th>Transaction ID</th>
           <th>Appointment ID</th>
           <th>Course</th>
+          <th>Child Name</th>
         </thead>
         <% for(let i = 0; i < t.length; i++) { %> 
           <tr>
             <td><%- t[i].STATUS %></td>
-            <td><%- t[i].TRANSACTIONS_ID %></td>
+            <td><%- t[i].TRANSACTION_ID %></td>
             <td><%- t[i].APPOINTMENT_ID %> </td>
             <td><%- t[i].COURSE_NAME %> </td>
+            <td><%- t[i].SFNAME %> <%- t[i].SLNAME %></td>
           </tr>
         <% } %> 
       </table>
