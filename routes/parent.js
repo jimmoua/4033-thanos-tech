@@ -90,7 +90,7 @@ router.get('/scheduledappointments', (req, res) => {
 
 // * Parent routing to manage payment
 router.get('/managepayments', (req, res) => {
-  if(!req.session.user || req.session.user != ACCOUNT.PARENT) {
+  if(!req.session.user || req.session.user.type != ACCOUNT.PARENT) {
     res.redirect('/')
     return;
   }
