@@ -34,7 +34,9 @@ router.get('/scheduledappointments', (req, res) => {
     " right outer join APPOINTMENTS on STUDENT.ACC_NO in(APPOINTMENTS.STUDENT_ID)"+
     " right outer join TUTOR ON APPOINTMENTS.TUTOR_ID IN(TUTOR.ACC_NO)"+
     " right outer join COURSES ON COURSES.COURSE_ID IN(APPOINTMENTS.COURSE)"+
-    " where APPOINTMENTS.APPOINTMENT_ID = ?";
+    " where APPOINTMENTS.APPOINTMENT_ID = ?"+
+    " and APPOINTMENTS.STATUS = 'ACCEPTED'"+
+    " or APPOINTMENTS.STATUS = 'PENDING'";
     const aptid = req.query.view;
     db.query(qstring, [aptid], (err, results) => {
       if(err) {
@@ -72,7 +74,8 @@ router.get('/scheduledappointments', (req, res) => {
       " right outer join APPOINTMENTS on STUDENT.ACC_NO in(APPOINTMENTS.STUDENT_ID)"+
       " right outer join TUTOR ON APPOINTMENTS.TUTOR_ID IN(TUTOR.ACC_NO)"+
       " right outer join COURSES ON COURSES.COURSE_ID IN(APPOINTMENTS.COURSE) where PARENT_ACC_NO = ?"+
-      " AND APPOINTMENTS.STATUS != 'FINISHED'";
+      " AND APPOINTMENTS.STATUS != 'FINISHED'"+
+      " AND APPOINTMENTS.STATUS != 'CANCELLED'";
     db.query(qstring, [req.session.user.acc_no], (err, results) => {
       if(err) {
         res.json(err);
