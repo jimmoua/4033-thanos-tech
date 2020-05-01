@@ -85,3 +85,11 @@ a:hover{
 th {
   font-size: large;
 }
+
+.main-block .data-table .w3-table-all th {
+  text-align: center;
+}
+
+.main-block .data-table .w3-table-all tr td {
+  text-align: center;
+}

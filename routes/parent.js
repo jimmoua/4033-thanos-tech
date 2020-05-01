@@ -151,13 +151,19 @@ router.get('/managepayments', (req, res) => {
 })
 
 router.get('/paymenthistory', (req, res) => {
-
+  if(!req.session.user || req.session.user.type != ACCOUNT.PARENT) {
+    res.redirect('/');
+    return;
+  }
+  res.render('parent/paymenthistory')
 })
 
 router.get('/appointmenthistory', (req, res) => {
-  if(!req.user.session || req.user.session.type != ACCOUNT.TUTOR) {
-
+  if(!req.session.user || req.session.user.type != ACCOUNT.PARENT) {
+    res.redirect('/');
+    return;
   }
+  res.render('parent/appointmenthistory');
 })
 
 module.exports = router;
