@@ -149,4 +149,20 @@ router.post('/cancelappointment', (req, res) => {
   })
 })
 
+router.post('/pay', (req, res) => {
+  if(!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
+    res.redirect('/');
+    return;
+  }
+  if(req.query.tid) {
+    db.query(`UPDATE TRANSACTIONS SET STATUS = 'PAID' WHERE TRANSACTION_ID = ?`, [req.query.tid], (err) => {
+      if(err) {
+        res.json(err);
+        return;
+      }
+      res.redirect(`/student/managepayments?paid=true`);
+    })  
+  }
+})
+
 module.exports = router;
