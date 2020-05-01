@@ -18,11 +18,25 @@
     <table class="w3-table-all">
       <thead>
         <th>Appointment ID</th>
-        <th>Child Email</th>
-        <th>Tutor Email</th>
+        <th>Child</th>
+        <th>Tutor</th>
         <th>Course</th>
       </thead>
+      <% for(let i = 0; i < r.length; i++) { %> 
+        <tr>
+          <td><%- r[i].APPOINTMENT_ID %></td>
+          <td><%- r[i].SEMAIL %><br><%- r[i].SFNAME %> <%- r[i].SLNAME %></td>
+          <td><%- r[i].TEMAIL %><br><%- r[i].TFNAME %> <%- r[i].TLNAME %></td>
+          <td><%- r[i].COURSE_NAME %></td>
+        </tr>
+      <% } %> 
     </table>
+    <br>
+    <div>
+      <center>
+        <button onclick="window.history.back()">BACK</button>
+      </center>
+    </div>
   </div>
 </body>
 </html>

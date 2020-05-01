@@ -191,9 +191,34 @@ router.get('/appointmenthistory', (req, res) => {
     res.redirect('/');
     return;
   }
-  res.json(req.session);
-  return;
-  res.render('parent/appointmenthistory');
+
+  const qstring = 
+    "SELECT"+
+      " TR.APPOINTMENT_ID,"+
+      " C.COURSE_NAME,"+
+      " S.FNAME AS SFNAME,"+
+      " S.LNAME AS SLNAME,"+
+      " S.EMAIL AS SEMAIL,"+
+      " T.EMAIL AS TEMAIL,"+
+      " T.FNAME AS TFNAME,"+
+      " T.LNAME AS TLNAME"+
+    " FROM TRANSACTIONS TR"+
+    " INNER JOIN APPOINTMENTS A ON TR.APPOINTMENT_ID IN(A.APPOINTMENT_ID)"+
+    " INNER JOIN COURSES C ON A.COURSE IN(C.COURSE_ID)"+
+    " INNER JOIN STUDENT S ON A.STUDENT_ID IN(S.ACC_NO)"+
+    " INNER JOIN TUTOR T ON A.TUTOR_ID IN(T.ACC_NO)"+
+    " WHERE TR.PAID_BY = ?"+
+    " OR S.PARENT_ACC_NO = ?";
+    db.query(qstring, [req.session.user.acc_no, req.session.user.acc_no], (err, results) => {
+      if(err) {
+        res.status(500).json(err);
+        return;
+      }
+      res.render('parent/appointmenthistory', {
+        r: results
+      });
+    })
+
 })
 
 module.exports = router;
