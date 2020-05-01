@@ -90,6 +90,40 @@ router.get('/scheduledappointments', (req, res) => {
 
 // * Parent routing to manage payment
 router.get('/managepayments', (req, res) => {
+  if(req.query.tid) {
+    const qstring =
+      "SELECT"+
+        " TR.TRANSACTION_ID,"+
+        " TR.STATUS,"+
+        " S.FNAME AS SFNAME,"+
+        " S.LNAME AS SLNAME,"+
+        " S.EMAIL AS SEMAIL,"+
+        " T.FNAME AS TFNAME,"+
+        " T.LNAME AS TLNAME,"+
+        " T.EMAIL AS TEMAIL,"+
+        " C.COURSE_NAME,"+
+        " A.APPOINTMENT_ID"+
+      " FROM TRANSACTIONS TR"+
+      " RIGHT OUTER JOIN STUDENT S ON TR.STUDENT_ID IN(S.ACC_NO)"+
+      " RIGHT OUTER JOIN TUTOR T ON TR.TUTOR_ID IN (T.ACC_NO)"+
+      " RIGHT OUTER JOIN APPOINTMENTS A ON TR.APPOINTMENT_ID IN(A.APPOINTMENT_ID)"+
+      " RIGHT OUTER JOIN COURSES C ON A.COURSE IN(C.COURSE_ID)"+
+      " WHERE TR.TRANSACTION_ID = ?"+
+      " AND TR.STATUS = 'NOT PAID'";
+    db.query(qstring, [req.query.tid], (err, results) => {
+      if(err) {
+        res.json(err)
+        return;
+      }
+      if(results.length == 0) {
+        res.status(404).sendFile(path.resolve('public/html/404.html'));
+      }
+      res.render('parent/payview', {
+        p: results[0]
+      })
+    })
+    return;
+  }
   const qstring =
     " SELECT"+
       " TR.TRANSACTION_ID,"+

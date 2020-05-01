@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/javascript/jquery.js"></script>
+  <script src="/javascript/main.js"></script>
+  <title>Payment View</title>
+</head>
+<body>
+  <div class="main-block">
+    <div class="data-table">
+      <table class="w3-table-all">
+        <tr>
+          <th>Status</th>
+          <td><%- p.STATUS %></td>
+        </tr>
+        <tr>
+          <th>Transaction ID</th>
+          <td><%- p.TRANSACTION_ID %></td>
+        </tr>
+        <tr>
+          <th>Tutor Email</th>
+          <td><%- p.TEMAIL %></td>
+        </tr>
+        <tr>
+          <th>Child Email</th>
+          <td><%- p.SEMAIL %></td>
+        </tr>
+        <tr>
+          <th>Appointment ID</th>
+          <td><%- p.APPOINTMENT_ID %> </td>
+        </tr>
+        <tr>
+          <th>Course</th>
+          <td><%- p.COURSE_NAME %></td>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <div>
+      <form id="pay" action="/api/users/parent/pay?tid=<%- p.TRANSACTION_ID %>" method="post"></form>
+      <center>
+        <button onclick="window.history.back()">BACK</button>
+        <button form="pay">PAY</button>
+      </center>
+    </div>
+  </div>
+</body>
+</html>
