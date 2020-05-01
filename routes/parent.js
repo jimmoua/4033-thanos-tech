@@ -151,7 +151,33 @@ router.get('/managepayments', (req, res) => {
 })
 
 router.get('/paymenthistory', (req, res) => {
-
+  if(!req.session.user || req.session.user.type !== ACCOUNT.PARENT) {
+    res.redirect('/')
+  }
+  else {
+    const qstring =
+      "SELECT TRANSACTIONS.TRANSACTION_ID,"+
+      " TRANSACTIONS.STATUS,"+
+      " COURSES.COURSE_NAME,"+
+      " TRANSACTIONS.APPOINTMENT_ID"+
+      " FROM TRANSACTIONS "+
+      " LEFT JOIN COURSES ON TUTOR_ID IN (COURSES.ACC_NO)"+
+      " WHERE TRANSACTIONS.TRANSACTION_ID = ?"+
+      " AND TRANSACTIONS.STATUS = 'PAID'";
+    db.query(qstring, [req.query.tid], (err, results) => {
+      if(err) {
+        res.json(err)
+        return;
+      }
+      if(results.length == 0) {
+        res.status(404).sendFile(path.resolve('public/html/404.html'));
+      }
+      res.json({
+        results: results
+      })
+    })
+    return;
+  }
 })
 
 router.get('/appointmenthistory', (req, res) => {
