@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/javascript/jquery.js"></script>
+  <title>Payment View</title>
+</head>
+<body>
+  <%- include('../partials/navbar-student') %> 
+  <div class="main-block">
+    <center><h1>Payment View</h1></center>
+    <div class="data-table">
+      <table class="w3-table-all">
+        <tr>
+          <th>Status</th>
+          <% if (p.STATUS == 'NOT PAID') { %>
+            <td style="color: red"><%- p.STATUS %> </td>
+          <% } else { %>
+            <td style="color: GREEN"><%- p.STATUS %> </td>
+          <% } %> 
+        </tr>
+        <tr>
+          <th>Payment ID</th>
+          <td><%- p.TRANSACTION_ID %> </td>
+        </tr>
+        <tr>
+          <th>Tutor Name</th>
+          <td><%- p.TFNAME %> <%- p.TLNAME %></td>
+        </tr>
+        <tr>
+          <th>Tutor Email</th>
+          <td><%- p.TEMAIL %></td>
+        </tr>
+        <tr>
+          <th>Appointment ID</th>
+          <td><%- p.APT_ID %></td>
+        </tr>
+        <tr>
+          <th>Course name</th>
+          <td><%- p.COURSE_NAME %> </td>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <div><center><button onclick="window.history.back()">BACK</button></center></div>
+  </div>
+</body>
+</html>

@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const db = require('../db_files/db');
 const ACCOUNT = require('../misc/accountTypes');
+const path = require('path');
 
 router.get('/search', (req, res) => {
   if (!req.session.user || req.session.user.type !== ACCOUNT.STUDENT) {
@@ -72,6 +73,42 @@ router.get('/managepayments', (req, res) => {
     res.redirect('/'); 
   }
   else {
+    if(req.query.details) {
+      const qstring = 
+        "SELECT"+
+          " T.FNAME AS TFNAME,"+
+          " T.LNAME AS TLNAME,"+
+          " T.EMAIL AS TEMAIL,"+
+          " S.FNAME AS SFNAME,"+
+          " S.LNAME AS SLNAME,"+
+          " S.EMAIL AS SEMAIL,"+
+          " TR.STATUS,"+
+          " TR.AMOUNT,"+
+          " TR.TRANSACTION_ID,"+
+          " C.COURSE_NAME,"+
+          " A.APPOINTMENT_ID AS APT_ID"+
+        " FROM TRANSACTIONS TR"+
+        " RIGHT OUTER JOIN STUDENT S ON TR.STUDENT_ID IN(S.ACC_NO)"+
+        " RIGHT OUTER JOIN TUTOR T ON TR.TUTOR_ID IN(T.ACC_NO)"+
+        " RIGHT OUTER JOIN APPOINTMENTS A ON TR.APPOINTMENT_ID IN (A.APPOINTMENT_ID)"+
+        " RIGHT OUTER JOIN COURSES C ON C.COURSE_ID IN(A.COURSE)"+
+        " WHERE TR.STATUS = 'NOT PAID'"+
+          " AND TRANSACTION_ID = ?";
+      db.query(qstring, [req.query.details], (err, results) => {
+        if(err) {
+          res.status(500).json(err);
+          return;
+        }
+        if(results.length == 0) {
+          res.status(404).sendFile(path.resolve('public/html/404.html'));
+          return;
+        }
+        res.render('student/paymentview', {
+          p: results[0]
+        })
+      })
+      return;
+    }
     const qstring =
       "SELECT"+
         " TR.STATUS,"+
