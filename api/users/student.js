@@ -155,12 +155,14 @@ router.post('/pay', (req, res) => {
     return;
   }
   if(req.query.tid) {
-    db.query(`UPDATE TRANSACTIONS SET STATUS = 'PAID' WHERE TRANSACTION_ID = ?`, [req.query.tid], (err) => {
+    db.query(`UPDATE TRANSACTIONS SET STATUS = 'PAID', PAID_BY = ? WHERE TRANSACTION_ID = ? AND STUDENT_ID = ? `, [req.session.user.acc_no, req.query.tid, req.session.user.acc_no], (err, results) => {
       if(err) {
         res.json(err);
         return;
       }
-      res.redirect(`/student/managepayments?paid=true`);
+      else {        
+        res.redirect(`/student/managepayments?paid=true`);
+      }
     })  
   }
 })
