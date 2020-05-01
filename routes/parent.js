@@ -221,4 +221,25 @@ router.get('/appointmenthistory', (req, res) => {
 
 })
 
+router.get('/seechildren', (req, res) => {
+  if(!req.session.user || req.session.user.type != ACCOUNT.PARENT) {
+    res.redirect('/')
+    return;
+  }
+  // Otherwise... if session is valid
+  const qstring = 
+  "SELECT"+
+    " FNAME,"+
+    " LNAME,"+
+    " EMAIL"+
+  " FROM STUDENT"+
+  " WHERE PARENT_ACC_NO = ?";
+  db.query(qstring, [req.session.user.acc_no], (err, results) => {
+    if(err) {
+      res.status(500).json(err);
+      return;
+    }
+  })
+})
+
 module.exports = router;
