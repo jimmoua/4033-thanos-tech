@@ -19,7 +19,16 @@ router.get('/search', (req, res) => {
       for(var i = 1; i < searchTerm.length; i++) {
         queryTerm+='|'+searchTerm[i];
       }
-      let q_string = `SELECT COURSES.COURSE_ID, COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL, TUTOR.BIO FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_NAME REGEXP ?`;
+      let q_string = 
+        "SELECT"+
+          " COURSES.COURSE_ID,"+
+          " COURSES.COURSE_NAME,"+
+          " TUTOR.FNAME, TUTOR.LNAME,"+
+          " TUTOR.EMAIL,"+
+          " TUTOR.BIO"+
+        " FROM COURSES"+
+        " RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO "+
+        " WHERE COURSES.COURSE_NAME REGEXP ?"
       db.query(q_string, [queryTerm], (err, results) => {
         if(err) throw err;
         res.render('student/results', {
@@ -37,7 +46,20 @@ router.get('/scheduledappointments', (req, res) => {
     res.redirect('/'); 
   }
   else {
-    db.query(`select APPOINTMENTS.APPOINTMENT_ID, APPOINTMENTS.STATUS, COURSES.COURSE_NAME, TUTOR.EMAIL, APPOINTMENTS.COURSE, APPOINTMENTS.APPOINTMENT_DATE, APPOINTMENTS.APPOINTMENT_TIME FROM APPOINTMENTS right outer join COURSES on APPOINTMENTS.COURSE = COURSES.COURSE_ID right outer join TUTOR on APPOINTMENTS.TUTOR_ID = TUTOR.ACC_NO where APPOINTMENTS.STUDENT_ID = ?;`, [req.session.user.acc_no], (err, results) => {
+    const qstring = 
+      "SELECT"+
+        " APPOINTMENTS.APPOINTMENT_ID,"+
+        " APPOINTMENTS.STATUS,"+
+        " COURSES.COURSE_NAME,"+
+        " TUTOR.EMAIL,"+
+        " APPOINTMENTS.COURSE,"+
+        " APPOINTMENTS.APPOINTMENT_DATE,"+
+        " APPOINTMENTS.APPOINTMENT_TIME"+
+      " FROM APPOINTMENTS"+
+      " RIGHT OUTER JOIN COURSES ON APPOINTMENTS.COURSE = COURSES.COURSE_ID"+
+      " RIGHT OUTER JOIN TUTOR ON APPOINTMENTS.TUTOR_ID = TUTOR.ACC_NO"+
+      " WHERE APPOINTMENTS.STUDENT_ID = ?";
+    db.query(qstring, [req.session.user.acc_no], (err, results) => {
       res.render('student/scheduledappointment', {
         apts: results
       })
