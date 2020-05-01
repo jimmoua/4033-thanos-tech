@@ -119,6 +119,7 @@ router.get('/managepayments', (req, res) => {
       " FROM TRANSACTIONS TR"+
       " RIGHT OUTER JOIN TUTOR T ON TR.TUTOR_ID IN(T.ACC_NO)"+
       " WHERE TR.STUDENT_ID = ?";
+      " AND TR.STATUS = 'NOT PAID'";
     db.query(qstring, [req.session.user.acc_no], (err, results) => {
       if(err) {
         res.json(err);
