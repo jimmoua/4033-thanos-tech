@@ -162,17 +162,21 @@ router.get('/paymenthistory', (req, res) => {
       " TRANSACTIONS.APPOINTMENT_ID"+
       " FROM TRANSACTIONS "+
       " LEFT JOIN COURSES ON TUTOR_ID IN (COURSES.ACC_NO)"+
-      " WHERE TRANSACTIONS.TRANSACTION_ID = ?"+
+      " WHERE TRANSACTIONS.STUDENT_ID IN "+
+      " (SELECT ACC_NO FROM STUDENT WHERE " +
+      " PARENT_ACC_NO = ?) "
       " AND TRANSACTIONS.STATUS = 'PAID'";
-    db.query(qstring, [req.query.tid], (err, results) => {
+    db.query(qstring, [req.session.user.acc_no], (err, results) => {
       if(err) {
         res.json(err)
         return;
       }
       if(results.length == 0) {
         res.status(404).sendFile(path.resolve('public/html/404.html'));
+        return;
       }
-      res.render('parent/paymenthistory')
+      //res.render('parent/paymenthistory')
+      res.json(results)
     })
     return;
   }
