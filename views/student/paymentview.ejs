@@ -48,7 +48,10 @@
       </table>
     </div>
     <br>
-    <div><center><button onclick="window.history.back()">BACK</button></center></div>
+    <div>
+      <form id="paypost" action="/api/users/student/pay?tid=<%- p.TRANSACTION_ID %>" method="post"></form>
+      <center><button onclick="window.history.back()">BACK</button>&nbsp&nbsp&nbsp&nbsp&nbsp<button form="paypost">PAY</button></center>
+    </div>
   </div>
 </body>
 </html>
