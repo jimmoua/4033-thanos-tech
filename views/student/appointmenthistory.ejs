@@ -1,20 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Appointment History</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  </head>
-  <body>
-    <%- include("../partials/navbar-student") %> 
-    <div class="main-block">
+<head>
+  <title>Appointment History</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <%- include("../partials/navbar-student") %> 
+  <div class="main-block">
+    <center>
       <h1>Appointment History</h1>
-      </form>
+    </center>
+    <div class="data-table">
+      <table class="w3-table-all">
+        <thead>
+          <th>Appointment Status</th>
+          <th>Appointment ID</th>
+          <th>Course Name</th>
+          <th>Tutor Email</th>
+        </thead>
+        <% for(let i = 0; i < apt.length; i++) { %> 
+          <tr>
+            <% if(apt[i].STATUS == 'FINISHED') { %> 
+              <td style="color: green;"><%- apt[i].STATUS %></td>
+            <% } else { %> 
+              <td style="color: red;"><%- apt[i].STATUS %></td>
+            <% } %> 
+            <td><%- apt[i].APPOINTMENT_ID %></td>
+            <td><%- apt[i].COURSE_NAME %></td>
+            <td><%- apt[i].EMAIL %></td>
+          </tr>
+        <% } %> 
+      </table>
     </div>
-  </body>
+    <br>
+    <div><center><button onclick="window.history.back()">BACK</button></center></div>
+  </div>
+</body>
 </html>
+
+<style>
+  .data-table .w3-table-all th {
+    text-align: center;
+  }
+  .data-table .w3-table-all td {
+    text-align: center;
+  }
+</style>

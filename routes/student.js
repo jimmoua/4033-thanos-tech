@@ -78,7 +78,27 @@ router.get('/appointmenthistory', (req, res) => {
     res.redirect('/'); 
   }
   else {
-    res.render('student/appointmenthistory')
+    const qstring =
+    " SELECT"+
+      " A.STATUS,"+
+      " A.APPOINTMENT_ID,"+
+      " C.COURSE_NAME,"+
+      " T.EMAIL"+
+    " FROM APPOINTMENTS A"+
+    " RIGHT OUTER JOIN STUDENT S ON A.STUDENT_ID IN(S.ACC_NO)"+
+    " RIGHT OUTER JOIN COURSES C ON A.COURSE IN(C.COURSE_ID)"+
+    " RIGHT OUTER JOIN TUTOR T ON A.TUTOR_ID IN (T.ACC_NO)"+
+    " WHERE S.ACC_NO = ?" +
+    " AND STATUS != 'ACCEPTED'"
+    db.query(qstring, [req.session.user.acc_no], (err, results) => {
+      if(err) {
+        res.status(500).json(err);
+        return;
+      }
+      res.render('student/appointmenthistory', {
+        apt: results
+      })
+    })
   }
 });
 
