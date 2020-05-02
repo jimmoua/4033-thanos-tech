@@ -3,6 +3,8 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const morgan = require('morgan');
+const CREDS = require('./misc/email');
+const nodemailer = require('nodemailer');
 
 // Create server called app
 const app = express();
@@ -48,9 +50,38 @@ app.get('/rm-session', (req, res) => {
 })
 
 ////////////////////////////////////////////////////////////////////////////////
-//                              AJAX CALL ROUTES
+//                              Nodemailer Sendmail
 ////////////////////////////////////////////////////////////////////////////////
-app.use('/AJAX/', require('./AJAX/'));
+app.post('/sendemail', async (req, res) => {
+  console.log(req.body)
+  if(!req.body.Name || !req.body.Email || !req.body.Message) {
+    return res.status(400).sendFile(path.resolve('public/html/400.html'));
+  }
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.Email)) {
+    return res.status(400).send();
+  }
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    auth: {
+      user: CREDS.email,
+      pass: CREDS.pass
+    }
+  })
+  let mailOptions = {
+    from: `"${req.body.Email}" <${req.body.Email}>`,
+    to: 'twt.trustworthytutor@gmail.com',
+    text: `Sender email: ${req.body.Email} \nMessage from: ${req.body.Name} \nMessage: ${req.body.Message}`,
+    subject: `Trustworthty Tutors - Contact Form (${req.body.Email} - ${req.body.Name})` 
+  }
+  transporter.sendMail(mailOptions, (err) => {
+    if(err) {
+      return res.status(500).send();
+    }
+    else {
+      return res.status(200).send();
+    }
+  })
+})
 
 ////////////////////////////////////////////////////////////////////////////////
 //                              Route the 404

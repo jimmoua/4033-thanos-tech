@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/main.css">
+  <script src="/javascript/jquery.js"></script>
   <title>Trustworthy Tutors</title>
 </head>
 <body >
@@ -117,10 +118,10 @@
       <div class="w3-col m6 w3-large w3-margin-bottom">
         <i class="fa fa-map-marker" style="width:30px"></i>Russellville, AR<br>
         <i class="fa fa-phone" style="width:30px"></i>Phone: +555 555 555<br>
-        <i class="fa fa-envelope" style="width:30px"></i>Email: trustworthytutors@domain.com<br>
+        <i class="fa fa-envelope" style="width:30px"></i>Email: twt.trustworthytutor@gmail.com<br>
       </div>
       <div class="w3-col m6">
-        <form action="/api/sendemail" onsubmit="">
+        <form id="contactForm">
           <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
             <div class="w3-half">
               <input id="nameTB" class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
@@ -130,7 +131,7 @@
             </div>
           </div>
           <input id="messageBox" class="w3-input w3-border" type="text" minlength="5" placeholder="Message" required name="Message">
-          <button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>
+          <button class="w3-button w3-black w3-section w3-right" onclick="sendEmail()">SEND</button>
         </form>
       </div>
     </div>
@@ -140,7 +141,29 @@
 </body>
 </html>
 
-<script javascript>
+<script>
+  document.getElementById('contactForm').addEventListener("click", function(e) {
+    e.preventDefault();
+  })
+  async function sendEmail() {
+    fetch('/sendemail', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        Email: $('#email').val(),
+        Name: $('#nameTB').val(),
+        Message: $('#messageBox').val()
+      })
+    }).then(res => {
+      if(res.status == 200) {
+        console.log(res.data);
+        alert('Mail sent!')
+        document.getElementById('contactForm').reset();
+      } else {
+        alert('Mail not send')
+      }
+    })
+  }
 </script>
 
 <style>
