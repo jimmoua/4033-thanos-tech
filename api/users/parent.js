@@ -55,4 +55,48 @@ router.post('/pay', (req, res) => {
   }
 })
 
+router.post('/removechild', (req, res) => {
+  if(!req.session.user  || req.session.user.type != ACCOUNT.PARENT) {
+    console.log(req.session)
+    res.redirect('/')
+    return;
+  }
+  if(!req.query.childid) {
+    res.status(404).sendFile(path.resolve('public/html/404.html'));
+    return;
+  }
+  const cid = req.query.childid;
+  const qstring = 
+    "SELECT"+
+      " ACC_NO,"+
+      " PARENT_ACC_NO"+
+      " FROM STUDENT"+
+    " WHERE ACC_NO = ?"+
+    " AND PARENT_ACC_NO = ?";
+  db.query(qstring, [cid, req.session.user.acc_no], (err, results) => {
+    if(err) {
+      res.json(err);
+      return;
+    }
+    // Check to see if the parent account is truly parent and no one
+    // is trying to spoof/fiddle with data
+    if(results.length == 0) {
+      res.status(402).sendFile(path.resolve('public/html/402.html'));
+      return;
+    }
+    // Update string
+    const qstring = 
+      "UPDATE STUDENT"+
+      " SET PARENT_ACC_NO = NULL"+
+      " WHERE ACC_NO = ?";
+    db.query(qstring, [cid], (err) => {
+      if(err) {
+        res.json(err);
+        return;
+      }
+      return res.redirect('/parent/seechildren?removed=true')
+    })
+  })
+})
+
 module.exports = router;
