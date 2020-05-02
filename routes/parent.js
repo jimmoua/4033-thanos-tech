@@ -132,6 +132,7 @@ router.get('/managepayments', (req, res) => {
     " SELECT"+
       " TR.TRANSACTION_ID,"+
       " TR.STATUS,"+
+      " TR.AMOUNT,"+
       " S.FNAME AS SFNAME,"+
       " S.LNAME AS SLNAME,"+
       " S.EMAIL AS SEMAIL,"+

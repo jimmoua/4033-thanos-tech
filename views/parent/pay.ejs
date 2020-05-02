@@ -19,6 +19,7 @@
       <table class="w3-table-all">
         <thead>
           <th>Status</th>
+          <th>Amount</th>
           <th>Transaction ID</th>
           <th>Tutor Email</th>
           <th>Child Email</th>
@@ -26,6 +27,7 @@
         <% for(let i = 0; i < p.length; i++) { %> 
           <tr data-href="/parent/managepayments?tid=<%- p[i].TRANSACTION_ID %>">
             <td><%- p[i].STATUS %></td>
+            <td><%- p[i].AMOUNT %></td>
             <td><%- p[i].TRANSACTION_ID %></td>
             <td><%- p[i].TEMAIL %></td>
             <td><%- p[i].SEMAIL %></td>
