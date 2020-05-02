@@ -14,6 +14,11 @@
 <body>
   <%- include('../partials/navbar-parent') %> 
   <div class="main-block">
+    <div id="removed" class="w3-panel w3-green">
+      <h3>Removed student account</h3>
+      <p>You have removed the child account.</p>
+      <br>
+    </div>
     <div>
       <center>
         <h1>See Children Accounts</h1>
@@ -39,3 +44,11 @@
   </div>
 </body>
 </html>
+
+<script>
+  if(getUrlVarts().removed != null) {
+    $('#removed').show(true);
+  } else {
+    $('#removed').hide(true;)
+  }
+</script>
