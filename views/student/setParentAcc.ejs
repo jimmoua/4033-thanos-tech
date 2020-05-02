@@ -4,14 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
   <script javascript src="/javascript/emailExist.js"></script>
+  <script src="/javascript/main.js"></script>
   <title><%- user %> - Set Parent Account</title>
 </head>
 <body>
   <%- include("../partials/navbar-student") %> 
   <div class="main-block">
     <center>
+      <div id="parentEmailNotExists" style="display: none;" class="w3-panel w3-red">
+        <h3>Parent account was not found</h3>
+      </div>
+      <div id="parentEmailExists" style="display: none;" class="w3-panel w3-green">
+        <h3>Parent account updated</h3>
+      </div>
       <div><h1>Current Parent Account</h1></div>
       <% if (!pemail) { %>
         <p>No parent account defined.</p>
@@ -29,4 +40,9 @@
 </html>
 
 <script>
+  if(getUrlVars().setParEmail == 'true') {
+    $('#parentEmailExists').show(true);
+  } else if(getUrlVars().setParEmail == 'false') {
+    $('#parentEmailNotExists').show(true);
+  }
 </script>
