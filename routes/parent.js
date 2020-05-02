@@ -163,6 +163,7 @@ router.get('/paymenthistory', (req, res) => {
     const qstring =
     " SELECT"+
       " TR.STATUS,"+
+      " TR.AMOUNT,"+
       " TR.TRANSACTION_ID,"+
       " C.COURSE_NAME,"+
       " A.APPOINTMENT_ID,"+
