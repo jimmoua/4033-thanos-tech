@@ -10,11 +10,15 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="/javascript/jquery.js"></script>
+    <script src="/javascript/main.js"></script>
   </head>
   <body>
     <%- include("../partials/navbar-student") %> 
     <div class="main-block">
       <center>
+        <div id="paid" style="display: none;" class="w3-panel w3-green">
+          <h3>You have paid a tutor session</h3>
+        </div>
         <div>
           <h1><span class="fa fa-money"></span> Manage Payments</h1>
         </div>
@@ -60,6 +64,9 @@
   }, function() {
     $(this).css('background-color', '');
   });
+  if(getUrlVars().paid == 'true') {
+    $('#paid').show(true);
+  }
 </script>
 
 <style>
