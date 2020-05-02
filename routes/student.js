@@ -59,7 +59,9 @@ router.get('/scheduledappointments', (req, res) => {
       " FROM APPOINTMENTS"+
       " RIGHT OUTER JOIN COURSES ON APPOINTMENTS.COURSE = COURSES.COURSE_ID"+
       " RIGHT OUTER JOIN TUTOR ON APPOINTMENTS.TUTOR_ID = TUTOR.ACC_NO"+
-      " WHERE APPOINTMENTS.STUDENT_ID = ?";
+      " WHERE APPOINTMENTS.STUDENT_ID = ?"+
+      " AND APPOINTMENTS.STATUS != 'FINISHED'"+
+      " AND APPOINTMENTS.STATUS != 'CANCELLED'";
     db.query(qstring, [req.session.user.acc_no], (err, results) => {
       res.render('student/scheduledappointment', {
         apts: results
