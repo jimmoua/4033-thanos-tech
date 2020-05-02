@@ -34,7 +34,7 @@ router.post('/pay', (req, res) => {
         return; 
       }          
       if(req.session.user.acc_no != results[0].PARENT_ACC_NO) {
-        res.status(402).sendFile(path.resolve('public/html/402.html'));
+        res.status(400).sendFile(path.resolve('public/html/400.html'));
         return;
       }
       const qstring = 
@@ -81,7 +81,7 @@ router.post('/removechild', (req, res) => {
     // Check to see if the parent account is truly parent and no one
     // is trying to spoof/fiddle with data
     if(results.length == 0) {
-      res.status(402).sendFile(path.resolve('public/html/402.html'));
+      res.status(400).sendFile(path.resolve('public/html/400.html'));
       return;
     }
     // Update string
