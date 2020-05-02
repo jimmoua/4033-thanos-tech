@@ -204,10 +204,10 @@ router.get('/appointmenthistory', (req, res) => {
       " T.FNAME AS TFNAME,"+
       " T.LNAME AS TLNAME"+
     " FROM TRANSACTIONS TR"+
-    " INNER JOIN APPOINTMENTS A ON TR.APPOINTMENT_ID IN(A.APPOINTMENT_ID)"+
-    " INNER JOIN COURSES C ON A.COURSE IN(C.COURSE_ID)"+
-    " INNER JOIN STUDENT S ON A.STUDENT_ID IN(S.ACC_NO)"+
-    " INNER JOIN TUTOR T ON A.TUTOR_ID IN(T.ACC_NO)"+
+    " LEFT JOIN APPOINTMENTS A ON TR.APPOINTMENT_ID IN(A.APPOINTMENT_ID)"+
+    " LEFT JOIN COURSES C ON A.COURSE IN(C.COURSE_ID)"+
+    " LEFT JOIN STUDENT S ON A.STUDENT_ID IN(S.ACC_NO)"+
+    " LEFT JOIN TUTOR T ON A.TUTOR_ID IN(T.ACC_NO)"+
     " WHERE TR.PAID_BY = ?"+
     " OR S.PARENT_ACC_NO = ?";
     db.query(qstring, [req.session.user.acc_no, req.session.user.acc_no], (err, results) => {
