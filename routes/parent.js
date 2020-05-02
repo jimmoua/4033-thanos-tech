@@ -229,6 +229,7 @@ router.get('/seechildren', (req, res) => {
   // Otherwise... if session is valid
   const qstring = 
   "SELECT"+
+    " ACC_NO,"+
     " FNAME,"+
     " LNAME,"+
     " EMAIL"+
@@ -239,6 +240,9 @@ router.get('/seechildren', (req, res) => {
       res.status(500).json(err);
       return;
     }
+    res.render('parent/seechildren', {
+      r: results
+    })
   })
 })
 
