@@ -12,7 +12,7 @@ router.post('/:type', (req, res) => {
       db.query(`SELECT * FROM STUDENT WHERE EMAIL = ?;`, [email], (err, results) => {
         if(err) throw err;
         if(results.length < 1) {
-          res.send(`Auth error!`);
+            res.status(401).redirect('/login?errType=student');
         }
         else {
           const hash = results[0].PASSWORD;
@@ -26,7 +26,7 @@ router.post('/:type', (req, res) => {
               res.redirect('/');
             }
             else {
-              res.send(`Auth error!`)
+              res.status(401).redirect('/login?errType=student');
             }
           })
         }
@@ -37,7 +37,7 @@ router.post('/:type', (req, res) => {
       db.query(`SELECT * FROM PARENT WHERE EMAIL = ?;`, [email], (err, results) => {
         if(err) throw err;
         if(results.length < 1) {
-          res.send(`Auth error: no matching`);
+          res.status(401).redirect('/login?errType=parent');
         }
         else {
           const hash = results[0].PASSWORD;
@@ -51,7 +51,7 @@ router.post('/:type', (req, res) => {
               res.redirect('/');
             }
             else {
-              res.send(`Auth error!`)
+              res.status(401).redirect('/login?errType=parent');
             }
           })
         }
@@ -62,7 +62,7 @@ router.post('/:type', (req, res) => {
       db.query(`select * from TUTOR where EMAIL = ?`, [email], (err, t_results) => {
         if(err) throw err;
         if(t_results.length == 0) {
-          res.send(`Auth error!`);
+          return res.status(401).redirect('/login?errType=tutor');
         }
         else {
           const hash = t_results[0].PASSWORD;
@@ -76,7 +76,7 @@ router.post('/:type', (req, res) => {
               res.redirect('/');
             }
             else {
-              res.send(`Auth error!`);
+              res.status(401).redirect('/login?errType=tutor');
             }
           })
         }

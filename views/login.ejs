@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="/javascript/main.js"></script>
   </head>
   <body class="background">
     <!-- Navbar -->
@@ -31,6 +32,11 @@
 
     <!-- Student Login div -->
     <div id="studentLogin" class="main-block">
+      <div id="studentError" class="w3-panel w3-red">
+        <center>
+          <h3>Authentication Error!</h3>
+        </center>
+      </div>
       <h1>Student Login</h1>
       <form action="/api/login/Student" method="POST">
         <label id="icon" for="email"><i class="fa fa-user"></i></label>
@@ -46,6 +52,11 @@
 
     <!-- Tutor Login div -->
     <div id="tutorLogin" class="main-block">
+      <div id="tutorError" class="w3-panel w3-red">
+        <center>
+          <h3>Authentication Error!</h3>
+        </center>
+      </div>
       <h1>Tutor Login</h1>
       <form action="/api/login/Tutor" method="POST">
         <label id="icon" for="email"><i class="fa fa-user"></i></label>
@@ -61,6 +72,11 @@
 
     <!-- Parent Login div -->
     <div id="parentLogin" class="main-block">
+      <div id="parentError" class="w3-panel w3-red">
+        <center>
+          <h3>Authentication Error!</h3>
+        </center>
+      </div>
       <h1>Parent Login</h1>
       <form action="/api/login/Parent" method="POST">
         <label id="icon" for="email"><i class="fa fa-user"></i></label>
@@ -221,3 +237,24 @@
   }
 
 </style>
+
+<script>
+  if(getUrlVars().errType == 'student') {
+    $('#selectorView').hide(true);
+    $('#studentError').show(true);
+    $('#studentLogin').show(true);
+  } else if(getUrlVars().errType == 'parent') {
+    $('#selectorView').hide(true);
+    $('#parentError').show(true);
+    $('#parentLogin').show(true);
+  } else if(getUrlVars().errType == 'tutor') {
+    $('#selectorView').hide(true);
+    $('#tutorError').show(true);
+    $('#tutorLogin').show(true);
+  }
+  else {
+    $('#studentError').hide(true);
+    $('#parentError').hide(true);
+    $('#tutorError').hide(true);
+  }
+</script>
