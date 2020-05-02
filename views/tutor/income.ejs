@@ -28,8 +28,9 @@
             <!-- * PAID STATUS -->
             <% if (transactions[i].STATUS == 'PAID') { %>
               <td style="color: green; text-align: center;">PAID</td>
-            <% } else %>
+            <% } else { %>
               <td style="color: red; text-align: center;">NOT PAID</td>
+            <% } %> 
             <!-- * AMOUNT -->
             <td style="text-align: center;">$ <%- transactions[i].AMOUNT %></td>
             <!-- * TRANSACTION ID -->
