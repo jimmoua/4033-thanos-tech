@@ -9,11 +9,19 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="/javascript/jquery.js"></script>
+  <script src="/javascript/main.js"></script>
   <title>Scheduled Appointments</title>
 </head>
 <body>
   <%- include('../partials/navbar-tutor') %> 
   <div class="main-block">
+    <center>
+      <div style="display: none;" id="oldDate" class="w3-panel w3-red">
+        <h3>Invalid appointment date!</h3>
+        <p style="color: white;">The appointment date was in the past and has been automatically cancelled.</p>
+        <br>
+      </div>
+    </center>
     <div><h2>Scheduled Appointments</h2></div>
     <!-- * Table of appointments -->
     <div style="overflow-y: auto; max-height: 500px;">
@@ -66,4 +74,7 @@
   }, function() {
     $(this).css('background-color', '');
   });
+  if(getUrlVars().oldDate == 'true') {
+    $('#oldDate').show(true);
+  }
 </script>

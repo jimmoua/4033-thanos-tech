@@ -37,9 +37,39 @@ router.get('/viewscheduledappointments', (req, res) => {
   }
   else {
     if(req.query.aptid) {
-      db.query(`SELECT APPOINTMENTS.PLACE, TUTOR.FNAME AS TFNAME, TUTOR.LNAME AS TLNAME, TUTOR.EMAIL as TEMAIL, APPOINTMENTS.APPOINTMENT_ID AS ID, APPOINTMENTS.STATUS AS STATUS, COURSES.COURSE_NAME AS COURSE, STUDENT.FNAME AS FNAME, STUDENT.LNAME AS LNAME, STUDENT.EMAIL AS EMAIL, APPOINTMENTS.APPOINTMENT_DATE AS DATE, APPOINTMENTS.APPOINTMENT_TIME AS TIME FROM APPOINTMENTS LEFT JOIN STUDENT ON APPOINTMENTS.STUDENT_ID = STUDENT.ACC_NO LEFT JOIN COURSES ON APPOINTMENTS.COURSE = COURSES.COURSE_ID RIGHT OUTER JOIN TUTOR ON APPOINTMENTS.TUTOR_ID IN(TUTOR.ACC_NO) WHERE APPOINTMENTS.APPOINTMENT_ID = ? GROUP BY APPOINTMENT_ID `, [req.query.aptid], (err, results) => {
+      const qstring = 
+      "SELECT APPOINTMENTS.PLACE,"+
+      " TUTOR.FNAME AS TFNAME,"+
+      " TUTOR.LNAME AS TLNAME,"+
+      " TUTOR.EMAIL as TEMAIL,"+
+      " APPOINTMENTS.APPOINTMENT_ID AS ID,"+
+      " APPOINTMENTS.STATUS AS STATUS,"+
+      " COURSES.COURSE_NAME AS COURSE,"+
+      " STUDENT.FNAME AS FNAME,"+
+      " STUDENT.LNAME AS LNAME,"+
+      " STUDENT.EMAIL AS EMAIL,"+
+      " APPOINTMENTS.APPOINTMENT_DATE AS DATE,"+
+      " APPOINTMENTS.APPOINTMENT_TIME AS TIME"+
+      " FROM APPOINTMENTS"+
+      " INNER JOIN STUDENT ON APPOINTMENTS.STUDENT_ID = STUDENT.ACC_NO"+
+      " INNER JOIN COURSES ON APPOINTMENTS.COURSE = COURSES.COURSE_ID"+
+      " INNER JOIN TUTOR ON APPOINTMENTS.TUTOR_ID IN(TUTOR.ACC_NO)"+
+      " WHERE APPOINTMENTS.APPOINTMENT_ID = ?";
+      db.query(qstring, [req.query.aptid], (err, results) => {
         if(err) throw err; 
-        if (results.length == 0) {
+        const date = results[0].DATE;
+        const time = results[0].TIME;
+        const nowEpoch = new Date(date+" "+time).getTime() - new Date().getTime();
+        if(nowEpoch < 0 && results[0].STATUS == 'PENDING') {
+          db.query(`UPDATE APPOINTMENTS SET STATUS = 'CANCELLED' WHERE APPOINTMENT_ID = ?`, [req.query.aptid], (err) => {
+            if(err) {
+              res.status(500).json(err);
+              return;
+            }
+            return res.redirect('/tutor/viewscheduledappointments?oldDate=true');
+          })
+        }
+        else if (results.length == 0) {
           res.send(`No appointments found!`)
           return; 
         } else if (results.length > 1) {
