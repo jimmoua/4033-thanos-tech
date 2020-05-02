@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/main.css">
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script src="/javascript/main.js"></script>
   <title>Register</title>
 </head>
 
@@ -17,7 +18,7 @@
 
   <!-- * Selector for user type -->
   <div id="selectorView" class="main-block" style="padding: 20px 20px">
-    <h1>Select registration type</h1>
+    <h2>Select registration type</h2>
     <div class="btn-block">
       <button type="submit" onclick="toggleStudent()">Student</button>
     </div>
@@ -32,7 +33,16 @@
   <!-- * Student Signup View -->
   <div class="main-block" id="studentSignUp">
     <!-- TODO: add action later -->
-    <h1 style="text-align: center">Student Register</h1>
+    <div style="display: none;" id="studentPasswordMismatch" class="w3-panel w3-red">
+      <center><h3>Password mismatch!</h3></center>
+    </div>
+    <div style="display: none;" id="studentEmailTaken" class="w3-panel w3-red">
+      <center><h3>Student with the email already exists!</h3></center>
+    </div>
+    <div id="studentInvalidEmail" style="display: none;" class="w3-panel w3-red">
+      <center><h3>Invalid Email Address</h3></center>
+    </div>
+    <h2 style="text-align: center">Student Register</h2>
     <form id="studentRegisterForm" action="/api/register/Student" method="POST">
       <div style="text-align: center;">
         <input type="text" name="firstName" placeholder="First Name" required/><br>
@@ -51,8 +61,17 @@
 
   <!-- * Tutor Signup View -->
   <div class="main-block" id="tutorSignUp">
+    <div style="display: none;" id="tutorPasswordMismatch" class="w3-panel w3-red">
+      <center><h3>Password mismatch!</h3></center>
+    </div>
+    <div style="display: none;" id="tutorEmailTaken" class="w3-panel w3-red">
+      <center><h3>Tutor with the email already exists!</h3></center>
+    </div>
+    <div id="tutorInvalidEmail" style="display: none;" class="w3-panel w3-red">
+      <center><h3>Invalid Email Address</h3></center>
+    </div>
     <!-- TODO: add action later -->
-    <h1 style="text-align: center">Tutor Register</h1>
+    <h2 style="text-align: center">Tutor Register</h2>
     <form action="/api/register/Tutor" method="POST">
       <div style="text-align: center;">
         <input type="text" name="firstName" placeholder="First Name" required/><br>
@@ -70,7 +89,16 @@
 
   <!-- * Parent Signup View -->
   <div class="main-block" id="parentSignUp">
-    <h1 style="text-align: center">Parent Register</h1>
+    <div style="display: none;" id="parentPasswordMismatch" class="w3-panel w3-red">
+      <center><h3>Password mismatch!</h3></center>
+    </div>
+    <div style="display: none;" id="parentEmailTaken" class="w3-panel w3-red">
+      <center><h3>Parent with the email already exists!</h3></center>
+    </div>
+    <div id="parentInvalidEmail" style="display: none;" class="w3-panel w3-red">
+      <center><h3>Invalid Email Address</h3></center>
+    </div>
+    <h2 style="text-align: center">Parent Register</h2>
     <form action="/api/register/Parent" method="POST">
       <div style="text-align: center;">
         <input type="text" name="firstName" placeholder="First Name" required/><br>
@@ -166,6 +194,66 @@
       $('#selectorView').show();
     }
   });
+
+  switch(getUrlVars().errType) {
+    // * Tutor
+    case 'tutorEmailTaken': {
+      $('#tutorEmailTaken').show(true);
+      $('#tutorSignUp').show(true);
+      $('#selectorView').hide(true);
+      break;
+    }
+    case 'tutorPasswordMismatch': {
+      $('#tutorPasswordMismatch').show(true);
+      $('#tutorSignUp').show(true);
+      $('#selectorView').hide(true);
+      break;
+    }
+    case 'tutorInvalidEmail': {
+      $('#tutorInvalidEmail').show(true);
+      $('#tutorSignUp').show(true);
+      $('#selectorView').hide(true);
+      break;
+    }
+    // * Student
+    case 'studentEmailTaken': {
+      $('#studentEmailTaken').show(true);
+      $('#studentSignUp').show(true);
+      $('#selectorView').hide(true);
+      break;
+    }
+    case 'tutorPasswordMismatch': {
+      $('#tutorPasswordMismatch').show(true);
+      $('#tutorSignUp').show(true);
+      $('#selectorView').hide(true);
+      break;
+    }
+    case 'tutorInvalidEmail': {
+      $('#tutorInvalidEmail').show(true);
+      $('#tutorSignUp').show(true);
+      $('#selectorView').hide(true);
+      break;
+    }
+    // * Parent
+    case 'parentEmailTaken': {
+      $('#parentEmailTaken').show(true);
+      $('#parentSignUp').show(true);
+      $('#selectorView').hide(true);
+      break;
+    }
+    case 'parentPasswordMismatch': {
+      $('#parentPasswordMismatch').show(true);
+      $('#parentSignUp').show(true);
+      $('#selectorView').hide(true);
+      break;
+    }
+    case 'parentInvalidEmail': {
+      $('#parentInvalidEmail').show(true);
+      $('#parentSignUp').show(true);
+      $('#selectorView').hide(true);
+      break;
+    }
+  }
 
 </script>
 
