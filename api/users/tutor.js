@@ -68,7 +68,7 @@ router.post('/accept', (req, res) => {
         if(err) {
           res.status(500).json(err);
         }
-        return;
+        return res.redirect('/tutor/viewscheduledappointments');
       })
 
     })
@@ -133,10 +133,11 @@ router.post('/endAppointment', (req, res) => {
         " STUDENT_ID,"+
         " APPOINTMENT_DATE as ad,"+
         " APPOINTMENT_TIME as at,"+
-        " c.INITIAL_SESSION_PRICE,"
-        " c.SESSION_HOURLY_RATE"
-        " from APPOINTMENTS where APPOINTMENT_ID = ?"+
-        " INNER JOIN COURSES ON APPOINTMENTS.COURSE IN(COURSES.COURSE_ID);"
+        " C.INITIAL_SESSION_PRICE,"+
+        " C.SESSION_HOURLY_PRICE"+
+        " from APPOINTMENTS"+
+        " INNER JOIN COURSES C ON APPOINTMENTS.COURSE IN(C.COURSE_ID)"+
+        " where APPOINTMENT_ID = ?";
 
         db.query(qstring, [req.query.aptid], (err, results) => {
           if(err) {
@@ -144,26 +145,19 @@ router.post('/endAppointment', (req, res) => {
           }
           const apt = results[0];
           const nowEpoch = new Date().getTime()/1000/3600 - new Date(results[0].ad+" "+results[0].at).getTime()/1000/3600;
-          const amount = apt.SESSION_HOURLY_RATE*nowEpoch + apt.INITIAL_SESSION_PRICE;
+          const amount = apt.SESSION_HOURLY_PRICE*nowEpoch + apt.INITIAL_SESSION_PRICE;
           db.query(`insert into TRANSACTIONS values (?, ?, ?, ?, ?, ?, NULL)`, [uuid(), req.query.aptid, req.session.user.acc_no, apt.STUDENT_ID, 'NOT PAID', amount], (err) => {
             if(err) {
-              const foo = {
-                err,
-                studentid: apt.STUDENT_ID,
-                tutorid: apt.TUTOR_ID
-              }
-              res.status(500).json(foo);
-              return;
+              return res.status(500).json(err);
             }
-            res.redirect(`/tutor/viewscheduledappointments?aptid=${req.query.aptid}&updated=true`);
+            // Update the appointment that was ended to 'FINISHED'
+            db.query(`UPDATE APPOINTMENTS SET STATUS = 'FINISHED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err) => {
+              if (err) throw err; 
+              res.redirect(`/tutor/viewscheduledappointments`)
+            })    
           })
         })
 
-        // Update the appointment that was ended to 'FINISHED'
-        db.query(`UPDATE APPOINTMENTS SET STATUS = 'FINISHED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err) => {
-          if (err) throw err; 
-          res.redirect(`/tutor/viewscheduledappointments`)
-        })    
       })
     }
 });
