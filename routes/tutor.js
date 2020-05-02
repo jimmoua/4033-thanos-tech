@@ -146,7 +146,8 @@ router.get('/income', (req, res) => {
       " STATUS, AMOUNT, TRANSACTION_ID, FNAME, LNAME" +
       " FROM TRANSACTIONS" +
       " INNER JOIN STUDENT ON STUDENT_ID IN(STUDENT.ACC_NO)" +
-      " WHERE TUTOR_ID = ?";
+      " WHERE TUTOR_ID = ?"+
+      " ORDER BY STATUS";
     db.query(qstring, [req.session.user.acc_no], (err, results) => {
       if(err) {
         res.json(err);
