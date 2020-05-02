@@ -34,7 +34,11 @@
         </thead>
         <% for(let i = 0; i < p.length; i++) { %> 
           <tr data-href="/parent/managepayments?tid=<%- p[i].TRANSACTION_ID %>">
-            <td><%- p[i].STATUS %></td>
+            <% if(p[i].STATUS == 'NOT PAID') { %> 
+              <td style="color: red;"><%- p[i].STATUS %></td>
+            <% } else { %> 
+              <td style="color: green;"><%- p[i].STATUS %></td>
+            <% } %> 
             <td><%- p[i].AMOUNT %></td>
             <td><%- p[i].TRANSACTION_ID %></td>
             <td><%- p[i].TEMAIL %></td>
