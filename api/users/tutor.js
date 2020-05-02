@@ -26,7 +26,7 @@ router.post('/updateprofile', (req, res) => {
     // Run the query and update
     db.query(`UPDATE TUTOR SET FNAME = ?, LNAME = ?, GENDER = ?, BIO = ?, EMAIL = ? WHERE ACC_NO = ?`, [data.fname, data.lname, data.gender, data.bio, data.email, req.session.user.acc_no], (err, results) => {
       if(data.course) {
-        db.query(`INSERT INTO COURSES VALUES (?, ?, ?)`, [req.session.user.acc_no, uuid(), data.course], (err, courseResults) => {
+        db.query(`INSERT INTO COURSES VALUES (?, ?, ?)`, [req.session.user.acc_no, uuid(), data.course], (err) => {
           if (err) throw err;
           res.redirect('/');
         })
