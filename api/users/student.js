@@ -113,13 +113,14 @@ router.post('/scheduleappointment', (req, res) => {
     res.redirect('/');
     return;
   }
+  // Check to see if nothing has been pampered first.
   const data = {
     date: req.body.appointmentdate,
     time: req.body.appointmenttime,
     cid: req.query.cid,
-    place: req.body.place ? req.body.place : null
+    place: req.body.place
   }
-  if(!data.place) {
+  if( !data.date || !data.time || !data.cid || !data.place) {
     res.status(400).sendFile(path.resolve('public/html/400.html'));
     return;
   }
