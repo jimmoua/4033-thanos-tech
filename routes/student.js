@@ -149,7 +149,8 @@ router.get('/appointmenthistory', (req, res) => {
     " RIGHT OUTER JOIN COURSES C ON A.COURSE IN(C.COURSE_ID)"+
     " RIGHT OUTER JOIN TUTOR T ON A.TUTOR_ID IN (T.ACC_NO)"+
     " WHERE S.ACC_NO = ?" +
-    " AND STATUS != 'ACCEPTED'"
+    " AND STATUS != 'ACCEPTED'"+
+    " AND STATUS != 'PENDING'";
     db.query(qstring, [req.session.user.acc_no], (err, results) => {
       if(err) {
         res.status(500).json(err);
