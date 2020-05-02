@@ -111,12 +111,10 @@ router.post('/cancelAppointment', (req, res) => {
     res.redirect('/');
   }
   if(req.query.aptid) {
-    db.query(`UPDATE APPOINTMENTS SET STATUS = 'CANCELLED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err, results) => {
-      if (err) throw err; 
-      db.query(`DELETE FROM TRANSACTIONS WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err, results) => {
-        if (err) throw err; 
-        res.redirect(`/tutor/viewscheduledappointments`); 
-      })
+    db.query(`UPDATE APPOINTMENTS SET STATUS = 'CANCELLED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err) => {
+      if (err) {
+        return res.status(500).json(err);
+      }
     })    
   }
 });
