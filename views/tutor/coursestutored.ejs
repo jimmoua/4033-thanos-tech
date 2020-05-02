@@ -14,6 +14,12 @@
 <body>
   <%- include('../partials/navbar-tutor') %> 
   <div class="main-block">
+    <div id="delcourse" style="display: none;" class="w3-panel w3-green">
+      <center><h3>You removed a course</h3></center>
+    </div>
+    <div id="addCourse" style="display: none;" class="w3-panel w3-green">
+      <center><h3>You added a course</h3></center>
+    </div>
     <center><h1>Courses Tutored</h1></center>
     <div class="data-table">
       <div class="w3-table-tall">
@@ -51,3 +57,12 @@
   </div>
 </body>
 </html>
+
+<script>
+  if(getUrlVars().courseDel == 'true') {
+    $('#delcourse').show(true)
+  }
+  if(getUrlVars().addCourse == 'true') {
+    $('#addCourse').show(true);
+  }
+</script>

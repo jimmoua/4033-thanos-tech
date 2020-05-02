@@ -153,4 +153,45 @@ router.post('/endAppointment', (req, res) => {
   }
 });
 
+router.post('/removeCourse', (req, res) => {
+  if(!req.session.user || req.session.user.type != ACCOUNT.TUTOR) {
+    return res.redirect('/');
+  }
+  if(!req.query.cid) {
+    return res.status(400).sendFile(path.resolve('public/html/400.html'));
+  }
+  const qstring = `SELECT * FROM COURSES WHERE ACC_NO = ?`;
+  db.query(qstring, [req.session.user.acc_no], (err, results) => {
+    if(err) {
+      return res.status(500).json(err);
+    }
+    if(results.length == 0) {
+      return res.status(404).sendFile(path.resolve('public/html/404.html'));
+    }
+    const qstring = `DELETE FROM COURSES WHERE ACC_NO = ? AND COURSE_ID = ?`;
+    db.query(qstring, [req.session.user.acc_no, req.query.cid],(err) => {
+      if(err) {
+        return res.status(500).json(err);
+      }
+      return res.redirect('/tutor/coursestutored?courseDel=true');
+    })
+  })
+})
+
+router.post('/addCourse', (req, res) => {
+  if(!req.session.user || req.session.user.type != ACCOUNT.TUTOR) {
+    return res.redirect('/');
+  }
+  if(!req.body.coursename || !req.body.fixedprice || !req.body.hourlyrate) {
+    return res.status(400).sendFile(path.resolve('public/html/400.html'));
+  }
+  const qstring = `INSERT INTO COURSES VALUES (?, ?, ?, ?, ?)`;
+  db.query(qstring, [req.session.user.acc_no, uuid(), req.body.coursename, req.body.hourlyrate, req.body.fixedprice], (err) => {
+    if(err) {
+      return res.status(500).json(err);
+    }
+    res.redirect('/tutor/coursestutored?addCourse=true');
+  })
+})
+
 module.exports = router;
