@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/javascript/main.js"></script>
+  <title>Payment History</title>
+</head>
+<body>
+  <%- include('../partials/navbar-student') %> 
+  <div class="main-block">
+    <div class="data-table">
+      <table class="w3-table-all">
+        <thead>
+          <th>Status</th>
+          <th>Transaction ID</th>
+          <th>Tutor Name</th>
+        </thead>
+        <% for(let i = 0; i < p.length; i++) { %> 
+          <tr>
+            <td style="color: green;"><%- p[i].STATUS %></td>
+            <td><%- p[i].TRANSACTION_ID %></td>
+            <td><%- p[i].TEMAIL %><br><%- p[i].TFNAME %> <%- p[i].TLNAME %></td>
+          </tr>
+        <% } %> 
+      </table>
+    </div>
+  </div>
+</body>
+</html>

@@ -264,4 +264,31 @@ router.get('/appointmentdetails', (req, res) => {
   })
 })
 
+router.get('/paymenthistory', (req, res) => {
+  if(!req.session.user || req.session.user.type != ACCOUNT.STUDENT) {
+    return res.redirect('/');
+  }
+  const qstring = 
+  "SELECT"+
+  " TR.STATUS,"+
+  " TR.TRANSACTION_ID,"+
+  " CR.COURSE_NAME,"+
+  " T.FNAME AS TFNAME,"+
+  " T.LNAME AS TLNAME,"+
+  " T.EMAIL AS TEMAIL"+
+  " FROM TRANSACTIONS TR"+
+  " INNER JOIN APPOINTMENTS A ON TR.APPOINTMENT_ID IN(A.APPOINTMENT_ID)"+
+  " INNER JOIN TUTOR T ON TR.TUTOR_ID IN(T.ACC_NO)"+
+  " INNER JOIN COURSES CR ON CR.COURSE_ID IN(A.COURSE)"+
+  " WHERE TR.PAID_BY = ?";
+  db.query(qstring, [req.session.user.acc_no], (err, results) => {
+    if(err) {
+      return res.json(err);
+    }
+    res.render('student/paymenthistory', {
+      p: results
+    })
+  })
+})
+
 module.exports = router;
