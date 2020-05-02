@@ -18,6 +18,12 @@
       <div id="updateProfile" style="display: none;" class="w3-panel w3-green">
         <h3>Your profile has been updated</h3>
       </div>
+      <div id="emailExists" style="display: none;" class="w3-panel w3-red">
+        <h3>The email already belongs to another user</h3>
+      </div>
+      <div id="invalidEmail" style="display: none;" class="w3-panel w3-red">
+        <h3>You have entered an incorrect email format</h3>
+      </div>
     </center>
     <h1>Edit Profile</h1>
     <hr>
@@ -25,7 +31,6 @@
     <form action="/api/users/student/updateProfile" method="post">
       <h3>Email</h3>
       <input type="email" name="email" id="email" required placeholder="Email Address" value="<%- email %> ">
-      <span id="emailExistsMsg" style="color: red;"></span>
       <h3>Name</h3>
       <div style="text-align: center;">
         <input type="text" name="fname" id="" required placeholder="First Name" value="<%- name.fname %>">
@@ -64,33 +69,14 @@
 </style>
 
 <script>
-  const initEmail = $('#email').val();
-  async function emailGood(type) {
-    fetch('/AJAX/emailExists', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        email: $('#email').val(),
-        type: type
-      })
-    }).then(results => {
-      if(results.status === 302 && initEmail !== $('#email').val()) {
-        $('#post-btn').prop('disabled', true)
-        $('#email').css('border', 'red 1px solid')
-        $('#emailExistsMsg').html('The email already belongs to another user!');
-      } else {
-        $('#post-btn').prop('disabled', false)
-        $('#email').css('border', '');
-        $('#emailExistsMsg').html('');
-      }
-    });
-  }
-
-  $('#email').on('change', function() {
-    emailGood('STUDENT');
-  })
 
   if(getUrlVars().updated == 'true') {
     $('#updateProfile').show(true);
+  }
+  if(getUrlVars().emailExists == 'true') {
+    $('#emailExists').show(true);
+  }
+  if(getUrlVars().InvalidEmail == 'true') {
+    $('#invalidEmail').show(true);
   }
 </script>

@@ -43,20 +43,35 @@ router.post('/updateProfile', (req, res) => {
     res.redirect('/'); 
   }
   else {
+    if(!req.body.fname || !req.body.lname || !req.body.email || !req.body.bio || !req.body.gender) {
+      return res.status(400).sendFile(path.resolve('public/html/400.html'));
+    }
     let data = {
-      bio: req.body.bio ? req.body.bio : null,
+      bio: req.body.bio,
       gender: req.body.gender,
       acc_no: req.session.user.acc_no
     }
-    if(data.gender == 'none') data.gender = null;
-    else {
-      data.gender = data.gender == 'male' ? 'M' : 'F';
+    // Email validator
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email)) {
+      return res.redirect(`/student/editProfile?InvalidEmail=true`)
     }
-    db.query(`update STUDENT set BIO = ?, GENDER = ? where ACC_NO = ?`, [data.bio, data.gender, data.acc_no], (err, results) => {
+    db.query(`select ACC_NO, EMAIL from STUDENT where EMAIL = ?`, [req.body.email], (err, results) => {
       if(err) {
-        throw err;
+        return res.status(500).json(err);
       }
-      return res.redirect('/student/editProfile?updated=true')
+      if(results.length != 0 && results[0].ACC_NO != req.session.user.acc_no) {
+        return res.redirect('/student/editProfile?emailExists=true')
+      }
+      if(data.gender == 'none') data.gender = null;
+      else {
+        data.gender = data.gender == 'male' ? 'M' : 'F';
+      }
+      db.query(`update STUDENT set BIO = ?, GENDER = ? where ACC_NO = ?`, [data.bio, data.gender, data.acc_no], (err, results) => {
+        if(err) {
+          throw err;
+        }
+        return res.redirect('/student/editProfile?updated=true')
+      })
     })
   }
 })
