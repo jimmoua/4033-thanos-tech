@@ -24,6 +24,8 @@ router.get('/search', (req, res) => {
         "SELECT"+
           " COURSES.COURSE_ID,"+
           " COURSES.COURSE_NAME,"+
+          " COURSES.INITIAL_SESSION_PRICE,"+
+          " COURSES.SESSION_HOURLY_PRICE,"+
           " TUTOR.FNAME, TUTOR.LNAME,"+
           " TUTOR.EMAIL,"+
           " TUTOR.BIO"+
@@ -205,7 +207,21 @@ router.get('/viewCourse', (req, res) => {
     res.redirect('/');
   } else {
     const cid = req.query.courseid;
-    db.query(`SELECT COURSES.COURSE_ID, COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL, TUTOR.BIO FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_ID = ?`, [cid], (err, results) => {
+    const qstring = 
+    "SELECT"+
+    " COURSES.COURSE_ID,"+
+    " COURSES.COURSE_NAME,"+
+    " COURSES.INITIAL_SESSION_PRICE,"+
+    " COURSES.SESSION_HOURLY_PRICE,"+
+    " TUTOR.FNAME,"+
+    " TUTOR.LNAME,"+
+    " TUTOR.EMAIL,"+
+    " TUTOR.BIO"+
+    " FROM COURSES"+
+    " INNER JOIN TUTOR"+
+    " ON COURSES.ACC_NO = TUTOR.ACC_NO"+
+    " WHERE COURSES.COURSE_ID = ?";
+    db.query(qstring, [cid], (err, results) => {
       if(err) throw err;
       if(results.length == 0) {
         res.status(404).send(`
