@@ -9,14 +9,16 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="/javascript/jquery.js"></script>
+  <script src="/javascript/main.js"></script>
   <title>See Children</title>
 </head>
 <body>
   <%- include('../partials/navbar-parent') %> 
   <div class="main-block">
-    <div id="removed" class="w3-panel w3-green">
-      <h3>Removed student account</h3>
-      <p>You have removed the child account.</p>
+    <div id="removed" style="display: none;" class="w3-panel w3-green">
+      <center>
+        <h3>You have removed a child account</h3>
+      </center>
       <br>
     </div>
     <div>
@@ -46,9 +48,9 @@
 </html>
 
 <script>
-  if(getUrlVarts().removed != null) {
+  if(getUrlVars().removed != null) {
     $('#removed').show(true);
   } else {
-    $('#removed').hide(true;)
+    $('#removed').hide(true);
   }
 </script>
