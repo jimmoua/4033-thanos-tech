@@ -8,11 +8,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/css/main.css">
+  <script src="/javascript/main.js"></script>
   <title>Edit Profile</title>
 </head>
 <body>
   <%- include("../partials/navbar-student.ejs") %> 
   <div class="main-block">
+    <center>
+      <div id="updateProfile" style="display: none;" class="w3-panel w3-green">
+        <h3>Your profile has been updated</h3>
+      </div>
+    </center>
     <h1>Edit Profile</h1>
     <hr>
     <!-- EDIT PROFILE FORM -->
@@ -83,4 +89,8 @@
   $('#email').on('change', function() {
     emailGood('STUDENT');
   })
+
+  if(getUrlVars().updated == 'true') {
+    $('#updateProfile').show(true);
+  }
 </script>

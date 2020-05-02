@@ -56,7 +56,7 @@ router.post('/updateProfile', (req, res) => {
       if(err) {
         throw err;
       }
-      res.redirect('/');
+      return res.redirect('/student/editProfile?updated=true')
     })
   }
 })
