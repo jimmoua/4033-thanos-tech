@@ -88,11 +88,12 @@ router.get('/managepayments', (req, res) => {
           " C.COURSE_NAME,"+
           " A.APPOINTMENT_ID AS APT_ID"+
         " FROM TRANSACTIONS TR"+
-        " RIGHT OUTER JOIN STUDENT S ON TR.STUDENT_ID IN(S.ACC_NO)"+
-        " RIGHT OUTER JOIN TUTOR T ON TR.TUTOR_ID IN(T.ACC_NO)"+
-        " RIGHT OUTER JOIN APPOINTMENTS A ON TR.APPOINTMENT_ID IN (A.APPOINTMENT_ID)"+
-        " RIGHT OUTER JOIN COURSES C ON C.COURSE_ID IN(A.COURSE)"+
-          " WHERE TRANSACTION_ID = ?";
+        " INNER JOIN STUDENT S ON TR.STUDENT_ID IN(S.ACC_NO)"+
+        " INNER JOIN TUTOR T ON TR.TUTOR_ID IN(T.ACC_NO)"+
+        " INNER JOIN APPOINTMENTS A ON TR.APPOINTMENT_ID IN (A.APPOINTMENT_ID)"+
+        " INNER JOIN COURSES C ON C.COURSE_ID IN(A.COURSE)"+
+        " WHERE TRANSACTION_ID = ?"+
+        " AND TR.STATUS = 'NOT PAID'";
       db.query(qstring, [req.query.details], (err, results) => {
         if(err) {
           res.status(500).json(err);
@@ -116,8 +117,8 @@ router.get('/managepayments', (req, res) => {
         " T.FNAME,"+
         " T.LNAME"+
       " FROM TRANSACTIONS TR"+
-      " RIGHT OUTER JOIN TUTOR T ON TR.TUTOR_ID IN(T.ACC_NO)"+
-      " WHERE TR.STUDENT_ID = ?";
+      " INNER JOIN TUTOR T ON TR.TUTOR_ID IN(T.ACC_NO)"+
+      " WHERE TR.STUDENT_ID = ?"+
       " AND TR.STATUS = 'NOT PAID'";
     db.query(qstring, [req.session.user.acc_no], (err, results) => {
       if(err) {
