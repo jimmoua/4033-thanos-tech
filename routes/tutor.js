@@ -14,18 +14,12 @@ router.get('/editprofile', (req, res) => {
       acc_no: req.session.user.acc_no
     }
     db.query(`select FNAME, LNAME, EMAIL, GENDER, BIO from ?? where ACC_NO = ?`, [data.table, data.acc_no], (err, rows) => {
-      db.query(`select * from COURSES where ACC_NO = ?`, [req.session.user.acc_no], (err, course_rows) => {
-        if(err) throw err;
-        else {
-          res.render('tutor/editprofile', {
-            fname : rows[0].FNAME,
-            lname : rows[0].LNAME,
-            email : rows[0].EMAIL,
-            gender: rows[0].GENDER,
-            bio   : rows[0].BIO,
-            courses: (course_rows.length == 0 ? false : course_rows)
-          })
-        }
+      res.render('tutor/editprofile', {
+        fname : rows[0].FNAME,
+        lname : rows[0].LNAME,
+        email : rows[0].EMAIL,
+        gender: rows[0].GENDER,
+        bio   : rows[0].BIO
       })
     })
   }
