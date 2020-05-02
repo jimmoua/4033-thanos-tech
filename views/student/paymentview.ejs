@@ -50,7 +50,9 @@
     <br>
     <div>
       <form id="paypost" action="/api/users/student/pay?tid=<%- p.TRANSACTION_ID %>" method="post"></form>
-      <center><button onclick="window.history.back()">BACK</button>&nbsp&nbsp&nbsp&nbsp&nbsp<button form="paypost">PAY</button></center>
+      <% if (p.STATUS == 'NOT PAID') { %>
+        <center><button form="paypost">PAY</button></center>
+      <% } %>
     </div>
   </div>
 </body>
