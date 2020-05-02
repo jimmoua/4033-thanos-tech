@@ -78,26 +78,6 @@ router.post('/accept', (req, res) => {
         return;
       })
 
-      // Run another query to create a transaction with the amount
-      db.query(`select TUTOR_ID, STUDENT_ID from APPOINTMENTS where APPOINTMENT_ID = ?`, [req.query.aptid], (err, results) => {
-        if(err) {
-          res.status(500).json(err)
-          return;
-        }
-        const apt = results[0];
-        db.query(`insert into TRANSACTIONS values (?, ?, ?, ?, ?, ?, NULL)`, [uuid(), req.query.aptid, req.session.user.acc_no, apt.STUDENT_ID, 'NOT PAID', amt], (err) => {
-          if(err) {
-            const foo = {
-              err,
-              studentid: apt.STUDENT_ID,
-              tutorid: apt.TUTOR_ID
-            }
-            res.status(500).json(foo);
-            return;
-          }
-          res.redirect(`/tutor/viewscheduledappointments?aptid=${req.query.aptid}&updated=true`);
-        })
-      })
     })
   }
 });
@@ -145,12 +125,56 @@ router.post('/endAppointment', (req, res) => {
   if(!req.session.user || req.session.user.type !== ACCOUNT.TUTOR) {
     res.redirect('/');
   }
-  if(req.query.aptid) {
-    db.query(`UPDATE APPOINTMENTS SET STATUS = 'FINISHED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err, results) => {
-      if (err) throw err; 
-      res.redirect(`/tutor/viewscheduledappointments`)
-    })    
-  }
+    if(req.query.aptid) {
+      db.query(`SELECT APPOINTMENT_ID FROM APPOINTMENTS WHERE APPOINTMENT_ID = ?`, [req.query.aptid], (err, results) => {
+        if(err) {
+          return res.status(500).json(err);
+        }
+        // If no results, return 404
+        if(results.length == 0) {
+          return res.status(404).sendFile(path.resolve('public/html/404.html'));
+        }
+
+        // Run another query to create a transaction with the amount
+        const qstring = 
+        "select"+
+        " TUTOR_ID,"+
+        " STUDENT_ID,"+
+        " APPOINTMENT_DATE as ad,"+
+        " APPOINTMENT_TIME as at,"+
+        " c.INITIAL_SESSION_PRICE,"
+        " c.SESSION_HOURLY_RATE"
+        " from APPOINTMENTS where APPOINTMENT_ID = ?"+
+        " INNER JOIN COURSES ON APPOINTMENTS.COURSE IN(COURSES.COURSE_ID);"
+
+        db.query(qstring, [req.query.aptid], (err, results) => {
+          if(err) {
+            return res.status(500).json(err)
+          }
+          const apt = results[0];
+          const nowEpoch = new Date().getTime()/1000/3600 - new Date(results[0].ad+" "+results[0].at).getTime()/1000/3600;
+          const amount = apt.SESSION_HOURLY_RATE*nowEpoch + apt.INITIAL_SESSION_PRICE;
+          db.query(`insert into TRANSACTIONS values (?, ?, ?, ?, ?, ?, NULL)`, [uuid(), req.query.aptid, req.session.user.acc_no, apt.STUDENT_ID, 'NOT PAID', amount], (err) => {
+            if(err) {
+              const foo = {
+                err,
+                studentid: apt.STUDENT_ID,
+                tutorid: apt.TUTOR_ID
+              }
+              res.status(500).json(foo);
+              return;
+            }
+            res.redirect(`/tutor/viewscheduledappointments?aptid=${req.query.aptid}&updated=true`);
+          })
+        })
+
+        // Update the appointment that was ended to 'FINISHED'
+        db.query(`UPDATE APPOINTMENTS SET STATUS = 'FINISHED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err) => {
+          if (err) throw err; 
+          res.redirect(`/tutor/viewscheduledappointments`)
+        })    
+      })
+    }
 });
 
 router.post('/removeCourse', (req, res) => {
