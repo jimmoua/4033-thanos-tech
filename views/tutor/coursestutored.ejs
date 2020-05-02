@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/javascript/jquery.js"></script>
+  <script src="/javascript/main.js"></script>
+  <title>Courses Tutored</title>
+</head>
+<body>
+  <%- include('../partials/navbar-tutor') %> 
+  <div class="main-block">
+    <center><h1>Courses Tutored</h1></center>
+    <div class="data-table">
+      <div class="w3-table-tall">
+        <table class="w3-table-all">
+          <thead>
+            <th>Course</th>
+            <th>Fixed Session Cost</th>
+            <th>Hourly Session Rate</th>
+            <th></th>
+          </thead>
+          <% for(let i = 0; i < r.length; i++) { %> 
+            <form id="cid<%- i %>" action="/api/users/tutor/removeCourse?cid=<%- r[i].COURSE_ID %>" method="post"></form>
+            <tr>
+              <td><%- r[i].COURSE_NAME %></td>
+              <td><%- r[i].INITIAL_SESSION_PRICE %></td>
+              <td><%- r[i].SESSION_HOURLY_PRICE %></td>
+              <td><button form="cid<%- i %>" style="padding: 2px 4px">remove</button></td>
+            </tr>
+          <% } %> 
+        </table>
+      </div>
+    </div>
+    <div class="data-table">
+      <table class="w3-table-all">
+        <tr>
+          <form action="/api/users/tutor/addCourse" method="post">
+            <td><input type="text" name="coursename" id="coursename" required placeholder="Course Name"></td>
+            <td><input type="number" min="0.00" step="0.50" name="fixedprice" id="fixedprice" required placeholder="Fixed Session Cost"></td>
+            <td><input type="number" min="0.00" step="0.50" name="hourlyrate" id="hourlyrate" required placeholder="Hourly Session Cost"></td>
+            <td><button style="padding: 4px 6px;";>Add Course</button></td>
+          </form>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

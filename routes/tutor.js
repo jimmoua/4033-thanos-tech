@@ -205,5 +205,19 @@ router.get('/messages', (req, res) => {
   }
 })
 
+router.get('/coursesTutored', (req, res) => {
+  if(!req.session.user || req.session.user.type != ACCOUNT.TUTOR) {
+    return res.redirect('/');
+  }
+  const qstring =
+    "SELECT * FROM COURSES"+
+    " WHERE ACC_NO = ?";
+  db.query(qstring, [req.session.user.acc_no], (err, results) => {
+    res.render('tutor/coursestutored', {
+      r: results
+    })
+  })
+})
+
 
 module.exports = router;
