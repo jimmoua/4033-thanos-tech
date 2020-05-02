@@ -4,18 +4,35 @@ const db = require('../db_files/db');
 const {v4: uuid} = require('uuid');
 const bcrypt = require('bcrypt');
 const ACCOUNT = require('../misc/accountTypes');
+const path = require('path');
 
 // * This may look like spaghetti, and maybe it is, but it works so let's leave it (for now).
 router.post('/:type', (req, res) => {
+
+  // * Check to see if the body names are actually valid, and that the client side
+  // * did not try to change anything.
+  const b = req.body;
+  if(!b.firstName || !b.lastName || !b.email || !b.password1 || !b.password2) {
+    return res.status(400).sendFile(path.resolve('public/html/400.html'));
+  }
+
   const fname = req.body.firstName.charAt(0).toUpperCase() + req.body.firstName.slice(1).toLowerCase();
   const lname = req.body.lastName.charAt(0).toUpperCase() + req.body.lastName.slice(1).toLowerCase();
   const email = req.body.email;
+
+  // REGEX for email validation
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    return res.redirect(`/register?errType=${req.params.type.toLowerCase()}InvalidEmail`)
+  }
+
+  // * Check to see if the passwords match each other
   const pass1 = req.body.password1;
   const pass2 = req.body.password2;
   if(pass1 !== pass2) {
-    res.status(400).send('Bad Request');
+    return res.redirect(`/register?errType=${req.params.type.toLocaleLowerCase()}PasswordMismatch`)
   }
-  let good = true;
+
+  // * Salts rounds for encryption
   const saltRounds = 10;
   switch(req.params.type) {
     case ACCOUNT.STUDENT: {

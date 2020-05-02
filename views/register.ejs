@@ -138,51 +138,6 @@
     $("#selectorView").toggle();
   }
 
-  // Student password validator
-  $('#studentPass1, #studentPass2').on('keyup', function() {
-    if($('#studentPass2').val() == '' || $('studentPass1').val() == '') {
-      $('#stuPW_msg').html('');
-    }
-    else if($('#studentPass2').val() === $('#studentPass1').val()) {
-      $('#stuPW_msg').html('Password Matches').css('color', 'green');
-      $('#studentSubmitBtn').prop('disabled', false);
-    }
-    else {
-      $('#stuPW_msg').html('Passwords do not match').css('color', 'red');
-      $('#studentSubmitBtn').prop('disabled', true);
-    }
-  })
-
-  // Tutor password validator
-  $('#tutorPass1, #tutorPass2').on('keyup', function() {
-    if($('#tutorPass2').val() == '' || $('tutPass1').val() == '') {
-      $('#tutPW_msg').html('');
-    }
-    else if($('#tutorPass2').val() === $('#tutorPass1').val()) {
-      $('#tutPW_msg').html('Password Matches').css('color', 'green');
-      $('#tutorSubmitBtn').prop('disabled', false);
-    }
-    else {
-      $('#tutPW_msg').html('Passwords do not match').css('color', 'red');
-      $('#tutorSubmitBtn').prop('disabled', true);
-    }
-  })
-
-  // Parent password validator
-  $('#parentPass1, #parentPass2').on('keyup', function() {
-    if($('#parentPass2').val() == '' || $('parentPass1').val() == '') {
-      $('#parentPW_msg').html('');
-    }
-    else if($('#parentPass2').val() === $('#parentPass1').val()) {
-      $('#parentPW_msg').html('Password Matches').css('color', 'green');
-      $('#parentSubmitBtn').prop('disabled', false);
-    }
-    else {
-      $('#parentPW_msg').html('Passwords do not match').css('color', 'red');
-      $('#parentSubmitBtn').prop('disabled', true);
-    }
-  })
-
   // On escape, show all register types
   // $('#tutorSignUp, #studentSignUp, #parentSignUp').on('keyup', function() {
   // })
@@ -222,15 +177,15 @@
       $('#selectorView').hide(true);
       break;
     }
-    case 'tutorPasswordMismatch': {
-      $('#tutorPasswordMismatch').show(true);
-      $('#tutorSignUp').show(true);
+    case 'studentPasswordMismatch': {
+      $('#studentPasswordMismatch').show(true);
+      $('#studentSignUp').show(true);
       $('#selectorView').hide(true);
       break;
     }
-    case 'tutorInvalidEmail': {
-      $('#tutorInvalidEmail').show(true);
-      $('#tutorSignUp').show(true);
+    case 'studentInvalidEmail': {
+      $('#studentInvalidEmail').show(true);
+      $('#studentSignUp').show(true);
       $('#selectorView').hide(true);
       break;
     }
