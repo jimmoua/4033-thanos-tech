@@ -186,7 +186,7 @@ router.post('/addCourse', (req, res) => {
     return res.status(400).sendFile(path.resolve('public/html/400.html'));
   }
   const qstring = `INSERT INTO COURSES VALUES (?, ?, ?, ?, ?)`;
-  db.query(qstring, [req.session.user.acc_no, uuid(), req.body.coursename, req.body.hourlyrate, req.body.fixedprice], (err) => {
+  db.query(qstring, [req.session.user.acc_no, uuid(), req.body.coursename, req.body.fixedprice, req.body.hourlyrate], (err) => {
     if(err) {
       return res.status(500).json(err);
     }
