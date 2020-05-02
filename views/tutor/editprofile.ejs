@@ -4,12 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css">
-  <title></title>
+  <script src="/javascript/main.js"></script>
+  <script src="/javascript/jquery.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Edit Profile</title>
 </head>
 <body>
   <%- include('../partials/navbar-tutor.ejs') %> 
   <div class="main-block">
     <center>
+      <div id="updateProfile" class="w3-panel w3-green" style="display: none;">
+        <h3>You have updated your profile</h3>
+      </div>
+      <div id="emailExists" class="w3-panel w3-red" style="display: none;">
+        <h3>The email already belongs to another user</h3>
+      </div>
+      <div id="invalidEmail" class="w3-panel w3-red" style="display: none;">
+        <h3>Invalid email input</h3>
+      </div>
       <h1>Edit Profile</h1>
     </center>
     <form action="/api/users/tutor/updateprofile" method="post">
@@ -51,3 +65,14 @@
   </div>
 </body>
 </html>
+<script>
+  if(getUrlVars().updated == 'true') {
+    $('#updateProfile').show(true);
+  }
+  if(getUrlVars().emailExists == 'true') {
+    $('#emailExists').show(true);
+  }
+  if(getUrlVars().InvalidEmail == 'true') {
+    $('#invalidEmail').show(true);
+  }
+</script>

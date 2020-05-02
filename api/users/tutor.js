@@ -11,21 +11,39 @@ router.post('/updateprofile', (req, res) => {
   if(!req.session.user || req.session.user.type !== ACCOUNT.TUTOR) {
     res.redirect('/');
   } else {
+    if(!req.body.fname || !req.body.lname || !req.body.email || !req.body.gender) {
+      return res.status(400).sendFile(path.resolve('public/html/400.html'));
+    }
+    // * Check for email validness via a regex I 'borrowed' from StackOverflow
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email)) {
+      return res.redirect(`/tutor/editProfile?InvalidEmail=true`)
+    }
     let data = {
       fname: req.body.fname,
       lname: req.body.lname,
       gender: req.body.gender,
-      bio: req.body.bio ? req.body.bio : null,
+      bio: req.body.bio,
       email: req.body.email,  
     }
     if(data.gender == 'none') data.gender = null;
     else {
       data.gender = data.gender == 'male' ? 'M' : 'F';
     }
-    // Run the query and update
-    db.query(`UPDATE TUTOR SET FNAME = ?, LNAME = ?, GENDER = ?, BIO = ?, EMAIL = ? WHERE ACC_NO = ?`, [data.fname, data.lname, data.gender, data.bio, data.email, req.session.user.acc_no], (err, results) => {
-      res.redirect('/')
-    });
+    db.query(`select ACC_NO, EMAIL FROM TUTOR WHERE EMAIL = ?`, [req.body.email], (err, results) => {
+      if(err) {
+        return res.status(500).json(err);
+      }
+      if(results.length != 0 && results[0].ACC_NO !== req.session.user.acc_no) {
+        return res.redirect('/tutor/editProfile?emailExists=true');
+      }
+      // Run the query and update
+      db.query(`UPDATE TUTOR SET FNAME = ?, LNAME = ?, GENDER = ?, BIO = ?, EMAIL = ? WHERE ACC_NO = ?`, [data.fname, data.lname, data.gender, data.bio, data.email, req.session.user.acc_no], (err) => {
+        if(err) {
+          return res.status(500).json(err);
+        }
+        return res.redirect('/tutor/editProfile?updated=true')
+      });
+    })
   }
 });
 
