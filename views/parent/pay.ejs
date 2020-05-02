@@ -15,6 +15,14 @@
 <body>
   <%- include('../partials/navbar-parent') %> 
   <div class="main-block">
+    <div id="paid" class="w3-panel w3-green">
+      <h3>Payment Made</h3>
+      <p>You have paid for an appointment!</p>
+      <br>
+    </div>
+    <div>
+      <center><h1>Invoices</h1></center>
+    </div>
     <div class="data-table">
       <table class="w3-table-all">
         <thead>
@@ -50,4 +58,9 @@ $('tr[data-href]').hover(function() {
 }, function() {
   $(this).css('background-color', '');
 });
+if(getUrlVars().paid != null) {
+  $('#paid').show(true);
+} else {
+  $('#paid').hide(true);
+}
 </script>
