@@ -1,10 +1,10 @@
 CREATE TABLE `TUTOR` (
-  `ACC_NO` varchar(100) NOT NULL,
+  `ACC_NO` varchar(128) NOT NULL,
   `FNAME` varchar(100) NOT NULL,
   `LNAME` varchar(100) NOT NULL,
   `EMAIL` varchar(100) NOT NULL,
   `GENDER` char(1) DEFAULT NULL,
-  `PASSWORD` varchar(100) NOT NULL,
+  `PASSWORD` varchar(128) NOT NULL,
   `BIO` varchar(4096) DEFAULT NULL,
   PRIMARY KEY (`ACC_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
