@@ -71,14 +71,12 @@ router.post('/accept', (req, res) => {
 
     db.query(`select * from APPOINTMENTS where APPOINTMENT_ID = ?`, [req.query.aptid], (err, apt_details) => {
       if(err) {
-        res.json(err);
-        return false;
+        return res.json(err);
       }
       // If the appointment tutor ID isn't the same as the session account number ID,
       // someone is trying to spoof. In this case, send them a 400 page.
       if(apt_details[0].TUTOR_ID != req.session.user.acc_no) {
-        res.status(400).sendFile(path.resolve('public/html/400.html'));
-        return false;
+        return res.status(400).sendFile(path.resolve('public/html/400.html'));
       }
 
       // Update the appointments and set the status to true
