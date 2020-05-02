@@ -124,6 +124,11 @@ router.post('/scheduleappointment', (req, res) => {
     res.status(400).sendFile(path.resolve('public/html/400.html'));
     return;
   }
+  const nowEpoch = new Date(data.date+" "+data.time).getTime() - new Date().getTime();
+  if(nowEpoch < 0) {
+    res.redirect(`/student/viewCourse?courseid=${data.cid}&badDate=true`);
+    return;
+  }
   db.query(`select ACC_NO from COURSES where COURSE_ID = ?`, [data.cid], (err, tutor) => {
     const acc_no = tutor[0].ACC_NO;
     db.query(`insert into APPOINTMENTS values (?, ?, ?, ?, ?, ?, ?, ?)`, [uuid(), 'PENDING', data.cid, acc_no, req.session.user.acc_no, data.date, data.time, data.place], (err) => {

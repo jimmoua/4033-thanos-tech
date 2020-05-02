@@ -22,6 +22,13 @@
         <br>
       </div>
     </div> 
+    <div id="InvalidDateAlert">
+      <div class="w3-panel w3-red"">
+        <h3>Error!</h3>
+        <p>You've entered an invalid date. Make sure your date is not in the past.</p>
+        <br>
+      </div>
+    </div> 
      
     <!-- * APPOINTMENT REQUESTED -->
     <div id="appReq" onclick="appReqClose()">
@@ -92,6 +99,7 @@
   $('#msgSentAlert').hide(true);
   $('#appReq').hide(true);
   $('#appointmentForm').hide(true);
+  $('#InvalidDateAlert').hide(true);
   function toggleMsgBox() {
     $("#msgBox").toggle();
     $("#msgBtn").toggle();
@@ -109,6 +117,10 @@
 
   function appReqClose() {
     $('#appReq').hide(true)
+  }
+
+  if(getUrlVars().badDate) {
+    $('#InvalidDateAlert').show(true);
   }
 
   function toggleAptBox() {
