@@ -8,7 +8,34 @@ const db = require('../db_files/db');
 // first thing that renders to them?
 router.get('/', (req, res) => {
   if(!req.session.user) {
-    res.render("index")
+    const qstring = 
+      "SELECT"+
+      " 'STUDENT' TABLENAME,"+
+      " COUNT(*) ROWS"+
+      " FROM STUDENT"+
+      " UNION"+
+      " SELECT"+
+        " 'TUTOR' TABLENAME,"+
+        " COUNT(*) ROWS"+
+      " FROM TUTOR"+
+      " UNION"+
+      " SELECT"+
+        " 'COURSES' TABLENAME,"+
+        " COUNT(*) ROWS"+
+      " FROM COURSES"+
+      " UNION"+
+      " SELECT"+
+        " 'APPOINTMENTS' TABLENAME,"+
+        " COUNT(*) ROWS"+
+      " FROM APPOINTMENTS";
+    db.query(qstring, (err, results) => {
+      if(err) {
+        return res.status(500).json(err);
+      }
+      res.render('index', {
+        i: results
+      })
+    })
   }
   else {
     switch(req.session.user.type) {
