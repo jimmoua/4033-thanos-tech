@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Redirecting to login...</title>
+</head>
+<body>
+  <div class="main-block">
+    <center>
+      <h1>Thank you for registering...</h1>
+      <p>Redirecting you to the login page in 3 seconds...</p>
+      <br><br><br><br><br>
+      <p>Click <a style="text-decoration: underline;" href="/login">here</a> if you are not redirected.</p>
+    </center>
+  </div>
+</body>
+</html>
+
+<script>
+  setTimeout(() => {
+    window.location.href='/login'
+  }, 3000)
+</script>

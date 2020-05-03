@@ -52,12 +52,7 @@ router.post('/:type', (req, res) => {
                   return res.status(500).json(err);
                 }
                 console.log(results);
-                res.send(`${fname} ${lname} You've registered with the account: "${email}" Redirecting to the login page in 3 seconds. <script>
-                setTimeout(function() {
-                  window.location.href='/login'
-                }, 3000);
-                </script>
-                `)
+                return res.sendFile(path.resolve('public/html/loginredirect.html'))
               })
             }
           })
@@ -87,13 +82,7 @@ router.post('/:type', (req, res) => {
                   return res.status(500).json(err);
                 }
               })
-              res.send(`You've registered with the account : "${email}"
-              Redirecting to the login page in 3 seconds
-              <script>
-              setTimeout(function() {
-                window.location.href='/login'
-              }, 3000);
-              </script>`)
+              return res.sendFile(path.resolve('public/html/loginredirect.html'))
             }
           })
         })
@@ -117,13 +106,7 @@ router.post('/:type', (req, res) => {
                 if(err) {
                   return res.status(500).json(err);
                 }
-                res.send(`You've registered with the account: "${email}" Redirecting to the login page in 3 seconds.
-                <script>
-                setTimeout(function() {
-                  window.location.href='/login'
-                }, 3000);
-                </script>
-                `)
+                return res.sendFile(path.resolve('public/html/loginredirect.html'))
               })
             }
           })
