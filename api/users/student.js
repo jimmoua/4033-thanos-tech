@@ -43,12 +43,13 @@ router.post('/updateProfile', (req, res) => {
     res.redirect('/'); 
   }
   else {
-    if(!req.body.fname || !req.body.lname || !req.body.email || !req.body.bio || !req.body.gender) {
+    console.log(req.body)
+    if(!req.body.fname || !req.body.lname || !req.body.email) {
       return res.status(400).sendFile(path.resolve('public/html/400.html'));
     }
     let data = {
-      bio: req.body.bio,
-      gender: req.body.gender,
+      bio: req.body.bio ? req.body.bio : null,
+      gender: !req.body.gender ? null : req.body.gender,
       acc_no: req.session.user.acc_no
     }
     // Email validator
@@ -62,7 +63,7 @@ router.post('/updateProfile', (req, res) => {
       if(results.length != 0 && results[0].ACC_NO != req.session.user.acc_no) {
         return res.redirect('/student/editProfile?emailExists=true')
       }
-      if(data.gender == 'none') data.gender = null;
+      if(data.gender == 'none' || !data.gender) data.gender = null;
       else {
         data.gender = data.gender == 'male' ? 'M' : 'F';
       }
