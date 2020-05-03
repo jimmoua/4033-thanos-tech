@@ -89,10 +89,11 @@
         <form id="endapp" action="/api/users/tutor/endAppointment?aptid=<%- apt.ID %>" method="POST">
         </form>
         <form action="/api/users/tutor/cancelAppointment?aptid=<%- apt.ID %>" method="POST">
-          <button>CANCEL</button>
           <% if (passedEpoch <= 0) { %>
             <button form="endapp" id="endappbtn">END APPOINTMENT</button>
-          <% } %>
+          <% } else { %>
+            <button>CANCEL</button>
+          <% } %> 
         </form>
       </center>
     <% } %>
