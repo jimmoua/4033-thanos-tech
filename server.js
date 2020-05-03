@@ -22,7 +22,12 @@ app.use(session({
     maxAge: 1000 * 60 * 30 // (1000 ms * 60 * 30 = 180k ms = 1800 seconds = 30min
   }
 }))
-app.use(morgan('dev'));
+
+if(process.env.NODE_ENV == 'production') {
+  app.use(morgan('tiny'));
+} else {
+  app.use(morgan('dev'));
+}
 
 // Set static folder for public files
 app.use(express.static(path.join(__dirname, 'public')));
