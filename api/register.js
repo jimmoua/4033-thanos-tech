@@ -114,6 +114,9 @@ router.post('/:type', (req, res) => {
       })
       break;
     }
+    default: {
+      res.status(400).sendFile(path.resolve('public/html/400.html'));
+    }
   }
 })
 
