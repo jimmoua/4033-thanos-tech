@@ -33,7 +33,9 @@ router.get('/search', (req, res) => {
         " RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO "+
         " WHERE COURSES.COURSE_NAME REGEXP ?"
       db.query(q_string, [queryTerm], (err, results) => {
-        if(err) throw err;
+        if(err) {
+          return res.status(500).json(err);
+        }
         res.render('student/results', {
           course: results.length == 0 ? false : results
         });
@@ -173,7 +175,9 @@ router.get('/editProfile', (req, res) => {
   }
   else {
     db.query(`select FNAME, LNAME, BIO, GENDER, EMAIL from STUDENT EMAIL where ACC_NO = ?`, [req.session.user.acc_no], (err, results) => {
-      if(err) throw err;
+      if(err) {
+        return res.status(500).json(err);
+      }
       res.render(`student/editProfile`, {
         name: ({fname: results[0].FNAME, lname: results[0].LNAME}),
         user: req.session.user,
@@ -190,9 +194,13 @@ router.get('/setparrentacc', (req, res) => {
   }
   else {
     db.query(`select * from STUDENT where ACC_NO = ?`, [req.session.user.acc_no], (err, s_results) => {
-      if(err) throw err;
+      if(err) {
+        return res.status(500).json(err);
+      }
       db.query(`select * from PARENT where ACC_NO = ?`, [s_results[0].PARENT_ACC_NO], (err, p_results) => {
-        if(err) throw err;
+        if(err) {
+          return res.status(500).json(err);
+        }
         res.render('student/setParentAcc', {
           user: s_results[0].FNAME + " " + s_results[0].LNAME,
           pemail: (p_results.length != 0 ? p_results[0].EMAIL : false)
@@ -222,7 +230,9 @@ router.get('/viewCourse', (req, res) => {
     " ON COURSES.ACC_NO = TUTOR.ACC_NO"+
     " WHERE COURSES.COURSE_ID = ?";
     db.query(qstring, [cid], (err, results) => {
-      if(err) throw err;
+      if(err) {
+        return res.status(500).json(err);
+      }
       if(results.length == 0) {
         res.status(404).send(`
         <center><h1>404 Not Found</h1></center>

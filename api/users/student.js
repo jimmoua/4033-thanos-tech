@@ -25,8 +25,7 @@ router.post('/setParentAccount', (req, res) => {
         else {
           db.query(`update STUDENT set PARENT_ACC_NO = ? where ACC_NO = ?`, [p_results[0].ACC_NO, req.session.user.acc_no], (err, results) => {
             if(err) {
-              res.send(`${err}`);
-              throw err;
+              return res.status(500).json(err);
             }
             else {
               return res.redirect('/student/setparrentacc?setParEmail=true');
@@ -69,7 +68,7 @@ router.post('/updateProfile', (req, res) => {
       }
       db.query(`update STUDENT set FNAME = ?, LNAME = ?, BIO = ?, GENDER = ?, EMAIL = ? where ACC_NO = ?`, [req.body.fname, req.body.lname, data.bio, data.gender, req.body.email, data.acc_no], (err) => {
         if(err) {
-          throw err;
+          return res.status(500).json(err);
         }
         return res.redirect('/student/editProfile?updated=true')
       })

@@ -111,7 +111,9 @@ router.post('/reject', (req, res) => {
       }
     })
     db.query(`UPDATE APPOINTMENTS SET STATUS = 'REJECTED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err, results) => {
-      if(err) throw err; 
+      if(err) {
+        return res.status(500).json(err);
+      }
       res.redirect(`/tutor/viewscheduledappointments?aptid=${req.query.aptid}&updated=true`);
     })
   }
@@ -171,7 +173,9 @@ router.post('/endAppointment', (req, res) => {
             }
             // Update the appointment that was ended to 'FINISHED'
             db.query(`UPDATE APPOINTMENTS SET STATUS = 'FINISHED' WHERE APPOINTMENT_ID = ? `, [req.query.aptid], (err) => {
-              if (err) throw err; 
+              if(err) {
+                return res.status(500).json(err);
+              }
               res.redirect(`/tutor/viewscheduledappointments`)
             })    
           })

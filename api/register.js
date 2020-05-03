@@ -40,13 +40,17 @@ router.post('/:type', (req, res) => {
         bcrypt.hash(pass1, salt, (err, hash) => {
           const accID = uuid();
           db.query(`SELECT * FROM STUDENT WHERE EMAIL = ?`, [email], (err, results) => {
-            if(err) throw err;
+            if(err) {
+              return res.status(500).json(err);
+            }
             if(results.length > 0) {
               good = false;
               res.send(`A user with the email "${email}" already exists.`);
             } else {
               db.query(`INSERT INTO STUDENT VALUES ( ?, ?, ?, ?, null, null, ?, null);`, [accID, fname, lname, email, hash], (err, results) => {
-                if(err) throw err;
+                if(err) {
+                  return res.status(500).json(err);
+                }
                 console.log(results);
                 res.send(`${fname} ${lname} You've registered with the account: "${email}" Redirecting to the login page in 3 seconds. <script>
                 setTimeout(function() {
@@ -66,18 +70,22 @@ router.post('/:type', (req, res) => {
         bcrypt.hash(pass1, salt, (err, hash) => {
           const accID = uuid(); 
           db.query(`SELECT * FROM TUTOR WHERE EMAIL = ?`, [email], (err, results) => {
-            if (err) throw err; 
+            if(err) {
+              return res.status(500).json(err);
+            }
             if (results.length > 0) {
               res.send(`A user with the email: '${email}' already exists`); 
             }
             else {
               db.query(`INSERT INTO TUTOR VALUES (?, ?, ?, ?, null, ?, null)`, [accID, fname, lname, email, hash], (err, results) => {
-                if (err) throw err; 
-                console.log(results); 
+                if(err) {
+                  return res.status(500).json(err);
+                }
               })
               db.query(`SELECT * FROM TUTOR WHERE ACC_NO = ?`, [accID], (err, results) => {
-                if (err) throw err; 
-                console.log(results); 
+                if(err) {
+                  return res.status(500).json(err);
+                }
               })
               res.send(`You've registered with the account : "${email}"
               Redirecting to the login page in 3 seconds
@@ -98,14 +106,17 @@ router.post('/:type', (req, res) => {
           const accID = uuid();
           // * Check to see if email exists in the database already.
           db.query(`SELECT * FROM PARENT WHERE EMAIL = ?`, [email], (err, results) => {
-            if(err) throw err;
+            if(err) {
+              return res.status(500).json(err);
+            }
             // * If email exists, send them a page telling them
             if(results.length > 0) {
               res.send(`A user with the email "${email}" already exists.`);
             } else {
               db.query(`INSERT INTO PARENT VALUES ( ?, ?, ?, ?, ? )`, [accID, fname, lname, email, hash], (err, results) => {
-                if(err) throw err;
-                console.log(results);
+                if(err) {
+                  return res.status(500).json(err);
+                }
                 res.send(`You've registered with the account: "${email}" Redirecting to the login page in 3 seconds.
                 <script>
                 setTimeout(function() {

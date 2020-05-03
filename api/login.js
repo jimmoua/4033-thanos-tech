@@ -10,14 +10,18 @@ router.post('/:type', (req, res) => {
   switch(req.params.type) {
     case ACCOUNT.STUDENT: {
       db.query(`SELECT * FROM STUDENT WHERE EMAIL = ?;`, [email], (err, results) => {
-        if(err) throw err;
+        if(err) {
+          return res.status(500).json(err);
+        }
         if(results.length < 1) {
             res.status(401).redirect('/login?errType=student');
         }
         else {
           const hash = results[0].PASSWORD;
           bcrypt.compare(pass, hash, (err, result) => {
-            if(err) throw err;
+            if(err) {
+              return res.status(500).json(err);
+            }
             if(result) {
               req.session.user = {
                 acc_no: results[0].ACC_NO,
@@ -35,14 +39,18 @@ router.post('/:type', (req, res) => {
     }
     case ACCOUNT.PARENT: {
       db.query(`SELECT * FROM PARENT WHERE EMAIL = ?;`, [email], (err, results) => {
-        if(err) throw err;
+        if(err) {
+          return res.status(500).json(err);
+        }
         if(results.length < 1) {
           res.status(401).redirect('/login?errType=parent');
         }
         else {
           const hash = results[0].PASSWORD;
           bcrypt.compare(pass, hash, (err, result) => {
-            if(err) throw err;
+            if(err) {
+              return res.status(500).json(err);
+            }
             if(result) {
               req.session.user = {
                 acc_no: results[0].ACC_NO,
@@ -60,14 +68,18 @@ router.post('/:type', (req, res) => {
     }
     case ACCOUNT.TUTOR: {
       db.query(`select * from TUTOR where EMAIL = ?`, [email], (err, t_results) => {
-        if(err) throw err;
+        if(err) {
+          return res.status(500).json(err);
+        }
         if(t_results.length == 0) {
           return res.status(401).redirect('/login?errType=tutor');
         }
         else {
           const hash = t_results[0].PASSWORD;
           bcrypt.compare(pass, hash, (err, results) => {
-            if(err) throw err;
+            if(err) {
+              return res.status(500).json(err);
+            }
             if(results) {
               req.session.user = {
                 acc_no: t_results[0].ACC_NO,

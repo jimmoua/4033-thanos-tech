@@ -50,7 +50,9 @@ router.get('/viewscheduledappointments', (req, res) => {
       " INNER JOIN TUTOR ON APPOINTMENTS.TUTOR_ID IN(TUTOR.ACC_NO)"+
       " WHERE APPOINTMENTS.APPOINTMENT_ID = ?";
       db.query(qstring, [req.query.aptid], (err, results) => {
-        if(err) throw err; 
+        if(err) {
+          return res.status(500).json(err);
+        }
         const date = results[0].DATE;
         const time = results[0].TIME;
         const nowEpoch = new Date(date+" "+time).getTime() - new Date().getTime();
