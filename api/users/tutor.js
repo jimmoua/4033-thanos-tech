@@ -126,6 +126,7 @@ router.post('/cancelAppointment', (req, res) => {
       if (err) {
         return res.status(500).json(err);
       }
+      res.redirect('/tutor/viewscheduledappointments');
     })    
   }
 });
