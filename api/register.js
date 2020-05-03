@@ -65,7 +65,7 @@ router.post('/:type', (req, res) => {
       bcrypt.genSalt(saltRounds, (err, salt) => {
         bcrypt.hash(pass1, salt, (err, hash) => {
           const accID = uuid(); 
-          db.query(`SELECT * FROM TUTOR WHERE ACC_NO = ?`, [accID], (err, results) => {
+          db.query(`SELECT * FROM TUTOR WHERE EMAIL = ?`, [email], (err, results) => {
             if (err) throw err; 
             if (results.length > 0) {
               res.send(`A user with the email: '${email}' already exists`); 
