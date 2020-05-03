@@ -75,7 +75,8 @@ router.get('/scheduledappointments', (req, res) => {
       " right outer join TUTOR ON APPOINTMENTS.TUTOR_ID IN(TUTOR.ACC_NO)"+
       " right outer join COURSES ON COURSES.COURSE_ID IN(APPOINTMENTS.COURSE) where PARENT_ACC_NO = ?"+
       " AND APPOINTMENTS.STATUS != 'FINISHED'"+
-      " AND APPOINTMENTS.STATUS != 'CANCELLED'";
+      " AND APPOINTMENTS.STATUS != 'CANCELLED'"+
+      " AND APPOINTMENTS.STATUS != 'REJECTED'";
     db.query(qstring, [req.session.user.acc_no], (err, results) => {
       if(err) {
         res.json(err);
