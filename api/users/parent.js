@@ -40,9 +40,7 @@ router.post('/pay', (req, res) => {
       const qstring = 
       "UPDATE TRANSACTIONS SET " + 
       "STATUS = 'PAID', PAID_BY = ? " +
-      "WHERE TRANSACTION_ID = ? AND STUDENT_ID = " +
-      "(SELECT ACC_NO FROM STUDENT " +
-      " WHERE PARENT_ACC_NO = ? ) ";
+      "WHERE TRANSACTION_ID = ?";
       db.query(qstring, [req.session.user.acc_no, req.query.tid, req.session.user.acc_no], (err) => {
         if(err) {
           res.json(err);
