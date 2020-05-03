@@ -3,8 +3,12 @@ const router = express.Router();
 const db = require('../db_files/db');
 const bcrypt = require('bcrypt');
 const ACCOUNT = require('../misc/accountTypes');
+const path = require('path');
 
 router.post('/:type', (req, res) => {
+  if(!req.body.password || !req.body.email) {
+    return res.status(400).sendFile(path.resolve('public/html/400.html'));
+  }
   const pass = req.body.password;
   const email = req.body.email;
   switch(req.params.type) {
@@ -96,7 +100,7 @@ router.post('/:type', (req, res) => {
       break;
     }
     default: {
-      res.status(500).send('Account type did not match');
+      return res.status(400).sendFile(path.resolve('public/html/400.html'));
     }
   }
 })
