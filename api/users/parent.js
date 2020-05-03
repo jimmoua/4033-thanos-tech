@@ -17,6 +17,8 @@ router.post('/cancelappointment', (req, res) => {
       }
       res.redirect('/parent/scheduledappointments');
     })
+  } else {
+    return res.redirect('/parent/scheduledappointments');
   }
 })
 
@@ -50,6 +52,8 @@ router.post('/pay', (req, res) => {
       })
 
     })  
+  } else {
+    return res.redirect('/parent/managepayments')
   }
 })
 
@@ -79,8 +83,7 @@ router.post('/removechild', (req, res) => {
     // Check to see if the parent account is truly parent and no one
     // is trying to spoof/fiddle with data
     if(results.length == 0) {
-      res.status(400).sendFile(path.resolve('public/html/400.html'));
-      return;
+      return res.status(404).sendFile(path.resolve('public/html/404.html'));
     }
     // Update string
     const qstring = 
