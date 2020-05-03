@@ -67,7 +67,7 @@ router.post('/updateProfile', (req, res) => {
       else {
         data.gender = data.gender == 'male' ? 'M' : 'F';
       }
-      db.query(`update STUDENT set BIO = ?, GENDER = ?, EMAIL = ? where ACC_NO = ?`, [data.bio, data.gender, req.body.email, data.acc_no], (err) => {
+      db.query(`update STUDENT set FNAME = ?, LNAME = ?, BIO = ?, GENDER = ?, EMAIL = ? where ACC_NO = ?`, [req.body.fname, req.body.lname, data.bio, data.gender, req.body.email, data.acc_no], (err) => {
         if(err) {
           throw err;
         }
