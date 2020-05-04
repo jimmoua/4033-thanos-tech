@@ -192,22 +192,42 @@ router.post('/removeCourse', (req, res) => {
   if(!req.query.cid) {
     return res.status(400).sendFile(path.resolve('public/html/400.html'));
   }
-  const qstring = `SELECT * FROM COURSES WHERE ACC_NO = ?`;
-  db.query(qstring, [req.session.user.acc_no], (err, results) => {
+
+  const qstring = 
+    "SELECT * FROM APPOINTMENTS"+
+    " WHERE TUTOR_ID = ?"+
+    " AND COURSE = ?"+
+    " AND (STATUS = 'PENDING' OR STATUS = 'ACCEPTED')";
+  db.query(qstring, [req.session.user.acc_no, req.query.cid], (err, results) => {
     if(err) {
       return res.status(500).json(err);
     }
-    if(results.length == 0) {
-      return res.status(404).sendFile(path.resolve('public/html/404.html'));
+    // ! If there are appointments that are pending or accepted if the tutor tries to remove the course,
+    // ! redirect them back with a query
+    if(results.length !== 0) {
+      return res.redirect('/tutor/coursestutored?courseDel=exists');
     }
-    const qstring = `DELETE FROM COURSES WHERE ACC_NO = ? AND COURSE_ID = ?`;
-    db.query(qstring, [req.session.user.acc_no, req.query.cid],(err) => {
+    // * Remove the course from the tutors list of courses
+    const qstring = `SELECT * FROM COURSES WHERE ACC_NO = ?`;
+    db.query(qstring, [req.session.user.acc_no], (err, results) => {
       if(err) {
         return res.status(500).json(err);
       }
-      return res.redirect('/tutor/coursestutored?courseDel=true');
+      if(results.length == 0) {
+        return res.status(404).sendFile(path.resolve('public/html/404.html'));
+      }
+      const qstring = `DELETE FROM COURSES WHERE ACC_NO = ? AND COURSE_ID = ?`;
+      db.query(qstring, [req.session.user.acc_no, req.query.cid],(err) => {
+        if(err) {
+          return res.status(500).json(err);
+        }
+        return res.redirect('/tutor/coursestutored?courseDel=true');
+      })
     })
   })
+
+
+
 })
 
 router.post('/addCourse', (req, res) => {
