@@ -19,11 +19,14 @@ router.post('/setParentAccount', (req, res) => {
       }
       const pemail = req.body.pemail;
       db.query(`select ACC_NO from PARENT where EMAIL = ?;`, [pemail], (err, p_results) => {
+        if(err) {
+          return res.status(500).json(err);
+        }
         if(p_results.length == 0) {
           return res.redirect('/student/setparrentacc?setParEmail=false');
         }
         else {
-          db.query(`update STUDENT set PARENT_ACC_NO = ? where ACC_NO = ?`, [p_results[0].ACC_NO, req.session.user.acc_no], (err, results) => {
+          db.query(`update STUDENT set PARENT_ACC_NO = ? where ACC_NO = ?`, [p_results[0].ACC_NO, req.session.user.acc_no], (err) => {
             if(err) {
               return res.status(500).json(err);
             }
