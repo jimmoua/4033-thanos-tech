@@ -282,10 +282,7 @@ router.get('/appointmentdetails', (req, res) => {
   }
   db.query(`select TUTOR.FNAME, TUTOR.LNAME, APPOINTMENTS.APPOINTMENT_ID, APPOINTMENTS.STATUS, APPOINTMENTS.PLACE, COURSES.COURSE_NAME, TUTOR.EMAIL, APPOINTMENTS.COURSE, APPOINTMENTS.APPOINTMENT_DATE, APPOINTMENTS.APPOINTMENT_TIME FROM APPOINTMENTS right outer join COURSES on APPOINTMENTS.COURSE = COURSES.COURSE_ID right outer join TUTOR on APPOINTMENTS.TUTOR_ID = TUTOR.ACC_NO where APPOINTMENTS.APPOINTMENT_ID = ?`, [req.query.aptid], async (err, result) => {
     if(result.length == 0) {
-      res.status(404).send(`
-      <center><h1>404 Not Found</h1></center>
-      `)
-      return;
+      return res.status(404).sendFile(path.resolve('public/html/404.html'));
     }
     res.render('student/appointmentdetails', {
       apt: result[0]
