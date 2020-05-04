@@ -14,6 +14,9 @@
 <body>
   <%- include('../partials/navbar-tutor') %> 
   <div class="main-block">
+    <div id="unabletoremove" style="display: none;" class="w3-panel w3-red">
+      <center><h3>Unable to remove that course due to conflicting scheduled appointments.</h3></center>
+    </div>
     <div id="delcourse" style="display: none;" class="w3-panel w3-green">
       <center><h3>You removed a course</h3></center>
     </div>
@@ -64,5 +67,8 @@
   }
   if(getUrlVars().addCourse == 'true') {
     $('#addCourse').show(true);
+  }
+  if(getUrlVars().courseDel == 'exists') {
+    $('#unabletoremove').show(true);
   }
 </script>
