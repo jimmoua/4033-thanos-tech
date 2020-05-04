@@ -107,7 +107,7 @@ router.post('/sendMessage', (req, res) => {
     }
     if(req.query.cid) {
       const cid = req.query.cid;
-      db.query(`SELECT TUTOR.ACC_NO, COURSES.COURSE_ID, COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL FROM COURSES RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_ID = ?`, [cid], (err, results) => {
+      db.query(`SELECT TUTOR.ACC_NO, COURSES.COURSE_ID, COURSES.COURSE_NAME, TUTOR.FNAME, TUTOR.LNAME, TUTOR.EMAIL FROM COURSES LEFT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO WHERE COURSES.COURSE_ID = ?`, [cid], (err, results) => {
         db.query(`insert into MESSAGES values (?, ?, ?, ?, ?, ?)`, [uuid(), results[0].ACC_NO, req.session.user.acc_no, req.body.studentMessage, new Date().getTime()/1000, req.session.user.type], (err) => {
           if(err) {
             res.json(err)

@@ -157,7 +157,7 @@ router.post('/endAppointment', (req, res) => {
         " C.INITIAL_SESSION_PRICE,"+
         " C.SESSION_HOURLY_PRICE"+
         " from APPOINTMENTS"+
-        " INNER JOIN COURSES C ON APPOINTMENTS.COURSE IN(C.COURSE_ID)"+
+        " LEFT OUTER JOIN COURSES C ON APPOINTMENTS.COURSE IN(C.COURSE_ID)"+
         " where APPOINTMENT_ID = ?";
 
         db.query(qstring, [req.query.aptid], (err, results) => {

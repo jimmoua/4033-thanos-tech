@@ -30,7 +30,7 @@ router.get('/search', (req, res) => {
           " TUTOR.EMAIL,"+
           " TUTOR.BIO"+
         " FROM COURSES"+
-        " RIGHT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO "+
+        " LEFT OUTER JOIN TUTOR ON COURSES.ACC_NO = TUTOR.ACC_NO "+
         " WHERE COURSES.COURSE_NAME REGEXP ?"
       db.query(q_string, [queryTerm], (err, results) => {
         if(err) {
@@ -61,8 +61,8 @@ router.get('/scheduledappointments', (req, res) => {
         " APPOINTMENTS.APPOINTMENT_DATE,"+
         " APPOINTMENTS.APPOINTMENT_TIME"+
       " FROM APPOINTMENTS"+
-      " RIGHT OUTER JOIN COURSES ON APPOINTMENTS.COURSE = COURSES.COURSE_ID"+
-      " RIGHT OUTER JOIN TUTOR ON APPOINTMENTS.TUTOR_ID = TUTOR.ACC_NO"+
+      " LEFT OUTER JOIN COURSES ON APPOINTMENTS.COURSE = COURSES.COURSE_ID"+
+      " LEFT OUTER JOIN TUTOR ON APPOINTMENTS.TUTOR_ID = TUTOR.ACC_NO"+
       " WHERE APPOINTMENTS.STUDENT_ID = ?"+
       " AND APPOINTMENTS.STATUS != 'FINISHED'"+
       " AND APPOINTMENTS.STATUS != 'CANCELLED'";
@@ -123,7 +123,7 @@ router.get('/managepayments', (req, res) => {
         " T.FNAME,"+
         " T.LNAME"+
       " FROM TRANSACTIONS TR"+
-      " INNER JOIN TUTOR T ON TR.TUTOR_ID IN(T.ACC_NO)"+
+      " LEFT OUTER JOIN TUTOR T ON TR.TUTOR_ID IN(T.ACC_NO)"+
       " WHERE TR.STUDENT_ID = ?"+
       " AND TR.STATUS = 'NOT PAID'";
     db.query(qstring, [req.session.user.acc_no], (err, results) => {
@@ -226,7 +226,7 @@ router.get('/viewCourse', (req, res) => {
     " TUTOR.EMAIL,"+
     " TUTOR.BIO"+
     " FROM COURSES"+
-    " INNER JOIN TUTOR"+
+    " LEFT OUTER JOIN TUTOR"+
     " ON COURSES.ACC_NO = TUTOR.ACC_NO"+
     " WHERE COURSES.COURSE_ID = ?";
     db.query(qstring, [cid], (err, results) => {
