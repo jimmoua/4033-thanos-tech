@@ -1,9 +1,9 @@
 const mysql = require('mysql');
 const connection = mysql.createConnection({
-  host: '***REMOVED***.cxcs9abwkocb.us-east-2.rds.amazonaws.com',
-  user: 'admin',
-  password: '***REMOVED***white',
-  database: 'innodb'
+  host: process.env.TWT_RDS_HOST,
+  user: process.env.TWT_RDS_USER,
+  password: process.env.TWT_RDS_PASSWORD,
+  database: process.env.TWT_RDS_DB
 })
 
 module.exports = connection;
