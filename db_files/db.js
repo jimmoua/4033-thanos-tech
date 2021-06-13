@@ -1,9 +1,4 @@
 const mysql = require('mysql');
-const connection = mysql.createConnection({
-  host: process.env.TWT_RDS_HOST,
-  user: process.env.TWT_RDS_USER,
-  password: process.env.TWT_RDS_PASSWORD,
-  database: process.env.TWT_RDS_DB
-})
+const connection = mysql.createPool(process.env.CLEARDB_DATABASE_URL);
 
 module.exports = connection;
